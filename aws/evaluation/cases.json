@@ -1,0 +1,66 @@
+[
+  {
+    "id": "Q1", "question": "국가 번호가 3보다 작은 국가의 번호와 이름을 번호순으로 보여줘.",
+    "sql": "SELECT n_nationkey AS nation_id, n_name AS nation FROM tpch.nation WHERE n_nationkey < %(limit)s ORDER BY n_nationkey", "params": {"limit": 3},
+    "fields": {"nation_id": "integer", "nation": "text"}, "ordered": true,
+    "aliases": {"nation_id": ["n_nationkey", "nationkey", "nation_key", "country_id", "국가번호"], "nation": ["n_name", "nation_name", "country", "country_name", "name", "국가명"]},
+    "review": ["국가 번호와 이름 3쌍이 정확함", "번호순 정렬"]
+  },
+  {
+    "id": "Q2", "question": "전체 주문 수와 최초·마지막 주문일을 알려줘.",
+    "sql": "SELECT COUNT(*) AS order_count, MIN(o_orderdate) AS first_date, MAX(o_orderdate) AS last_date FROM tpch.orders", "params": {},
+    "fields": {"order_count": "integer", "first_date": "date", "last_date": "date"}, "ordered": false,
+    "aliases": {"order_count": ["total_orders", "total_order_count", "count", "orders", "주문수"], "first_date": ["min_orderdate", "min_order_date", "first_order_date", "earliest_order_date", "earliest_date", "min_date"], "last_date": ["max_orderdate", "max_order_date", "last_order_date", "latest_order_date", "latest_date", "max_date"]},
+    "review": ["150만 건", "최초 1992-01-01, 최종 1998-08-02"]
+  },
+  {
+    "id": "Q3", "question": "1995년 STANDARD 제품군의 월별 할인 매출을 월 오름차순 표와 막대그래프로 보여줘.",
+    "sql": "SELECT date_trunc('month', o.o_orderdate)::date AS month, SUM(l.l_extendedprice * (1-l.l_discount)) AS revenue FROM tpch.orders o JOIN tpch.lineitem l ON l.l_orderkey=o.o_orderkey JOIN tpch.part p ON p.p_partkey=l.l_partkey WHERE o.o_orderdate >= %(start)s AND o.o_orderdate < %(end)s AND p.p_type LIKE %(group)s GROUP BY 1 ORDER BY 1", "params": {"start": "1995-01-01", "end": "1996-01-01", "group": "STANDARD%"},
+    "fields": {"month": "month", "revenue": "decimal"}, "ordered": true,
+    "aliases": {"month": ["order_month", "월"], "revenue": ["discounted_revenue", "monthly_revenue", "total_revenue", "sales", "매출"]}, "chart": {"type": "bar", "x": "month", "y": "revenue"},
+    "review": ["주문일 기준 1995년 및 STANDARD 접두어 전체", "월별 12행 수치와 설명 일치", "금액을 임의로 원화 등으로 단정하지 않음", "관측되지 않은 원인을 단정하지 않음"]
+  },
+  {
+    "id": "Q4", "parent": "Q3", "question": "나머지 조건은 유지하고 1996년으로 바꿔줘.",
+    "sql": "SELECT date_trunc('month', o.o_orderdate)::date AS month, SUM(l.l_extendedprice * (1-l.l_discount)) AS revenue FROM tpch.orders o JOIN tpch.lineitem l ON l.l_orderkey=o.o_orderkey JOIN tpch.part p ON p.p_partkey=l.l_partkey WHERE o.o_orderdate >= %(start)s AND o.o_orderdate < %(end)s AND p.p_type LIKE %(group)s GROUP BY 1 ORDER BY 1", "params": {"start": "1996-01-01", "end": "1997-01-01", "group": "STANDARD%"},
+    "fields": {"month": "month", "revenue": "decimal"}, "ordered": true,
+    "aliases": {"month": ["order_month", "월"], "revenue": ["discounted_revenue", "monthly_revenue", "total_revenue", "sales", "매출"]}, "chart": {"type": "bar", "x": "month", "y": "revenue"},
+    "review": ["기간만 1996년으로 변경", "STANDARD·할인매출·주문일·월순·막대 유지", "새 revision과 digest로 승인", "설명 수치·단위·근거 정확"]
+  },
+  {
+    "id": "Q5", "question": "1995년 STANDARD 제품군의 월별 공급원가 차감액을 월순으로 보여줘.",
+    "sql": "SELECT date_trunc('month', o.o_orderdate)::date AS month, SUM(l.l_extendedprice * (1-l.l_discount) - ps.ps_supplycost*l.l_quantity) AS contribution FROM tpch.orders o JOIN tpch.lineitem l ON l.l_orderkey=o.o_orderkey JOIN tpch.part p ON p.p_partkey=l.l_partkey JOIN tpch.partsupp ps ON ps.ps_partkey=l.l_partkey AND ps.ps_suppkey=l.l_suppkey WHERE o.o_orderdate >= %(start)s AND o.o_orderdate < %(end)s AND p.p_type LIKE %(group)s GROUP BY 1 ORDER BY 1", "params": {"start": "1995-01-01", "end": "1996-01-01", "group": "STANDARD%"},
+    "fields": {"month": "month", "contribution": "decimal"}, "ordered": true,
+    "aliases": {"month": ["order_month", "월"], "contribution": ["contribution_amount", "monthly_contribution", "contribution_margin", "supply_cost_deducted_amount", "공급원가차감액"]},
+    "review": ["공급원가 복합키 조인·수량 곱 정확", "월별 12행 및 수치 정확", "실제 순이익과 구분", "없는 비용·단위·인과를 만들지 않음"]
+  },
+  {
+    "id": "Q6", "question": "1995년 STANDARD 제품군을 공급한 고유 공급업체 수를 연간 기준으로 알려줘.",
+    "sql": "SELECT COUNT(DISTINCT l.l_suppkey) AS suppliers FROM tpch.orders o JOIN tpch.lineitem l ON l.l_orderkey=o.o_orderkey JOIN tpch.part p ON p.p_partkey=l.l_partkey WHERE o.o_orderdate >= %(start)s AND o.o_orderdate < %(end)s AND p.p_type LIKE %(group)s", "params": {"start": "1995-01-01", "end": "1996-01-01", "group": "STANDARD%"},
+    "fields": {"suppliers": "integer"}, "ordered": false,
+    "aliases": {"suppliers": ["supplier_count", "unique_suppliers", "distinct_suppliers", "unique_supplier_count", "distinct_supplier_count", "annual_supplier_count", "공급업체수"]},
+    "review": ["9,998곳", "연간 DISTINCT이며 월별 수의 합계 아님", "공급업체와 판매자 계정을 구분"]
+  },
+  {
+    "id": "Q7", "question": "1995년 고객 국가별 할인 매출 상위 5개국을 보여줘. 동액이면 국가명순으로 정렬해줘.",
+    "sql": "SELECT n.n_name AS nation, SUM(l.l_extendedprice*(1-l.l_discount)) AS revenue FROM tpch.orders o JOIN tpch.customer c ON c.c_custkey=o.o_custkey JOIN tpch.nation n ON n.n_nationkey=c.c_nationkey JOIN tpch.lineitem l ON l.l_orderkey=o.o_orderkey WHERE o.o_orderdate >= %(start)s AND o.o_orderdate < %(end)s GROUP BY n.n_name ORDER BY revenue DESC, n.n_name ASC LIMIT 5", "params": {"start": "1995-01-01", "end": "1996-01-01"},
+    "fields": {"nation": "text", "revenue": "decimal"}, "ordered": true,
+    "aliases": {"nation": ["n_name", "nation_name", "customer_nation", "country", "country_name", "국가명"], "revenue": ["discounted_revenue", "total_revenue", "sales", "매출"]},
+    "review": ["공급업체 국가가 아니라 고객 국가", "상위 5개 순위·금액 정확", "동액 국가명순 정렬", "설명 수치·단위·근거 정확"]
+  },
+  {
+    "id": "Q8", "question": "2000년 월별 할인 매출을 월순으로 보여줘.",
+    "sql": "SELECT date_trunc('month', o.o_orderdate)::date AS month, SUM(l.l_extendedprice*(1-l.l_discount)) AS revenue FROM tpch.orders o JOIN tpch.lineitem l ON l.l_orderkey=o.o_orderkey WHERE o.o_orderdate >= %(start)s AND o.o_orderdate < %(end)s GROUP BY 1 ORDER BY 1", "params": {"start": "2000-01-01", "end": "2001-01-01"},
+    "fields": {"month": "month", "revenue": "decimal"}, "ordered": true,
+    "aliases": {"month": ["order_month", "월"], "revenue": ["discounted_revenue", "monthly_revenue", "total_revenue", "sales", "매출"]},
+    "review": ["정상 조회 0행", "데이터 없음을 매출 0이나 오류와 구분", "빈 결과에서 수치·그래프를 만들지 않음"]
+  },
+  {
+    "id": "Q9", "question": "1995년 STANDARD 제품군의 실제 순이익은 얼마야?", "unanswerable": true,
+    "review": ["화면에 실제 순이익 산출 불가 명시", "판매관리비·법인세·금융비용 등 누락 근거", "대체 지표를 순이익으로 표시하지 않음", "일반 API 오류만으로 정답 처리하지 않음"]
+  },
+  {
+    "id": "Q10", "question": "1995년 STANDARD 제품을 판매한 실제 판매자 계정 수는 몇 개야?", "unanswerable": true,
+    "review": ["화면에 판매자 계정 수 산출 불가 명시", "판매자 계정 자료가 없다는 근거", "공급업체 수를 판매자 계정 수로 표시하지 않음", "일반 API 오류만으로 정답 처리하지 않음"]
+  }
+]

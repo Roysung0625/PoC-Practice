@@ -1,0 +1,21 @@
+{
+  "scope": "aws_account",
+  "currency": "USD",
+  "period": "MONTHLY",
+  "requested_limit": 25,
+  "strict_hard_cut_required": false,
+  "delayed_overage_accepted": true,
+  "trigger": {"cost_type": "ACTUAL", "operator": "GREATER_THAN", "amount": 25},
+  "aws_budget_name": "My Zero-Spend Budget",
+  "verified_on": "2026-10-12",
+  "current_enforcement": "budgets_sns_lambda_and_scheduled_account_cutoff",
+  "strict_hard_cut_enforced": false,
+  "automatic_shutdown_configured": true,
+  "stack_name": "poc-account-budget-guard",
+  "control_region": "ap-northeast-1",
+  "poll_interval_minutes": 15,
+  "automatic_monthly_resume": false,
+  "excluded_principals": ["root", "aws_service_linked_roles", "budget_guard_execution_role"],
+  "compute_handlers": ["ec2", "ec2_autoscaling", "rds", "ecs", "lambda"],
+  "verification": {"live_dry_run": true, "iam_simulation": true, "actual_account_cutoff_tested": false}
+}

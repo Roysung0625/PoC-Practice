@@ -1,0 +1,520 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "PoC AgentCore DeepSeek SQL roundtrip, Tokyo",
+  "Parameters": {
+    "ArtifactBucket": {
+      "Type": "String"
+    },
+    "AgentKey": {
+      "Type": "String"
+    },
+    "LambdaKey": {
+      "Type": "String"
+    },
+    "LoginUserArn": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "DeadLetterQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "MessageRetentionPeriod": 345600,
+        "SqsManagedSseEnabled": true
+      }
+    },
+    "RequestQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "MessageRetentionPeriod": 86400,
+        "ReceiveMessageWaitTimeSeconds": 20,
+        "VisibilityTimeout": 90,
+        "SqsManagedSseEnabled": true,
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "DeadLetterQueue",
+              "Arn"
+            ]
+          },
+          "maxReceiveCount": 3
+        }
+      }
+    },
+    "Results": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "request_id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "request_id",
+            "KeyType": "HASH"
+          }
+        ],
+        "TimeToLiveSpecification": {
+          "AttributeName": "cleanup_at",
+          "Enabled": true
+        },
+        "SSESpecification": {
+          "SSEEnabled": true
+        }
+      }
+    },
+    "LambdaLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/poc-sql-tool",
+        "RetentionInDays": 7
+      }
+    },
+    "LambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "poc-sql-tool",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "RuntimeAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "${LambdaLogs.Arn}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:UpdateItem"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "Results",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:SendMessage"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "RequestQueue",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "SqlTool": {
+      "Type": "AWS::Lambda::Function",
+      "DependsOn": [
+        "LambdaLogs"
+      ],
+      "Properties": {
+        "FunctionName": "poc-sql-tool",
+        "Runtime": "python3.13",
+        "Architectures": [
+          "arm64"
+        ],
+        "Handler": "sql_tool.handler",
+        "MemorySize": 256,
+        "Timeout": 75,
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaRole",
+            "Arn"
+          ]
+        },
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "LambdaKey"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "QUEUE_URL": {
+              "Ref": "RequestQueue"
+            },
+            "RESULT_TABLE": {
+              "Ref": "Results"
+            }
+          }
+        }
+      }
+    },
+    "AgentRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "poc-agent-runtime",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "bedrock-agentcore.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId"
+                  }
+                },
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:*"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "RuntimeAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock:InvokeModel"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/deepseek.v3.2"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/amazon.titan-embed-text-v2:0"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lambda:InvokeFunction"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "SqlTool",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:GetObjectVersion"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${ArtifactBucket}/${AgentKey}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                    "logs:DescribeLogStreams"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/poc_sql_agent-*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:DescribeLogGroups"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:*"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "AgentRuntime": {
+      "Type": "AWS::BedrockAgentCore::Runtime",
+      "Properties": {
+        "AgentRuntimeName": "poc_sql_agent",
+        "Description": "DeepSeek approved local SQL via synchronous Lambda",
+        "AgentRuntimeArtifact": {
+          "CodeConfiguration": {
+            "Code": {
+              "S3": {
+                "Bucket": {
+                  "Ref": "ArtifactBucket"
+                },
+                "Prefix": {
+                  "Ref": "AgentKey"
+                }
+              }
+            },
+            "Runtime": "PYTHON_3_13",
+            "EntryPoint": [
+              "main.py"
+            ]
+          }
+        },
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "AgentRole",
+            "Arn"
+          ]
+        },
+        "NetworkConfiguration": {
+          "NetworkMode": "PUBLIC"
+        },
+        "ProtocolConfiguration": "HTTP",
+        "LifecycleConfiguration": {
+          "IdleRuntimeSessionTimeout": 60,
+          "MaxLifetime": 300
+        },
+        "EnvironmentVariables": {
+          "SQL_FUNCTION": {
+            "Ref": "SqlTool"
+          }
+        },
+        "Tags": {
+          "Project": "PoC-Practice"
+        }
+      }
+    },
+    "ChatbotRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "poc-chatbot",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Ref": "LoginUserArn"
+                }
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "RuntimeAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:InvokeAgentRuntime",
+                    "bedrock-agentcore:StopRuntimeSession"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": ["AgentRuntime", "AgentRuntimeArn"]
+                    },
+                    {
+                      "Fn::Sub": "${AgentRuntime.AgentRuntimeArn}/runtime-endpoint/*"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WorkerRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "poc-worker",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Ref": "LoginUserArn"
+                }
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "RuntimeAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:ReceiveMessage",
+                    "sqs:DeleteMessage",
+                    "sqs:ChangeMessageVisibility",
+                    "sqs:GetQueueAttributes"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "RequestQueue",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:UpdateItem"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "Results",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "LoginAssume": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "PocAssumeLocalRoles",
+        "Users": [
+          "poc-local-login"
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "sts:AssumeRole"
+              ],
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "ChatbotRole",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::GetAtt": [
+                    "WorkerRole",
+                    "Arn"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AgentArn": {
+      "Value": {
+        "Fn::GetAtt": ["AgentRuntime", "AgentRuntimeArn"]
+      }
+    },
+    "AgentId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AgentRuntime",
+          "AgentRuntimeId"
+        ]
+      }
+    },
+    "QueueUrl": {
+      "Value": {
+        "Ref": "RequestQueue"
+      }
+    },
+    "DeadLetterQueueUrl": {
+      "Value": {
+        "Ref": "DeadLetterQueue"
+      }
+    },
+    "ResultTable": {
+      "Value": {
+        "Ref": "Results"
+      }
+    },
+    "SqlFunction": {
+      "Value": {
+        "Ref": "SqlTool"
+      }
+    },
+    "ChatbotRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "ChatbotRole",
+          "Arn"
+        ]
+      }
+    },
+    "WorkerRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "WorkerRole",
+          "Arn"
+        ]
+      }
+    },
+    "AgentLogGroup": {
+      "Value": {
+        "Fn::Sub": "/aws/bedrock-agentcore/runtimes/${AgentRuntime.AgentRuntimeId}-DEFAULT"
+      }
+    }
+  }
+}

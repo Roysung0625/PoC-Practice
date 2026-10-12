@@ -1,0 +1,64 @@
+# Local AWS credentials, caches and environment files
+.aws/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local tooling and generated deployment files
+.local/
+*.msi
+*.log
+.aws-sam/
+cdk.out/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# Python and editor caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.idea/
+
+# Local application dependencies and generated files
+node_modules/
+vendor/
+*.egg-info/
+*.sqlite
+*.sqlite-*
+local/web/public/build/
+local/web/public/hot
+local/web/storage/logs/*
+local/web/storage/framework/cache/*
+local/web/storage/framework/sessions/*
+local/web/storage/framework/views/*
+local/web/bootstrap/cache/*.php
+.phpunit.result.cache
+local/web/.phpunit.cache/
+
+# Source-only transfer: installers, database dumps and generated archives
+*.exe
+*.dmg
+*.pkg
+*.jar
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.dmp
+*.dump
+*.backup
+*.duckdb
+*.duckdb.wal
+*.sqlite3
+*.sqlite3-*
+.DS_Store
+Thumbs.db
+**/test-results/
+**/playwright-report/
+/aws/costs/calculator-*.jpg

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://www.schemastore.org/package.json",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "e2e": "playwright test",
+    "dev": "vite",
+    "test": "vitest",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^2.4",
+    "typescript": "^5.9",
+    "jsdom": "^27.0",
+    "@types/plotly.js": "^3.0",
+    "laravel-vite-plugin": "^3.1",
+    "vite": "^8.0",
+    "@types/node": "^24.0",
+    "vitest": "^4.0",
+    "@playwright/test": "^1.55",
+    "@vitejs/plugin-vue": "^6.0",
+    "vue-tsc": "^3.0"
+  },
+  "dependencies": {
+    "plotly.js-basic-dist-min": "^3.0",
+    "vue": "^3.5"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Account-wide post-detection USD25 budget cutoff; retains data and manual recovery state",
+  "Parameters": {"BudgetName": {"Type": "String", "Default": "My Zero-Spend Budget"}},
+  "Resources": {
+    "DenyPolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "Description": "Attached only after actual account monthly cost exceeds USD25",
+        "PolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Deny", "Action": "*", "Resource": "*"}]}
+      }
+    },
+    "StateBucket": {
+      "Type": "AWS::S3::Bucket", "DeletionPolicy": "Retain", "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "PublicAccessBlockConfiguration": {"BlockPublicAcls": true, "BlockPublicPolicy": true, "IgnorePublicAcls": true, "RestrictPublicBuckets": true},
+        "BucketEncryption": {"ServerSideEncryptionConfiguration": [{"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+        "VersioningConfiguration": {"Status": "Enabled"},
+        "LifecycleConfiguration": {"Rules": [{"Id": "ExpireOldReportVersions", "Status": "Enabled", "NoncurrentVersionExpiration": {"NoncurrentDays": 30}}]}
+      }
+    },
+    "StateBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {"Bucket": {"Ref": "StateBucket"}, "PolicyDocument": {"Version": "2012-10-17", "Statement": [{
+        "Effect": "Deny", "Principal": "*", "Action": "s3:*",
+        "Resource": [{"Fn::GetAtt": ["StateBucket", "Arn"]}, {"Fn::Sub": "${StateBucket.Arn}/*"}],
+        "Condition": {"Bool": {"aws:SecureTransport": "false"}}
+      }]}}
+    },
+    "LogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {"LogGroupName": {"Fn::Sub": "/aws/lambda/${AWS::StackName}"}, "RetentionInDays": 7}
+    },
+    "GuardRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {"Fn::Sub": "${AWS::StackName}-role"},
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{"PolicyName": "BudgetCutoffControl", "PolicyDocument": {"Version": "2012-10-17", "Statement": [
+          {"Effect": "Allow", "Action": "budgets:ViewBudget", "Resource": {"Fn::Sub": "arn:${AWS::Partition}:budgets::${AWS::AccountId}:budget/${BudgetName}"}},
+          {"Effect": "Allow", "Action": ["logs:CreateLogStream", "logs:PutLogEvents"], "Resource": {"Fn::GetAtt": ["LogGroup", "Arn"]}},
+          {"Effect": "Allow", "Action": "s3:ListBucket", "Resource": {"Fn::GetAtt": ["StateBucket", "Arn"]}},
+          {"Effect": "Allow", "Action": ["s3:GetObject", "s3:PutObject"], "Resource": {"Fn::Sub": "${StateBucket.Arn}/*"}},
+          {"Effect": "Allow", "Action": ["iam:ListUsers", "iam:ListRoles", "iam:ListAttachedUserPolicies", "iam:ListAttachedRolePolicies"], "Resource": "*"},
+          {"Effect": "Allow", "Action": ["iam:AttachUserPolicy", "iam:AttachRolePolicy"], "Resource": [
+            {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:user/*"}, {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*"}
+          ], "Condition": {"ArnEquals": {"iam:PolicyARN": {"Ref": "DenyPolicy"}}}},
+          {"Effect": "Deny", "Action": "iam:AttachRolePolicy", "Resource": [
+            {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/${AWS::StackName}-role"},
+            {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/aws-service-role/*"}
+          ]},
+          {"Effect": "Allow", "Action": [
+            "ec2:DescribeRegions", "ec2:DescribeInstances", "ec2:StopInstances",
+            "rds:DescribeDBInstances", "rds:DescribeDBClusters", "rds:StopDBInstance", "rds:StopDBCluster",
+            "autoscaling:DescribeAutoScalingGroups", "autoscaling:DescribeScalingProcessTypes", "autoscaling:SuspendProcesses",
+            "ecs:ListClusters", "ecs:ListServices", "ecs:DescribeServices", "ecs:ListTasks", "ecs:UpdateService", "ecs:StopTask",
+            "lambda:ListFunctions", "lambda:GetFunctionConcurrency", "lambda:PutFunctionConcurrency",
+            "lambda:ListProvisionedConcurrencyConfigs", "lambda:DeleteProvisionedConcurrencyConfig"
+          ], "Resource": "*"},
+          {"Effect": "Deny", "Action": ["lambda:PutFunctionConcurrency", "lambda:DeleteProvisionedConcurrencyConfig"], "Resource": [
+            {"Fn::Sub": "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:${AWS::StackName}"},
+            {"Fn::Sub": "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:${AWS::StackName}:*"}
+          ]}
+        ]}}]
+      }
+    },
+    "GuardFunction": {
+      "Type": "AWS::Lambda::Function", "DependsOn": ["LogGroup", "StateBucketPolicy"],
+      "Properties": {
+        "FunctionName": {"Ref": "AWS::StackName"}, "Runtime": "python3.12", "Handler": "index.handler",
+        "Role": {"Fn::GetAtt": ["GuardRole", "Arn"]}, "MemorySize": 256, "Timeout": 600,
+        "Code": {"ZipFile": "__GUARD_SOURCE__"},
+        "Environment": {"Variables": {
+          "ACCOUNT_ID": {"Ref": "AWS::AccountId"}, "BUDGET_NAME": {"Ref": "BudgetName"},
+          "STATE_BUCKET": {"Ref": "StateBucket"}, "DENY_POLICY_ARN": {"Ref": "DenyPolicy"},
+          "GUARD_ROLE_ARN": {"Fn::GetAtt": ["GuardRole", "Arn"]}
+        }}
+      }
+    },
+    "AsyncConfiguration": {
+      "Type": "AWS::Lambda::EventInvokeConfig",
+      "Properties": {"FunctionName": {"Ref": "GuardFunction"}, "Qualifier": "$LATEST", "MaximumRetryAttempts": 1, "MaximumEventAgeInSeconds": 3600}
+    },
+    "BudgetTopic": {"Type": "AWS::SNS::Topic", "Properties": {"DisplayName": "Account budget cutoff"}},
+    "BudgetTopicPolicy": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {"Topics": [{"Ref": "BudgetTopic"}], "PolicyDocument": {"Version": "2012-10-17", "Statement": [{
+        "Effect": "Allow", "Principal": {"Service": "budgets.amazonaws.com"}, "Action": "sns:Publish", "Resource": {"Ref": "BudgetTopic"},
+        "Condition": {"StringEquals": {"aws:SourceAccount": {"Ref": "AWS::AccountId"}}, "ArnLike": {"aws:SourceArn": {"Fn::Sub": "arn:${AWS::Partition}:budgets::${AWS::AccountId}:*"}}}
+      }]}}
+    },
+    "BudgetInvokePermission": {
+      "Type": "AWS::Lambda::Permission", "Properties": {"FunctionName": {"Ref": "GuardFunction"}, "Action": "lambda:InvokeFunction", "Principal": "sns.amazonaws.com", "SourceArn": {"Ref": "BudgetTopic"}, "SourceAccount": {"Ref": "AWS::AccountId"}}
+    },
+    "BudgetSubscription": {
+      "Type": "AWS::SNS::Subscription", "DependsOn": "BudgetInvokePermission",
+      "Properties": {"TopicArn": {"Ref": "BudgetTopic"}, "Protocol": "lambda", "Endpoint": {"Fn::GetAtt": ["GuardFunction", "Arn"]}}
+    },
+    "CheckSchedule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {"Name": {"Fn::Sub": "${AWS::StackName}-check"}, "ScheduleExpression": "rate(15 minutes)", "State": "ENABLED", "Targets": [{"Id": "BudgetGuard", "Arn": {"Fn::GetAtt": ["GuardFunction", "Arn"]}}]}
+    },
+    "ScheduleInvokePermission": {
+      "Type": "AWS::Lambda::Permission", "Properties": {"FunctionName": {"Ref": "GuardFunction"}, "Action": "lambda:InvokeFunction", "Principal": "events.amazonaws.com", "SourceArn": {"Fn::GetAtt": ["CheckSchedule", "Arn"]}, "SourceAccount": {"Ref": "AWS::AccountId"}}
+    },
+    "FailureAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {"AlarmDescription": "Budget cutoff has failed. Inspect Lambda logs and S3 latest.json; retries every 15 minutes.", "Namespace": "AWS/Lambda", "MetricName": "Errors", "Dimensions": [{"Name": "FunctionName", "Value": {"Ref": "GuardFunction"}}], "Statistic": "Sum", "Period": 900, "EvaluationPeriods": 1, "Threshold": 1, "ComparisonOperator": "GreaterThanOrEqualToThreshold", "TreatMissingData": "notBreaching"}
+    }
+  },
+  "Outputs": {
+    "FunctionName": {"Value": {"Ref": "GuardFunction"}},
+    "TopicArn": {"Value": {"Ref": "BudgetTopic"}},
+    "DenyPolicyArn": {"Value": {"Ref": "DenyPolicy"}},
+    "StateBucket": {"Value": {"Ref": "StateBucket"}},
+    "ScheduleName": {"Value": {"Ref": "CheckSchedule"}},
+    "FailureAlarm": {"Value": {"Ref": "FailureAlarm"}}
+  }
+}
