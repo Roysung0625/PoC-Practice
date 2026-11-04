@@ -1,0 +1,132 @@
+# c_projectissue — 프로젝트 자재·노무 투입
+
+[전체 일람](../TABLE_INDEX.md) · [분류 일람](README.md) · [AI 사용 안내](../README.md) · [외래키 읽는 법](../RELATIONSHIPS.md)
+
+## 기본 정보
+
+| 항목 | 내용 |
+|---|---|
+| 물리명 | `adempiere.c_projectissue` |
+| 한국어 논리명(문서용 해석) | 프로젝트 자재·노무 투입 |
+| 원본 논리명 | Project Issue |
+| 원본 사전 ID | 623 |
+| 분류 | `c` — 거래처·주문·청구·결제·회계 기준 |
+| 전체 테넌트 행 수 | 0 |
+| 물리 열 수 | 27 |
+| 나가는 FK / 들어오는 FK | 7 / 6 |
+| 구조·행 수 확인 시점 | 2026-11-03T23:29:01+09:00 |
+
+## 의미와 쓰임
+
+프로젝트에 투입되는 자재와 노무 등의 사용 내역을 관리한다.
+
+- 설명 근거: 원본 애플리케이션 사전 명칭·설명을 한국어로 해석.
+- 한국어 이름과 개요는 문서용 해석입니다. 공식 한국어 번역으로 간주하지 않습니다.
+- 원본 설명: Project Issues (Material, Labor)
+- 원본 도움말: —
+- PostgreSQL 테이블 주석: —
+
+## 키와 열
+
+### 기본키·고유 제약조건
+
+| 종류 | 제약조건 | 열(순서 유지) |
+|---|---|---|
+| PRIMARY KEY | `c_projectissue_pkey` | `c_projectissue_id` |
+| UNIQUE | `c_projectissue_uu_idx` | `c_projectissue_uu` |
+
+### 열 목록
+
+원본 논리명·설명은 `AD_Column`에서 가져왔습니다. 기본값은 실제 PostgreSQL 메타데이터이며, 비어 있는 항목은 `—`로 표시합니다.
+
+| 순서 | 물리명 | 원본 논리명 | PostgreSQL 타입 | NULL | PK | 기본값 | 설명 |
+|---:|---|---|---|---|---|---|---|
+| 1 | `c_projectissue_id` | Project Issue | numeric(10,0) | 불가 | 예 | — | Project Issues (Material, Labor) |
+| 2 | `ad_client_id` | Tenant | numeric(10,0) | 불가 | — | — | Tenant for this installation. |
+| 3 | `ad_org_id` | Organization | numeric(10,0) | 불가 | — | — | Organizational entity within tenant |
+| 4 | `isactive` | Active | character(1) | 불가 | — | 'Y'::bpchar | The record is active in the system |
+| 5 | `created` | Created | timestamp without time zone | 불가 | — | now() | Date this record was created |
+| 6 | `createdby` | Created By | numeric(10,0) | 불가 | — | — | User who created this records |
+| 7 | `updated` | Updated | timestamp without time zone | 불가 | — | now() | Date this record was updated |
+| 8 | `updatedby` | Updated By | numeric(10,0) | 불가 | — | — | User who updated this records |
+| 9 | `c_project_id` | Project | numeric(10,0) | 불가 | — | — | Financial Project |
+| 10 | `line` | Line No | numeric(10,0) | 불가 | — | — | Unique line for this document |
+| 11 | `m_product_id` | Product | numeric(10,0) | 불가 | — | — | Product, Service, Item |
+| 12 | `m_attributesetinstance_id` | Attribute Set Instance | numeric(10,0) | 허용 | — | 0 | Product Attribute Set Instance |
+| 13 | `m_locator_id` | Locator | numeric(10,0) | 불가 | — | — | Warehouse Locator |
+| 14 | `movementqty` | Movement Quantity | numeric | 불가 | — | 0 | Quantity of a product moved. |
+| 15 | `description` | Description | character varying(255) | 허용 | — | — | Optional short description of the record |
+| 16 | `processed` | Processed | character(1) | 불가 | — | 'N'::bpchar | The document has been processed |
+| 17 | `posted` | Posted | character(1) | 불가 | — | 'N'::bpchar | Posting status |
+| 18 | `movementdate` | Movement Date | timestamp without time zone | 불가 | — | — | Date a product was moved in or out of inventory |
+| 19 | `s_timeexpenseline_id` | Expense Line | numeric(10,0) | 허용 | — | — | Time and Expense Report Line |
+| 20 | `m_inoutline_id` | Shipment/Receipt Line | numeric(10,0) | 허용 | — | — | Line on Shipment or Receipt document |
+| 21 | `processing` | Process Now | character(1) | 허용 | — | — | — |
+| 22 | `processedon` | Processed On | numeric | 허용 | — | — | The date+time (expressed in decimal format) when the document has been processed |
+| 23 | `c_projectissue_uu` | C_ProjectIssue_UU | uuid | 허용 | — | — | — |
+| 24 | `reversal_id` | Reversal ID | numeric(10,0) | 허용 | — | — | ID of document reversal |
+| 25 | `isapproved` | Approved | character(1) | 불가 | — | 'N'::bpchar | Indicates if this document requires approval |
+| 26 | `docaction` | Document Action | character(2) | 불가 | — | 'CO'::bpchar | The targeted status of the document |
+| 27 | `docstatus` | Document Status | character varying(2) | 불가 | — | 'DR'::character varying | The current status of the document |
+
+## 외래키 흐름
+
+화살표는 **FK를 가진 자식 → 참조되는 부모**입니다. 업무 처리의 시간 순서나 무조건적인 1:N 관계를 뜻하지 않습니다.
+
+주변 관계 12개 중 10개를 그림으로 표시합니다. **전체 관계는 아래 두 표에 모두 포함**합니다.
+
+```mermaid
+flowchart LR
+    n0["c_project"]
+    n1["c_projectissue"]
+    n2["c_projectissuema"]
+    n3["c_projectline"]
+    n4["m_attributesetinstance"]
+    n5["m_costdetail"]
+    n6["m_inoutline"]
+    n7["m_locator"]
+    n8["m_product"]
+    n9["s_timeexpenseline"]
+    n1 -->|"c_project_id → c_project_id"| n0
+    n1 -->|"m_attributesetinstance_id → m_attributesetinstance_id"| n4
+    n1 -->|"m_inoutline_id → m_inoutline_id"| n6
+    n1 -->|"m_locator_id → m_locator_id"| n7
+    n1 -->|"m_product_id → m_product_id"| n8
+    n1 -->|"reversal_id → c_projectissue_id"| n1
+    n1 -->|"s_timeexpenseline_id → s_timeexpenseline_id"| n9
+    n2 -->|"c_projectissue_id → c_projectissue_id"| n1
+    n3 -->|"c_projectissue_id → c_projectissue_id"| n1
+    n5 -->|"c_projectissue_id → c_projectissue_id"| n1
+```
+
+### 이 테이블이 참조하는 부모 — 나가는 FK
+
+| 제약조건 | 참조하는 쪽(자식) | 자식 열 | 참조받는 쪽(부모) | 부모 열 | 삭제 / 갱신 | 검증 / 지연 가능 |
+|---|---|---|---|---|---|---|
+| `cproject_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.cproject_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `c_project_id` | [`c_project`](c_project.md) | `c_project_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `mattrsetinst_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.mattrsetinst_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `m_attributesetinstance_id` | [`m_attributesetinstance`](../m/m_attributesetinstance.md) | `m_attributesetinstance_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `minoutline_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.minoutline_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `m_inoutline_id` | [`m_inoutline`](../m/m_inoutline.md) | `m_inoutline_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `mlocator_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.mlocator_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `m_locator_id` | [`m_locator`](../m/m_locator.md) | `m_locator_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `mproduct_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.mproduct_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `m_product_id` | [`m_product`](../m/m_product.md) | `m_product_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `reversal_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.reversal_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `reversal_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `stimeexpline_cprojectissue` <!-- FK_OUT: adempiere.c_projectissue.stimeexpline_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `s_timeexpenseline_id` | [`s_timeexpenseline`](../s/s_timeexpenseline.md) | `s_timeexpenseline_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+
+### 이 테이블을 참조하는 자식 — 들어오는 FK
+
+| 제약조건 | 참조하는 쪽(자식) | 자식 열 | 참조받는 쪽(부모) | 부모 열 | 삭제 / 갱신 | 검증 / 지연 가능 |
+|---|---|---|---|---|---|---|
+| `reversal_cprojectissue` <!-- FK_IN: adempiere.c_projectissue.reversal_cprojectissue --> | [`c_projectissue`](c_projectissue.md) | `reversal_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `cprojectissue_cprojectissuema` <!-- FK_IN: adempiere.c_projectissuema.cprojectissue_cprojectissuema --> | [`c_projectissuema`](c_projectissuema.md) | `c_projectissue_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `cprojectissue_cprojectline` <!-- FK_IN: adempiere.c_projectline.cprojectissue_cprojectline --> | [`c_projectline`](c_projectline.md) | `c_projectissue_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `cprojectissue_mcostdetail` <!-- FK_IN: adempiere.m_costdetail.cprojectissue_mcostdetail --> | [`m_costdetail`](../m/m_costdetail.md) | `c_projectissue_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `cprojectissue_mtransaction` <!-- FK_IN: adempiere.m_transaction.cprojectissue_mtransaction --> | [`m_transaction`](../m/m_transaction.md) | `c_projectissue_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | NO ACTION / NO ACTION | 완료 / 가능 (초기 지연) |
+| `cprojectissue_ttransaction` <!-- FK_IN: adempiere.t_transaction.cprojectissue_ttransaction --> | [`t_transaction`](../t/t_transaction.md) | `c_projectissue_id` | [`c_projectissue`](c_projectissue.md) | `c_projectissue_id` | CASCADE / NO ACTION | 완료 / 가능 (초기 지연) |
+
+## 조회 시 주의
+
+- FK 표의 자식 열과 부모 열을 같은 순서로 대응시킵니다. 복합 FK는 모든 열의 동등 조건을 `AND`로 연결합니다.
+- 테이블 이름이나 `_id` 열 이름만으로 물리 FK가 있다고 가정하지 않습니다. FK 미선언은 업무 관계가 없다는 뜻도 아닙니다.
+- 자식이 여러 행인 테이블과 조인하면 부모의 금액·건수가 중복될 수 있습니다. 집계 단위를 먼저 정합니다.
+- `ad_client_id`가 있습니다. 업무 분석에서는 대상 테넌트를 명시합니다. GardenWorld는 `11`, 시스템 공통 설정은 `0`일 수 있으므로 일괄 필터 적용 전에 테이블 역할을 확인합니다.
+- 수집 시점에 0행입니다. 이 표만으로 거래 실적·처리 결과를 계산할 수 없습니다.
+- 행 수는 위 확인 시점의 전체 테넌트 값입니다. 최신 업무 실적이나 현재 실행 결과로 재사용하지 않습니다.

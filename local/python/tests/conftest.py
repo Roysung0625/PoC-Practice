@@ -9,6 +9,12 @@ import pytest
 from poc.config import ROOT
 
 
+class SecretDsn(str):
+    """pytest fixture 오류의 인수 표시에서 연결 비밀번호를 숨긴다."""
+    def __repr__(self):
+        return "<redacted database connection>"
+
+
 @pytest.fixture(scope="session")
 def postgres_db():
     secret = json.loads((ROOT / ".local/secrets/postgres.json").read_text(encoding="utf-8-sig"))
@@ -20,8 +26,8 @@ def postgres_db():
         db.execute(sql.SQL("CREATE DATABASE {} TEMPLATE template0").format(sql.Identifier(name)))
         db.execute(sql.SQL("CREATE ROLE {} LOGIN PASSWORD {} NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT").format(sql.Identifier(role), sql.Literal(password)))
     from psycopg.conninfo import make_conninfo
-    admin = make_conninfo(**base, dbname=name)
-    reader = make_conninfo(host="127.0.0.1", port=5432, dbname=name, user=role, password=password)
+    admin = SecretDsn(make_conninfo(**base, dbname=name))
+    reader = SecretDsn(make_conninfo(host="127.0.0.1", port=5432, dbname=name, user=role, password=password))
     try:
         yield admin, reader, role
     finally:

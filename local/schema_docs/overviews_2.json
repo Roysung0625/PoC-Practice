@@ -1,0 +1,1522 @@
+{
+  "asp_level": {
+    "logical_name_ko": "ASP 제공 수준",
+    "overview_ko": "ASP 모듈에 속하는 기능 제공 수준을 정의하며 창·프로세스·워크플로 등의 ASP 설정이 참조한다.",
+    "basis": "structure"
+  },
+  "asp_module": {
+    "logical_name_ko": "ASP 모듈",
+    "overview_ko": "ASP 기능 제공 설정을 묶는 모듈의 코드·이름·설명을 관리한다.",
+    "basis": "structure"
+  },
+  "asp_process": {
+    "logical_name_ko": "ASP 프로세스 설정",
+    "overview_ko": "ASP 제공 수준과 애플리케이션 프로세스를 연결하고 ASP 상태를 지정한다.",
+    "basis": "structure"
+  },
+  "asp_process_para": {
+    "logical_name_ko": "ASP 프로세스 매개변수 설정",
+    "overview_ko": "ASP 프로세스에 속한 개별 실행 매개변수의 ASP 상태를 지정한다.",
+    "basis": "structure"
+  },
+  "asp_ref_list": {
+    "logical_name_ko": "ASP 참조 목록 설정",
+    "overview_ko": "ASP 수준별로 참조 정의·목록 항목과 그 상태를 연결한다.",
+    "basis": "structure"
+  },
+  "asp_tab": {
+    "logical_name_ko": "ASP 화면 탭 설정",
+    "overview_ko": "ASP 창에 속한 화면 탭의 상태와 전체 필드 적용 여부를 관리한다.",
+    "basis": "structure"
+  },
+  "asp_task": {
+    "logical_name_ko": "ASP 작업 설정",
+    "overview_ko": "ASP 제공 수준과 애플리케이션 작업을 연결하고 상태를 지정한다.",
+    "basis": "structure"
+  },
+  "asp_window": {
+    "logical_name_ko": "ASP 창 설정",
+    "overview_ko": "ASP 제공 수준별 애플리케이션 창과 상태를 지정하며 하위 ASP 탭 설정의 기준이 된다.",
+    "basis": "structure"
+  },
+  "asp_workflow": {
+    "logical_name_ko": "ASP 워크플로 설정",
+    "overview_ko": "ASP 제공 수준과 워크플로를 연결하고 해당 상태를 관리한다.",
+    "basis": "structure"
+  },
+  "b_bid": {
+    "logical_name_ko": "경매 입찰",
+    "overview_ko": "경매 주제에 대한 입찰을 기록한다. 일반 구매발주와 구분되는 경매 기능의 데이터다.",
+    "basis": "dictionary"
+  },
+  "b_bidcomment": {
+    "logical_name_ko": "경매 입찰 의견",
+    "overview_ko": "입찰 주제에 남긴 의견을 저장한다.",
+    "basis": "dictionary"
+  },
+  "b_buyer": {
+    "logical_name_ko": "경매 구매 참여자",
+    "overview_ko": "사용자와 연결되는 경매 구매 참여자의 이름·설명·유효 종료일을 관리한다.",
+    "basis": "structure"
+  },
+  "b_buyerfunds": {
+    "logical_name_ko": "경매 구매자 자금",
+    "overview_ko": "주제별 입찰에 사용되는 구매자의 자금 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "b_offer": {
+    "logical_name_ko": "경매 제안",
+    "overview_ko": "경매 주제에 대한 판매 제안을 기록한다.",
+    "basis": "dictionary"
+  },
+  "b_seller": {
+    "logical_name_ko": "경매 판매 참여자",
+    "overview_ko": "사용자와 연결되는 경매 판매 참여자의 정보와 내부 참여자 여부를 관리한다.",
+    "basis": "structure"
+  },
+  "b_sellerfunds": {
+    "logical_name_ko": "경매 판매자 자금",
+    "overview_ko": "주제별 판매 제안에서 발생하는 판매자의 자금 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "b_topic": {
+    "logical_name_ko": "경매 주제",
+    "overview_ko": "입찰과 판매 제안의 대상이 되는 경매 주제를 정의한다.",
+    "basis": "dictionary"
+  },
+  "b_topiccategory": {
+    "logical_name_ko": "경매 주제 분류",
+    "overview_ko": "경매 주제를 분류하는 범주를 관리한다.",
+    "basis": "dictionary"
+  },
+  "b_topictype": {
+    "logical_name_ko": "경매 주제 유형",
+    "overview_ko": "경매 주제의 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_1099box": {
+    "logical_name_ko": "1099 신고 항목",
+    "overview_ko": "1099 신고의 기재 항목을 코드·이름과 버킷 값으로 정의한다. 구체적 신고 처리 규칙은 구조만으로 확정할 수 없다.",
+    "basis": "structure"
+  },
+  "c_acctprocessor": {
+    "logical_name_ko": "회계 처리기",
+    "overview_ko": "회계 처리 프로세서 또는 서버의 실행 매개변수를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_acctprocessorlog": {
+    "logical_name_ko": "회계 처리 실행 로그",
+    "overview_ko": "회계 처리기의 실행 결과를 저장하여 처리 이력과 오류 점검에 사용한다.",
+    "basis": "dictionary"
+  },
+  "c_acctschema": {
+    "logical_name_ko": "회계 스키마",
+    "overview_ko": "회계 처리 규칙을 정의하며 계정 구성요소와 기본 계정 설정의 상위 기준이 된다.",
+    "basis": "dictionary"
+  },
+  "c_acctschema_default": {
+    "logical_name_ko": "회계 스키마 기본 계정",
+    "overview_ko": "회계 스키마별 매출·비용·재고·채권·채무·세금 등의 업무별 기본 계정 조합을 지정한다.",
+    "basis": "structure"
+  },
+  "c_acctschema_element": {
+    "logical_name_ko": "회계 스키마 구성요소",
+    "overview_ko": "회계 스키마의 계정·조직·상품·거래처 등 분석 요소와 순서·필수 여부를 정의한다.",
+    "basis": "structure"
+  },
+  "c_acctschema_gl": {
+    "logical_name_ko": "회계 스키마 원장 계정",
+    "overview_ko": "회계 스키마별 가계정·환율 균형·이익잉여금·조직 간 정산 등의 원장 처리용 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_activity": {
+    "logical_name_ko": "업무 활동",
+    "overview_ko": "거래와 회계를 업무 활동별로 구분하는 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_activity_trl": {
+    "logical_name_ko": "업무 활동 번역",
+    "overview_ko": "업무 활동의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_addresstransaction": {
+    "logical_name_ko": "주소 검증 이력",
+    "overview_ko": "검증 대상 주소와 검증 서비스·유효 판정·결과 메시지를 기록한다.",
+    "basis": "structure"
+  },
+  "c_addressvalidation": {
+    "logical_name_ko": "주소 검증 서비스 연결",
+    "overview_ko": "주소 검증 구현 설정에 연결되는 서비스 이용 설정과 연결 사용자·운송사 계정 등을 관리한다.",
+    "basis": "structure"
+  },
+  "c_addressvalidationcfg": {
+    "logical_name_ko": "주소 검증 구현 설정",
+    "overview_ko": "주소 검증 클래스와 서비스 호스트·경로·프록시 연결 설정을 정의한다.",
+    "basis": "structure"
+  },
+  "c_allocationhdr": {
+    "logical_name_ko": "입출금 소거 전표",
+    "overview_ko": "지급·수금과 청구서 사이의 금액 배분 및 소거 처리를 묶는 전표 머리글이다.",
+    "basis": "dictionary"
+  },
+  "c_allocationline": {
+    "logical_name_ko": "입출금 소거 명세",
+    "overview_ko": "입출금 소거 전표에서 청구서·입출금·현금 명세를 연결하고 배분 금액·할인·상각·과부족 금액을 저장한다.",
+    "basis": "structure"
+  },
+  "c_bank": {
+    "logical_name_ko": "은행",
+    "overview_ko": "은행의 기준정보를 관리하며 은행계좌가 개설된 금융기관을 구분한다.",
+    "basis": "dictionary"
+  },
+  "c_bankaccount": {
+    "logical_name_ko": "은행계좌",
+    "overview_ko": "은행에 개설된 계좌 정보를 관리하며 은행명세와 입출금 처리의 계좌 기준이 된다.",
+    "basis": "dictionary"
+  },
+  "c_bankaccount_acct": {
+    "logical_name_ko": "은행계좌 회계 계정",
+    "overview_ko": "은행계좌와 회계 스키마별 예금·미결제·이자·은행비용·환평가 계정 조합을 설정한다.",
+    "basis": "structure"
+  },
+  "c_bankaccount_processor": {
+    "logical_name_ko": "은행계좌 결제 처리기",
+    "overview_ko": "은행계좌에 전자결제 처리기를 연결하고 허용 결제수단·통화·최소금액과 서비스 연결 설정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_bankaccountdoc": {
+    "logical_name_ko": "은행계좌 결제 문서",
+    "overview_ko": "은행계좌의 결제 문서별 지급 방식·다음 번호·수표 인쇄 서식을 관리한다.",
+    "basis": "structure"
+  },
+  "c_bankstatement": {
+    "logical_name_ko": "은행거래 명세서",
+    "overview_ko": "은행계좌의 거래 명세서 머리글을 저장하며 개별 거래는 명세서 행에서 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_bankstatementline": {
+    "logical_name_ko": "은행거래 명세 행",
+    "overview_ko": "은행거래 명세서에 포함된 개별 계좌 거래를 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_bankstatementloader": {
+    "logical_name_ko": "은행명세 가져오기 정의",
+    "overview_ko": "SWIFT·OFX 등 은행거래 명세를 가져오는 로더를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_bankstatementmatcher": {
+    "logical_name_ko": "은행명세 대조 규칙",
+    "overview_ko": "은행명세 정보를 거래처·청구서·입출금과 연결하는 대조 알고리즘을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_banktransfer": {
+    "logical_name_ko": "은행계좌 간 이체",
+    "overview_ko": "은행계좌 간 자금 이체를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_bp_bankaccount": {
+    "logical_name_ko": "거래처 은행계좌",
+    "overview_ko": "거래처의 은행계좌를 관리한다. 회사 자체 계좌 기준인 c_bankaccount와 구분한다.",
+    "basis": "dictionary"
+  },
+  "c_bp_customer_acct": {
+    "logical_name_ko": "고객 회계 계정",
+    "overview_ko": "거래처와 회계 스키마별 매출채권·서비스 채권·고객 선입금 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_bp_edi": {
+    "logical_name_ko": "거래처 EDI 정의",
+    "overview_ko": "거래처와의 전자문서 교환을 위한 EDI 정의를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_bp_employee_acct": {
+    "logical_name_ko": "직원 회계 계정",
+    "overview_ko": "직원으로 취급되는 거래처의 비용 및 선급금 계정을 회계 스키마별로 지정한다.",
+    "basis": "structure"
+  },
+  "c_bp_group": {
+    "logical_name_ko": "거래처 그룹",
+    "overview_ko": "고객·공급업체 등 거래처를 공통 그룹으로 분류한다.",
+    "basis": "dictionary"
+  },
+  "c_bp_group_acct": {
+    "logical_name_ko": "거래처 그룹 회계 계정",
+    "overview_ko": "거래처 그룹과 회계 스키마별 채권·채무·선수선급·할인·미청구 관련 계정을 관리한다.",
+    "basis": "structure"
+  },
+  "c_bp_relation": {
+    "logical_name_ko": "거래처 간 관계",
+    "overview_ko": "거래처 사이의 관계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_bp_shippingacct": {
+    "logical_name_ko": "거래처 배송 계정",
+    "overview_ko": "거래처 또는 거래처 주소에 배송 처리기와 운임·관세 관련 운송사 계정을 연결한다.",
+    "basis": "structure"
+  },
+  "c_bp_vendor_acct": {
+    "logical_name_ko": "공급업체 회계 계정",
+    "overview_ko": "거래처와 회계 스키마별 매입채무·서비스 채무·공급업체 선급금 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_bp_withholding": {
+    "logical_name_ko": "거래처 원천징수 설정",
+    "overview_ko": "거래처에 적용할 원천징수 유형과 의무 적용·임시 면제 여부 및 면제 사유를 관리한다.",
+    "basis": "structure"
+  },
+  "c_bpartner": {
+    "logical_name_ko": "거래처",
+    "overview_ko": "고객·공급업체·직원 등 업무상 거래 상대방의 공통 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_bpartner_location": {
+    "logical_name_ko": "거래처 주소 연결",
+    "overview_ko": "거래처의 배송지 등 주소 용도를 관리하며 공통 주소와 거래처를 연결한다.",
+    "basis": "dictionary"
+  },
+  "c_bpartner_product": {
+    "logical_name_ko": "거래처별 상품 정보",
+    "overview_ko": "거래처와 상품별 상대방 상품번호·제조사·품질 등급·최소 잔여 유통기한 조건을 관리한다.",
+    "basis": "structure"
+  },
+  "c_calendar": {
+    "logical_name_ko": "회계 달력",
+    "overview_ko": "회계 연도와 기간을 구성하는 달력 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_campaign": {
+    "logical_name_ko": "마케팅 캠페인",
+    "overview_ko": "마케팅 캠페인을 정의하고 관련 영업 및 거래를 캠페인별로 구분한다.",
+    "basis": "dictionary"
+  },
+  "c_campaign_trl": {
+    "logical_name_ko": "마케팅 캠페인 번역",
+    "overview_ko": "마케팅 캠페인의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_cash": {
+    "logical_name_ko": "현금 출납 전표",
+    "overview_ko": "현금 출납 내역을 묶는 현금 일지의 머리글을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_cashbook": {
+    "logical_name_ko": "소액현금 출납장",
+    "overview_ko": "소액현금 거래를 기록하는 출납장의 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_cashbook_acct": {
+    "logical_name_ko": "현금 출납장 회계 계정",
+    "overview_ko": "출납장과 회계 스키마별 현금자산·이체·차이·비용·수입 계정을 설정한다.",
+    "basis": "structure"
+  },
+  "c_cashline": {
+    "logical_name_ko": "현금 출납 명세",
+    "overview_ko": "현금 출납 전표의 개별 현금 거래를 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_cashplan": {
+    "logical_name_ko": "자금 계획",
+    "overview_ko": "예상 자금 흐름을 계획 단위로 묶어 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_cashplanline": {
+    "logical_name_ko": "자금 계획 명세",
+    "overview_ko": "자금 계획의 개별 예상 자금 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_channel": {
+    "logical_name_ko": "판매 채널",
+    "overview_ko": "판매 경로를 구분하는 채널 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_charge": {
+    "logical_name_ko": "부대 수익·비용 항목",
+    "overview_ko": "거래 문서에 추가되는 요금이나 부대 수익·비용 항목을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_charge_acct": {
+    "logical_name_ko": "부대 항목 회계 계정",
+    "overview_ko": "부대 항목과 회계 스키마별 수익 및 비용 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_charge_trl": {
+    "logical_name_ko": "부대 항목 번역",
+    "overview_ko": "부대 수익·비용 항목의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_chargetype": {
+    "logical_name_ko": "부대 항목 유형",
+    "overview_ko": "부대 수익·비용 항목을 유형별로 분류하는 기준을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_chargetype_doctype": {
+    "logical_name_ko": "문서 유형별 부대 항목 유형",
+    "overview_ko": "문서 유형별로 사용할 수 있는 부대 수익·비용 항목 유형을 연결한다.",
+    "basis": "dictionary"
+  },
+  "c_city": {
+    "logical_name_ko": "도시",
+    "overview_ko": "주소에 사용하는 도시 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_commission": {
+    "logical_name_ko": "판매 수수료 규칙",
+    "overview_ko": "판매 수수료의 산정 기준을 정의하고 세부 조건과 계산 실행 결과를 연결한다.",
+    "basis": "dictionary"
+  },
+  "c_commissionamt": {
+    "logical_name_ko": "판매 수수료 계산 금액",
+    "overview_ko": "수수료 계산 실행에서 산출된 금액을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_commissiondetail": {
+    "logical_name_ko": "판매 수수료 산출 근거",
+    "overview_ko": "계산된 수수료 금액을 뒷받침하는 상세 근거를 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_commissionline": {
+    "logical_name_ko": "판매 수수료 세부 규칙",
+    "overview_ko": "상품·거래처·영업지역 등의 적용 범위와 금액·수량의 차감값 및 배수를 지정한다.",
+    "basis": "structure"
+  },
+  "c_commissionrun": {
+    "logical_name_ko": "판매 수수료 계산 실행",
+    "overview_ko": "판매 수수료의 계산 실행 단위를 관리하고 계산 금액과 근거 상세를 실행별로 묶는다.",
+    "basis": "dictionary"
+  },
+  "c_contactactivity": {
+    "logical_name_ko": "연락처 활동",
+    "overview_ko": "연락처와 관련된 이벤트·업무·의사소통 내역을 기록한다.",
+    "basis": "dictionary"
+  },
+  "c_conversion_rate": {
+    "logical_name_ko": "환율",
+    "overview_ko": "통화 간 금액 변환에 사용하는 환율을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_conversiontype": {
+    "logical_name_ko": "환율 유형",
+    "overview_ko": "통화 환산에 사용할 환율의 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_costcenter": {
+    "logical_name_ko": "원가 중심점",
+    "overview_ko": "비용 귀속 단위로 참조하는 원가 중심점의 코드와 이름을 관리한다.",
+    "basis": "structure"
+  },
+  "c_country": {
+    "logical_name_ko": "국가",
+    "overview_ko": "주소와 지역 구분에 사용하는 국가 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_country_trl": {
+    "logical_name_ko": "국가 번역",
+    "overview_ko": "국가의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_countrygroup": {
+    "logical_name_ko": "국가 그룹",
+    "overview_ko": "조세 협정 등 공통 조건을 공유하는 국가 집합을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_countrygroup_trl": {
+    "logical_name_ko": "국가 그룹 번역",
+    "overview_ko": "국가 그룹의 이름과 설명을 언어별로 저장한다.",
+    "basis": "structure"
+  },
+  "c_countrygroupcountry": {
+    "logical_name_ko": "국가 그룹 소속 국가",
+    "overview_ko": "국가와 국가 그룹의 소속 관계 및 적용 시작·종료일을 관리한다.",
+    "basis": "structure"
+  },
+  "c_currency": {
+    "logical_name_ko": "통화",
+    "overview_ko": "거래와 회계 금액을 표시하는 통화의 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_currency_acct": {
+    "logical_name_ko": "통화 환차손익 계정",
+    "overview_ko": "통화와 회계 스키마별 실현·미실현 환차익 및 환차손 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_currency_trl": {
+    "logical_name_ko": "통화 번역",
+    "overview_ko": "통화의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_cycle": {
+    "logical_name_ko": "프로젝트 보고 주기",
+    "overview_ko": "프로젝트 보고에 사용할 주기 또는 단계 체계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_cyclephase": {
+    "logical_name_ko": "보고 주기 단계 연결",
+    "overview_ko": "프로젝트 보고 주기의 세부 단계와 표준 프로젝트 단계를 연결한다.",
+    "basis": "structure"
+  },
+  "c_cyclestep": {
+    "logical_name_ko": "프로젝트 보고 주기 세부 단계",
+    "overview_ko": "프로젝트 보고 주기 안의 개별 단계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_department": {
+    "logical_name_ko": "부서",
+    "overview_ko": "거래·회계 분석에서 참조하는 부서의 코드와 이름을 관리한다. 급여 부서 hr_department와 별도 기준정보다.",
+    "basis": "structure"
+  },
+  "c_depositbatch": {
+    "logical_name_ko": "일괄 입금 전표",
+    "overview_ko": "여러 입출금 기록을 은행계좌 입금 단위로 묶고 입금일·통화·합계금액과 문서 상태를 관리한다.",
+    "basis": "structure"
+  },
+  "c_depositbatchline": {
+    "logical_name_ko": "일괄 입금 명세",
+    "overview_ko": "일괄 입금 전표에 포함되는 입출금 기록과 해당 금액을 행 단위로 저장한다.",
+    "basis": "structure"
+  },
+  "c_docbasegroup": {
+    "logical_name_ko": "문서 기본 유형 그룹",
+    "overview_ko": "회계 기간 통제에 사용할 문서 기본 유형의 그룹을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_docbasegroupline": {
+    "logical_name_ko": "문서 기본 유형 그룹 명세",
+    "overview_ko": "문서 기본 유형 그룹에 포함되는 항목을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_doctype": {
+    "logical_name_ko": "문서 유형",
+    "overview_ko": "업무 문서의 유형과 처리 규칙을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_doctype_trl": {
+    "logical_name_ko": "문서 유형 번역",
+    "overview_ko": "문서 유형의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_doctypecounter": {
+    "logical_name_ko": "대응 문서 관계",
+    "overview_ko": "원 문서와 그에 대응하는 문서 유형의 관계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_dunning": {
+    "logical_name_ko": "연체 독촉 규칙",
+    "overview_ko": "지급 기한이 지난 청구서에 적용할 독촉 규칙을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_dunninglevel": {
+    "logical_name_ko": "연체 독촉 단계",
+    "overview_ko": "독촉 규칙별 연체 일수·독촉 간격·이자·수수료·인쇄 문구와 신용 중지 조건 등을 정의한다.",
+    "basis": "structure"
+  },
+  "c_dunninglevel_trl": {
+    "logical_name_ko": "연체 독촉 단계 번역",
+    "overview_ko": "독촉 단계의 인쇄 명칭과 안내 문구를 언어별로 저장한다.",
+    "basis": "structure"
+  },
+  "c_dunningrun": {
+    "logical_name_ko": "연체 독촉 실행",
+    "overview_ko": "독촉 대상 선정과 문서 생성 등을 묶는 독촉 실행 단위를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_dunningrunentry": {
+    "logical_name_ko": "연체 독촉 실행 대상",
+    "overview_ko": "독촉 실행에서 거래처·주소·담당 연락처별 독촉 금액과 단계 및 안내 문구를 묶는다.",
+    "basis": "structure"
+  },
+  "c_dunningrunline": {
+    "logical_name_ko": "연체 독촉 실행 명세",
+    "overview_ko": "독촉 대상의 청구서·입출금별 미결제액·연체 일수·독촉 횟수·이자·수수료를 기록한다.",
+    "basis": "structure"
+  },
+  "c_element": {
+    "logical_name_ko": "계정 요소 체계",
+    "overview_ko": "회계 계정 요소의 체계를 정의하며 개별 요소 값의 상위 기준이 된다.",
+    "basis": "dictionary"
+  },
+  "c_elementvalue": {
+    "logical_name_ko": "계정 요소 값",
+    "overview_ko": "계정 요소 체계의 개별 값 또는 계정과목을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_elementvalue_trl": {
+    "logical_name_ko": "계정 요소 값 번역",
+    "overview_ko": "개별 계정 요소 값의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_greeting": {
+    "logical_name_ko": "서신 인사말",
+    "overview_ko": "서신 등에 인쇄할 호칭이나 인사말을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_greeting_trl": {
+    "logical_name_ko": "서신 인사말 번역",
+    "overview_ko": "인쇄용 호칭·인사말의 언어별 표현을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_interorg_acct": {
+    "logical_name_ko": "조직 간 정산 계정",
+    "overview_ko": "회계 스키마와 송수신 조직 조합별 조직 간 지급·수취 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_invoice": {
+    "logical_name_ko": "매출·매입 청구서",
+    "overview_ko": "고객 매출 청구와 공급업체 매입 청구의 머리글을 저장하며 문서 유형에 따라 신용전표도 포함한다. 판매·구매 구분, 거래처, 청구일, 통화, 합계 및 지급 상태를 관리하므로 금액 분석 시 문서 유형과 취소 관계를 함께 확인한다.",
+    "basis": "structure"
+  },
+  "c_invoicebatch": {
+    "logical_name_ko": "비용 청구 일괄 입력",
+    "overview_ko": "비용 청구서를 일괄 입력·처리하는 배치의 머리글을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_invoicebatchline": {
+    "logical_name_ko": "비용 청구 일괄 입력 명세",
+    "overview_ko": "비용 청구 배치에 포함된 개별 입력 행을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_invoiceline": {
+    "logical_name_ko": "매출·매입 청구 명세",
+    "overview_ko": "청구서의 개별 상품·서비스 등 상세 행을 저장한다. 상위 청구서가 판매·구매 또는 신용전표인지 함께 확인해야 한다.",
+    "basis": "structure"
+  },
+  "c_invoicepayschedule": {
+    "logical_name_ko": "청구서 지급 일정",
+    "overview_ko": "청구서별 지급 예정 일정과 분할 납부 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_invoiceschedule": {
+    "logical_name_ko": "청구서 생성 일정",
+    "overview_ko": "청구서를 생성할 시점과 일정 규칙을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_invoicetax": {
+    "logical_name_ko": "청구서 세금 집계",
+    "overview_ko": "청구서와 세금별 과세표준·세액·세금 포함 여부 및 세금 계산 제공자를 저장한다.",
+    "basis": "structure"
+  },
+  "c_job": {
+    "logical_name_ko": "직위",
+    "overview_ko": "직위의 명칭·분류와 직원용 여부를 정의하며 사용자 배치와 보수 설정에서 참조한다.",
+    "basis": "structure"
+  },
+  "c_jobassignment": {
+    "logical_name_ko": "사용자 직위 배치",
+    "overview_ko": "사용자를 직위에 배치하고 배치의 유효 기간을 관리한다.",
+    "basis": "structure"
+  },
+  "c_jobcategory": {
+    "logical_name_ko": "직위 분류",
+    "overview_ko": "직위를 묶는 분류의 이름·설명·도움말을 관리한다.",
+    "basis": "structure"
+  },
+  "c_jobremuneration": {
+    "logical_name_ko": "직위 보수 연결",
+    "overview_ko": "직위에 보수 기준을 연결하고 유효 기간을 지정한다.",
+    "basis": "structure"
+  },
+  "c_landedcost": {
+    "logical_name_ko": "취득 부대원가 배부 설정",
+    "overview_ko": "청구 명세의 운송비 등 취득 부대원가를 입고·상품에 연결하고 원가 요소와 배부 기준을 지정한다.",
+    "basis": "structure"
+  },
+  "c_landedcostallocation": {
+    "logical_name_ko": "취득 부대원가 배부 결과",
+    "overview_ko": "청구 명세의 부대원가를 상품·입출고 명세·속성 인스턴스별로 배부한 금액과 수량·기준값을 저장한다.",
+    "basis": "structure"
+  },
+  "c_location": {
+    "logical_name_ko": "주소",
+    "overview_ko": "국가·지역·도시·우편번호 등을 포함하는 공통 주소 정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_nonbusinessday": {
+    "logical_name_ko": "비영업일",
+    "overview_ko": "업무를 수행하지 않는 날짜를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_onlinetrxhistory": {
+    "logical_name_ko": "온라인 처리 이력",
+    "overview_ko": "대상 테이블과 레코드의 온라인 처리 메시지·오류 여부·처리 상태를 기록한다.",
+    "basis": "structure"
+  },
+  "c_opportunity": {
+    "logical_name_ko": "영업 기회",
+    "overview_ko": "거래처별 영업 기회의 예상 금액·영업 단계·성사 확률·예상 종료일과 연결 주문을 관리한다.",
+    "basis": "structure"
+  },
+  "c_order": {
+    "logical_name_ko": "판매 주문·구매 발주",
+    "overview_ko": "판매 주문과 구매 발주의 머리글을 함께 저장한다. 판매·구매 구분, 문서 유형, 거래처, 주문일, 창고, 통화 및 납품·청구 상태를 확인하여 조회 범위를 결정한다.",
+    "basis": "structure"
+  },
+  "c_orderlandedcost": {
+    "logical_name_ko": "구매 발주 예상 부대원가",
+    "overview_ko": "구매 발주에 대한 예상 취득 부대원가를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_orderlandedcostallocation": {
+    "logical_name_ko": "발주 예상 부대원가 배부",
+    "overview_ko": "주문·발주 명세에 예상 취득 부대원가를 배부한 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_orderline": {
+    "logical_name_ko": "판매 주문·구매 발주 명세",
+    "overview_ko": "주문·발주에 포함된 개별 상품 등의 상세 행을 관리한다. 사전명은 Sales Order Line이지만 상위 c_order의 판매·구매 구분에 따라 해석해야 한다.",
+    "basis": "structure"
+  },
+  "c_orderpayschedule": {
+    "logical_name_ko": "주문·발주 지급 일정",
+    "overview_ko": "주문·발주별 지급 예정 일정을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_ordersource": {
+    "logical_name_ko": "주문 유입 경로",
+    "overview_ko": "주문이 들어온 경로를 구분하는 코드·이름·설명을 관리한다.",
+    "basis": "structure"
+  },
+  "c_ordertax": {
+    "logical_name_ko": "주문·발주 세금 집계",
+    "overview_ko": "주문·발주와 세금별 과세표준·세액·세금 포함 여부 및 세금 계산 제공자를 저장한다.",
+    "basis": "structure"
+  },
+  "c_orgassignment": {
+    "logical_name_ko": "거래 조직 배정",
+    "overview_ko": "사용자를 거래 조직에 배정하고 배정의 유효 시작·종료일을 관리한다.",
+    "basis": "structure"
+  },
+  "c_payment": {
+    "logical_name_ko": "수금·지급 전표",
+    "overview_ko": "고객 수금과 공급업체 등에 대한 지급을 함께 저장하며 isreceipt로 입출금 방향을 구분한다. 은행계좌·거래처·청구서·금액·결제수단 및 소거·대사 상태를 관리한다.",
+    "basis": "structure"
+  },
+  "c_paymentallocate": {
+    "logical_name_ko": "입출금의 청구서 배분",
+    "overview_ko": "입출금을 청구서에 배분하고 배분 금액·할인·상각·과부족 금액 및 소거 명세 연결을 관리한다.",
+    "basis": "structure"
+  },
+  "c_paymentbatch": {
+    "logical_name_ko": "전자 자금이체 배치",
+    "overview_ko": "전자 자금이체(EFT)를 위한 입출금 건을 배치로 묶는다.",
+    "basis": "dictionary"
+  },
+  "c_paymentprocessor": {
+    "logical_name_ko": "전자결제 처리기",
+    "overview_ko": "전자결제를 처리하는 서비스 또는 처리기의 설정을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_paymentterm": {
+    "logical_name_ko": "지급 조건",
+    "overview_ko": "거래에 적용할 지급 시점과 할인 등의 조건을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_paymentterm_trl": {
+    "logical_name_ko": "지급 조건 번역",
+    "overview_ko": "지급 시점·할인 조건의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_paymenttransaction": {
+    "logical_name_ko": "결제 거래",
+    "overview_ko": "전자결제 등의 개별 거래에서 결제수단·금액·처리기·승인 및 취소 결과와 연결 입출금 전표를 기록한다.",
+    "basis": "structure"
+  },
+  "c_payschedule": {
+    "logical_name_ko": "지급 일정 서식",
+    "overview_ko": "분할 지급 등의 일정 생성에 사용할 기준 서식을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_payselection": {
+    "logical_name_ko": "지급 대상 선정",
+    "overview_ko": "지급 대상으로 선택한 내역을 묶는 상위 단위를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_payselectioncheck": {
+    "logical_name_ko": "선정 지급 수표",
+    "overview_ko": "지급 대상 선정에서 생성·관리되는 수표 단위 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_payselectionline": {
+    "logical_name_ko": "지급 대상 선정 명세",
+    "overview_ko": "지급 대상 선정에 포함되는 개별 지급 예정 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_period": {
+    "logical_name_ko": "회계 기간",
+    "overview_ko": "회계 달력 안의 개별 기간을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_periodcontrol": {
+    "logical_name_ko": "회계 기간 통제",
+    "overview_ko": "회계 기간과 문서 기본 유형별 개방·마감 상태 및 상태 변경 동작을 관리한다.",
+    "basis": "structure"
+  },
+  "c_phase": {
+    "logical_name_ko": "프로젝트 표준 단계",
+    "overview_ko": "프로젝트 유형에 정의된 표준 단계를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_pos": {
+    "logical_name_ko": "판매시점 단말기",
+    "overview_ko": "매장 판매에 사용하는 POS 단말기의 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_poskey": {
+    "logical_name_ko": "POS 기능 키",
+    "overview_ko": "POS 화면에서 사용할 개별 기능 키를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_poskeylayout": {
+    "logical_name_ko": "POS 키 배치",
+    "overview_ko": "POS 기능 키의 배치 구성을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_pospayment": {
+    "logical_name_ko": "POS 결제 내역",
+    "overview_ko": "POS 주문의 결제수단별 금액과 수표·카드 관련 정보 및 연결 입출금 전표를 저장한다.",
+    "basis": "structure"
+  },
+  "c_postendertype": {
+    "logical_name_ko": "POS 결제수단 유형",
+    "overview_ko": "POS 결제수단의 코드·이름·기본 수단 및 보증·후일자 여부를 정의한다.",
+    "basis": "structure"
+  },
+  "c_project": {
+    "logical_name_ko": "프로젝트",
+    "overview_ko": "재무 관리 대상 프로젝트를 정의하며 단계·작업·투입·회계 내역을 프로젝트별로 연결한다.",
+    "basis": "dictionary"
+  },
+  "c_project_acct": {
+    "logical_name_ko": "프로젝트 회계 계정",
+    "overview_ko": "프로젝트와 회계 스키마별 프로젝트 자산 및 진행 중 원가 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_projectissue": {
+    "logical_name_ko": "프로젝트 자재·노무 투입",
+    "overview_ko": "프로젝트에 투입되는 자재와 노무 등의 사용 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_projectissuema": {
+    "logical_name_ko": "프로젝트 투입 속성 배분",
+    "overview_ko": "프로젝트 투입 건의 이동 수량을 상품 속성 인스턴스별로 나누어 기록한다.",
+    "basis": "structure"
+  },
+  "c_projectline": {
+    "logical_name_ko": "프로젝트 명세",
+    "overview_ko": "프로젝트의 과업 또는 수행 단계를 명세 행으로 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_projectphase": {
+    "logical_name_ko": "프로젝트 단계",
+    "overview_ko": "개별 프로젝트에 실제로 적용되는 단계를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_projecttask": {
+    "logical_name_ko": "프로젝트 작업",
+    "overview_ko": "프로젝트 단계 안에서 수행하는 실제 작업을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_projecttype": {
+    "logical_name_ko": "프로젝트 유형",
+    "overview_ko": "프로젝트 유형과 표준 구성의 기준을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_recurring": {
+    "logical_name_ko": "반복 문서 정의",
+    "overview_ko": "반복적으로 생성할 업무 문서를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_recurring_run": {
+    "logical_name_ko": "반복 문서 실행 이력",
+    "overview_ko": "반복 문서 정의에 따른 실행 내역을 기록한다.",
+    "basis": "dictionary"
+  },
+  "c_recurringgroup": {
+    "logical_name_ko": "반복 문서 그룹",
+    "overview_ko": "반복 문서 정의를 분류할 그룹의 코드·이름·설명을 관리한다.",
+    "basis": "structure"
+  },
+  "c_region": {
+    "logical_name_ko": "행정 지역",
+    "overview_ko": "주소에 사용하는 지리적 지역 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_region_trl": {
+    "logical_name_ko": "행정 지역 번역",
+    "overview_ko": "행정 지역의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_remuneration": {
+    "logical_name_ko": "보수 기준",
+    "overview_ko": "보수 유형·표준 근무시간·기본 보수 및 초과근무 보수와 비용 기준을 정의한다.",
+    "basis": "structure"
+  },
+  "c_revenuerecog_service": {
+    "logical_name_ko": "서비스 수익 인식 계획",
+    "overview_ko": "서비스를 기준으로 수익을 인식하거나 기록하는 계획을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_revenuerecognition": {
+    "logical_name_ko": "수익 인식 방식",
+    "overview_ko": "수익을 기록하는 인식 방법을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_revenuerecognition_plan": {
+    "logical_name_ko": "수익 인식 계획",
+    "overview_ko": "정의된 방식에 따라 수익을 인식하거나 기록할 계획을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_revenuerecognition_run": {
+    "logical_name_ko": "수익 인식 실행",
+    "overview_ko": "수익 인식 계획의 실행 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_rfq": {
+    "logical_name_ko": "견적 요청",
+    "overview_ko": "잠재 공급업체에 제시할 견적 요청의 머리글을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_rfq_topic": {
+    "logical_name_ko": "견적 요청 주제",
+    "overview_ko": "견적 요청의 대상 주제를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_rfq_topicsubscriber": {
+    "logical_name_ko": "견적 요청 주제 참여자",
+    "overview_ko": "견적 요청 주제의 참여자 또는 구독 대상을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_rfq_topicsubscriberonly": {
+    "logical_name_ko": "견적 요청 참여 범위 제한",
+    "overview_ko": "참여자가 특정 상품 또는 상품 분류의 견적 요청에만 포함되도록 제한한다.",
+    "basis": "dictionary"
+  },
+  "c_rfqline": {
+    "logical_name_ko": "견적 요청 명세",
+    "overview_ko": "견적 요청에 포함되는 개별 항목을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_rfqlineqty": {
+    "logical_name_ko": "견적 요청 수량 조건",
+    "overview_ko": "견적 요청 명세별 수량 조건을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_rfqresponse": {
+    "logical_name_ko": "공급업체 견적 응답",
+    "overview_ko": "잠재 공급업체의 견적 응답을 저장하며 제안 금액·납기·순위·선정 여부 및 연결 주문을 관리한다.",
+    "basis": "structure"
+  },
+  "c_rfqresponseline": {
+    "logical_name_ko": "공급업체 견적 응답 명세",
+    "overview_ko": "공급업체 견적 응답의 개별 요청 항목별 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_rfqresponselineqty": {
+    "logical_name_ko": "견적 응답 수량 조건",
+    "overview_ko": "공급업체 견적 응답 명세의 수량별 제안 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_salesregion": {
+    "logical_name_ko": "영업 지역",
+    "overview_ko": "영업 활동의 담당 또는 적용 지역을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_salesregion_trl": {
+    "logical_name_ko": "영업 지역 번역",
+    "overview_ko": "영업 지역의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_salesstage": {
+    "logical_name_ko": "영업 단계",
+    "overview_ko": "영업 프로세스가 거쳐 가는 단계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_salesstage_trl": {
+    "logical_name_ko": "영업 단계 번역",
+    "overview_ko": "영업 프로세스 단계의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_servicelevel": {
+    "logical_name_ko": "서비스 이행 수준",
+    "overview_ko": "상품과 수익 인식 계획별 서비스 제공 수준 및 청구된 수준을 관리한다.",
+    "basis": "structure"
+  },
+  "c_servicelevelline": {
+    "logical_name_ko": "서비스 이행 수준 명세",
+    "overview_ko": "서비스 이행 수준에 속하는 일자별 제공 수준과 설명을 기록한다.",
+    "basis": "structure"
+  },
+  "c_subacct": {
+    "logical_name_ko": "보조 계정",
+    "overview_ko": "계정 요소 값에 속하는 하위 보조 계정을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_subscription": {
+    "logical_name_ko": "상품 구독",
+    "overview_ko": "거래처가 갱신하여 이용하는 상품 구독을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_subscription_delivery": {
+    "logical_name_ko": "구독 제공 이력",
+    "overview_ko": "구독에 대한 선택적인 배송·제공 기록을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_subscriptiontype": {
+    "logical_name_ko": "구독 유형",
+    "overview_ko": "상품 구독의 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_task": {
+    "logical_name_ko": "프로젝트 표준 작업",
+    "overview_ko": "프로젝트 유형에서 사용할 표준 작업을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_tax": {
+    "logical_name_ko": "세금",
+    "overview_ko": "거래에서 적용하는 세금의 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_tax_acct": {
+    "logical_name_ko": "세금 회계 계정",
+    "overview_ko": "세금과 회계 스키마별 납부·채무·공제·미수·비용 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_tax_trl": {
+    "logical_name_ko": "세금 번역",
+    "overview_ko": "세금의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_taxbase": {
+    "logical_name_ko": "과세 기준",
+    "overview_ko": "세액 계산에 사용하는 기준값과 적용 비율을 코드·이름으로 정의한다.",
+    "basis": "structure"
+  },
+  "c_taxcategory": {
+    "logical_name_ko": "세금 분류",
+    "overview_ko": "세금 적용을 구분하는 분류를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_taxcategory_trl": {
+    "logical_name_ko": "세금 분류 번역",
+    "overview_ko": "세금 분류의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_taxdeclaration": {
+    "logical_name_ko": "세금 신고",
+    "overview_ko": "세무 당국 신고 내용을 묶고 관련 문서와 회계 기록 대사의 기준을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_taxdeclarationacct": {
+    "logical_name_ko": "세금 신고 회계 대사",
+    "overview_ko": "세금 신고 관련 수익·비용·세금 회계 내역을 모아 문서와 대사하고 상세 보고의 근거로 사용한다.",
+    "basis": "dictionary"
+  },
+  "c_taxdeclarationline": {
+    "logical_name_ko": "세금 신고 문서 명세",
+    "overview_ko": "생성 처리로 수집된 신고 대상 문서를 저장한다. 특정 신고에 포함하지 않을 행은 제외할 수 있다.",
+    "basis": "dictionary"
+  },
+  "c_taxdefinition": {
+    "logical_name_ko": "세금 적용 규칙",
+    "overview_ko": "거래처·상품·조직 유형·과세 범위·유효 기간 등의 조건에 따른 세금과 과세 기준을 정의한다.",
+    "basis": "structure"
+  },
+  "c_taxgroup": {
+    "logical_name_ko": "세금 그룹",
+    "overview_ko": "관련 세금을 묶는 그룹 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_taxpostal": {
+    "logical_name_ko": "우편번호별 세금 범위",
+    "overview_ko": "세금 적용 지역을 우편번호 기준으로 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_taxprovider": {
+    "logical_name_ko": "세금 계산 서비스 연결",
+    "overview_ko": "세금 계산 서비스의 회사·계정·이용 설정과 처리 순서를 구현 설정에 연결한다.",
+    "basis": "structure"
+  },
+  "c_taxprovidercfg": {
+    "logical_name_ko": "세금 계산 구현 설정",
+    "overview_ko": "세금 계산 제공자의 구현 클래스와 서비스 URL 등 공통 설정을 정의한다.",
+    "basis": "structure"
+  },
+  "c_taxtype": {
+    "logical_name_ko": "세금 유형",
+    "overview_ko": "세금 규칙에서 참조하는 유형의 코드·이름·설명을 관리한다.",
+    "basis": "structure"
+  },
+  "c_uom": {
+    "logical_name_ko": "측정 단위",
+    "overview_ko": "상품과 거래 수량을 표현하는 측정 단위를 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_uom_conversion": {
+    "logical_name_ko": "단위 환산",
+    "overview_ko": "측정 단위 사이의 수량 환산 관계를 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_uom_trl": {
+    "logical_name_ko": "측정 단위 번역",
+    "overview_ko": "측정 단위의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "c_userremuneration": {
+    "logical_name_ko": "직원별 보수 조정",
+    "overview_ko": "직원 임금이나 급여의 개별 보수 재정의 값을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_validcombination": {
+    "logical_name_ko": "유효 계정 조합",
+    "overview_ko": "회계에서 사용할 유효한 계정 및 분석 요소 조합을 관리한다.",
+    "basis": "dictionary"
+  },
+  "c_withholding": {
+    "logical_name_ko": "원천징수 유형",
+    "overview_ko": "거래에서 적용할 원천징수 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "c_withholding_acct": {
+    "logical_name_ko": "원천징수 회계 계정",
+    "overview_ko": "원천징수 유형과 회계 스키마별 원천징수 계정을 지정한다.",
+    "basis": "structure"
+  },
+  "c_year": {
+    "logical_name_ko": "회계 연도",
+    "overview_ko": "회계 달력에 속하는 연도를 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_accesscontainer": {
+    "logical_name_ko": "웹 콘텐츠 접근 연결",
+    "overview_ko": "웹 접근 프로필과 공개 콘텐츠 컨테이너를 연결한다.",
+    "basis": "structure"
+  },
+  "cm_accesslistbpgroup": {
+    "logical_name_ko": "웹 접근 거래처 그룹",
+    "overview_ko": "웹 접근 프로필에 거래처 그룹을 연결한다.",
+    "basis": "structure"
+  },
+  "cm_accesslistrole": {
+    "logical_name_ko": "웹 접근 역할",
+    "overview_ko": "웹 접근 프로필에 애플리케이션 역할을 연결한다.",
+    "basis": "structure"
+  },
+  "cm_accessmedia": {
+    "logical_name_ko": "웹 미디어 접근 연결",
+    "overview_ko": "웹 접근 프로필과 미디어 항목을 연결한다.",
+    "basis": "structure"
+  },
+  "cm_accessnewschannel": {
+    "logical_name_ko": "뉴스 채널 접근 연결",
+    "overview_ko": "웹 접근 프로필과 뉴스 채널을 연결한다.",
+    "basis": "structure"
+  },
+  "cm_accessprofile": {
+    "logical_name_ko": "웹 접근 프로필",
+    "overview_ko": "웹 콘텐츠 접근 제어를 위한 프로필을 정의한다.",
+    "basis": "dictionary"
+  },
+  "cm_accessstage": {
+    "logical_name_ko": "준비 콘텐츠 접근 연결",
+    "overview_ko": "웹 접근 프로필과 게시 준비 단계의 콘텐츠 컨테이너를 연결한다.",
+    "basis": "structure"
+  },
+  "cm_ad": {
+    "logical_name_ko": "웹 광고",
+    "overview_ko": "배너·제휴 정보·후원 링크 등 웹에 표시할 광고를 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_ad_cat": {
+    "logical_name_ko": "웹 광고 분류",
+    "overview_ko": "광고 블록과 순환 표시 대상을 묶는 광고 분류를 정의한다.",
+    "basis": "dictionary"
+  },
+  "cm_broadcastserver": {
+    "logical_name_ko": "웹 배포 서버",
+    "overview_ko": "웹 콘텐츠 방송·배포에 사용하는 서버를 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_chat": {
+    "logical_name_ko": "레코드 대화",
+    "overview_ko": "대상 테이블과 레코드에 연결되는 대화 공간의 유형·공개 범위·검토 방식을 관리한다.",
+    "basis": "structure"
+  },
+  "cm_chatentry": {
+    "logical_name_ko": "대화 메시지",
+    "overview_ko": "대화 공간의 본문·작성 사용자·제목·검토 상태와 상위 메시지 관계를 저장한다.",
+    "basis": "structure"
+  },
+  "cm_chattype": {
+    "logical_name_ko": "대화 유형",
+    "overview_ko": "대화를 연결할 테이블과 검토 방식을 포함한 대화 유형을 정의한다.",
+    "basis": "structure"
+  },
+  "cm_chattypeupdate": {
+    "logical_name_ko": "대화 유형별 사용자 연결",
+    "overview_ko": "대화 유형과 사용자의 업데이트 관련 연결 및 셀프서비스 여부를 관리한다. 실제 알림 동작은 처리 코드 확인이 필요하다.",
+    "basis": "structure"
+  },
+  "cm_chatupdate": {
+    "logical_name_ko": "대화별 사용자 연결",
+    "overview_ko": "개별 대화와 사용자의 업데이트 관련 연결 및 셀프서비스 여부를 관리한다. 알림 방식은 구조만으로 단정하지 않는다.",
+    "basis": "structure"
+  },
+  "cm_container": {
+    "logical_name_ko": "웹 콘텐츠 컨테이너",
+    "overview_ko": "이미지·텍스트 등의 웹 콘텐츠를 담는 단위로 표시·색인·저장 방식을 정의한다.",
+    "basis": "dictionary"
+  },
+  "cm_container_element": {
+    "logical_name_ko": "웹 콘텐츠 요소",
+    "overview_ko": "제목·본문·꼬리말처럼 컨테이너를 구성하는 작은 콘텐츠 단위를 저장한다.",
+    "basis": "dictionary"
+  },
+  "cm_container_element_trl": {
+    "logical_name_ko": "웹 콘텐츠 요소 번역",
+    "overview_ko": "컨테이너의 제목·본문 등 개별 콘텐츠 요소 번역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "cm_container_trl": {
+    "logical_name_ko": "웹 콘텐츠 번역",
+    "overview_ko": "웹 콘텐츠 컨테이너의 번역 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "cm_container_url": {
+    "logical_name_ko": "콘텐츠 사용 URL",
+    "overview_ko": "콘텐츠에서 사용하는 URL을 기록하여 접근 가능 여부 등의 점검에 활용한다.",
+    "basis": "dictionary"
+  },
+  "cm_containerttable": {
+    "logical_name_ko": "콘텐츠 템플릿 테이블 연결",
+    "overview_ko": "웹 콘텐츠 컨테이너와 템플릿 테이블 사이의 연결을 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_cstage": {
+    "logical_name_ko": "게시 준비 콘텐츠",
+    "overview_ko": "게시 준비 단계의 이미지·텍스트 등을 담는 컨테이너를 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_cstage_element": {
+    "logical_name_ko": "게시 준비 콘텐츠 요소",
+    "overview_ko": "게시 준비 컨테이너의 제목·본문·꼬리말 등 개별 요소를 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_cstage_element_trl": {
+    "logical_name_ko": "게시 준비 요소 번역",
+    "overview_ko": "게시 준비 단계의 개별 콘텐츠 요소 번역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "cm_cstage_trl": {
+    "logical_name_ko": "게시 준비 콘텐츠 번역",
+    "overview_ko": "게시 준비 컨테이너의 언어별 콘텐츠를 저장한다.",
+    "basis": "dictionary"
+  },
+  "cm_cstagettable": {
+    "logical_name_ko": "게시 준비 템플릿 테이블 연결",
+    "overview_ko": "게시 준비 컨테이너와 템플릿 테이블의 연결을 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_media": {
+    "logical_name_ko": "웹 미디어",
+    "overview_ko": "이미지·동영상 등 웹 콘텐츠에서 사용하는 미디어 항목을 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_media_server": {
+    "logical_name_ko": "미디어 서버",
+    "overview_ko": "미디어 전송 대상 서버 목록을 관리하며 정적 서버에 미디어를 배치하는 구성에 사용한다.",
+    "basis": "dictionary"
+  },
+  "cm_mediadeploy": {
+    "logical_name_ko": "미디어 배포 이력",
+    "overview_ko": "미디어 콘텐츠의 배포 로그를 저장한다.",
+    "basis": "dictionary"
+  },
+  "cm_newschannel": {
+    "logical_name_ko": "RSS 뉴스 채널",
+    "overview_ko": "RSS 피드에 사용할 콘텐츠 범위를 정의하는 뉴스 채널을 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_newsitem": {
+    "logical_name_ko": "뉴스 기사 항목",
+    "overview_ko": "뉴스나 기사의 기본 내용을 관리하며 상세 기사로 안내하는 요약 콘텐츠로 사용할 수 있다.",
+    "basis": "dictionary"
+  },
+  "cm_template": {
+    "logical_name_ko": "웹 콘텐츠 템플릿",
+    "overview_ko": "콘텐츠 표시를 위한 레이아웃과 처리 스크립트 등의 템플릿을 정의한다.",
+    "basis": "dictionary"
+  },
+  "cm_template_ad_cat": {
+    "logical_name_ko": "템플릿 광고 분류 연결",
+    "overview_ko": "웹 템플릿과 광고 분류의 대응 관계를 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_templatetable": {
+    "logical_name_ko": "템플릿 테이블 연결",
+    "overview_ko": "콘텐츠 관리 템플릿의 테이블 연결을 관리한다.",
+    "basis": "dictionary"
+  },
+  "cm_webaccesslog": {
+    "logical_name_ko": "웹 접근 로그",
+    "overview_ko": "웹 프로젝트의 요청 URL·접속 주소·사용자 에이전트·응답 코드·크기 등 접근 이력을 저장한다.",
+    "basis": "structure"
+  },
+  "cm_webproject": {
+    "logical_name_ko": "웹 콘텐츠 프로젝트",
+    "overview_ko": "콘텐츠 컨테이너·URL·광고·미디어 등을 포괄하는 웹 콘텐츠 관리 프로젝트를 정의한다.",
+    "basis": "dictionary"
+  },
+  "cm_webproject_domain": {
+    "logical_name_ko": "웹 프로젝트 도메인",
+    "overview_ko": "웹 프로젝트의 도메인 처리와 전달 관계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "cm_wikitoken": {
+    "logical_name_ko": "위키 토큰",
+    "overview_ko": "위키 토큰의 유형과 매크로 또는 대상 테이블·조회절·조건절을 정의한다. 실제 치환·렌더링 동작은 처리 코드 확인이 필요하다.",
+    "basis": "structure"
+  },
+  "dbreplicasyncverifier": {
+    "logical_name_ko": "DB 복제 동기화 확인 정보",
+    "overview_ko": "lastupdate 값만 가진 내부 테이블로 물리명상 DB 복제 동기화 확인 용도로 추정된다. 갱신 주체와 판정 방식은 구조만으로 확인할 수 없다.",
+    "basis": "uncertain"
+  },
+  "dd_networkdistribution": {
+    "logical_name_ko": "재고 배분 네트워크",
+    "overview_ko": "재고 분배에 사용할 네트워크의 상위 정의를 관리한다.",
+    "basis": "dictionary"
+  },
+  "dd_networkdistributionline": {
+    "logical_name_ko": "재고 배분 네트워크 명세",
+    "overview_ko": "재고 배분 네트워크의 출발·도착 창고, 운송사, 배분 비율·이송 시간·우선순위와 유효 기간을 정의한다.",
+    "basis": "structure"
+  },
+  "dd_order": {
+    "logical_name_ko": "재고 배분 주문",
+    "overview_ko": "재고 배분을 지시하는 주문의 머리글을 관리한다.",
+    "basis": "dictionary"
+  },
+  "dd_orderline": {
+    "logical_name_ko": "재고 배분 주문 명세",
+    "overview_ko": "재고 배분 주문에 포함되는 개별 배분 내역을 관리한다.",
+    "basis": "dictionary"
+  },
+  "exp_format": {
+    "logical_name_ko": "데이터 내보내기 형식",
+    "overview_ko": "내보낼 대상 테이블·필터 조건·버전과 형식 식별자를 정의한다.",
+    "basis": "structure"
+  },
+  "exp_formatline": {
+    "logical_name_ko": "내보내기 형식 항목",
+    "overview_ko": "형식의 항목 순서·대상 컬럼·필수 여부·날짜 형식 및 중첩 형식을 정의한다.",
+    "basis": "structure"
+  },
+  "exp_processor": {
+    "logical_name_ko": "데이터 내보내기 처리기",
+    "overview_ko": "내보내기 처리기 유형에 연결되는 실행 설정과 대상 호스트·포트·계정 설정을 관리한다.",
+    "basis": "structure"
+  },
+  "exp_processor_type": {
+    "logical_name_ko": "내보내기 처리기 유형",
+    "overview_ko": "내보내기 처리기의 종류와 실행 Java 클래스를 정의한다.",
+    "basis": "structure"
+  },
+  "exp_processorparameter": {
+    "logical_name_ko": "내보내기 처리 매개변수",
+    "overview_ko": "개별 내보내기 처리기에 전달할 이름별 매개변수 값을 관리한다.",
+    "basis": "structure"
+  },
+  "fact_acct": {
+    "logical_name_ko": "전기 회계 분개",
+    "overview_ko": "업무 문서에서 전기된 회계 분개를 계정·회계 스키마·기간 및 분석 요소별로 저장한다. 거래통화와 회계통화의 차변·대변 금액 및 원 문서 테이블·레코드·행 식별자를 포함한다.",
+    "basis": "structure"
+  },
+  "fact_acct_summary": {
+    "logical_name_ko": "회계 분개 집계",
+    "overview_ko": "보고 큐브와 계정·기간·조직 등 분석 요소별 회계통화 차변·대변 금액 및 수량 집계를 저장한다. 원분개와 함께 합산하면 중복될 수 있다.",
+    "basis": "structure"
+  },
+  "fact_reconciliation": {
+    "logical_name_ko": "회계 분개 대사 연결",
+    "overview_ko": "회계 분개에 대사 코드를 연결하여 대응되는 분개를 묶는 데 사용한다.",
+    "basis": "structure"
+  },
+  "gl_budget": {
+    "logical_name_ko": "총계정원장 예산",
+    "overview_ko": "총계정원장 예산의 기준정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "gl_budgetcontrol": {
+    "logical_name_ko": "예산 통제",
+    "overview_ko": "회계 스키마와 예산별 통제 범위·약정 유형·승인 전 통제 여부를 정의한다.",
+    "basis": "structure"
+  },
+  "gl_category": {
+    "logical_name_ko": "원장 분류",
+    "overview_ko": "총계정원장 문서와 분개를 분류하는 기준을 정의한다.",
+    "basis": "dictionary"
+  },
+  "gl_category_trl": {
+    "logical_name_ko": "원장 분류 번역",
+    "overview_ko": "총계정원장 분류의 언어별 표시 내용을 저장한다.",
+    "basis": "dictionary"
+  },
+  "gl_distribution": {
+    "logical_name_ko": "원장 배부 규칙",
+    "overview_ko": "총계정원장 금액을 배부하는 상위 규칙을 관리한다.",
+    "basis": "dictionary"
+  },
+  "gl_distributionline": {
+    "logical_name_ko": "원장 배부 명세",
+    "overview_ko": "총계정원장 배부 규칙의 개별 배부 항목을 관리한다.",
+    "basis": "dictionary"
+  },
+  "gl_fund": {
+    "logical_name_ko": "원장 자금 통제",
+    "overview_ko": "회계 스키마별 통제 대상 자금과 금액 및 적용 기간을 정의한다.",
+    "basis": "structure"
+  },
+  "gl_fundrestriction": {
+    "logical_name_ko": "자금 사용 제한",
+    "overview_ko": "자금 통제 항목에 계정 요소 값을 연결하여 적용 제한 범위를 지정한다.",
+    "basis": "structure"
+  },
+  "gl_journal": {
+    "logical_name_ko": "원장 분개 전표",
+    "overview_ko": "총계정원장 분개 전표의 머리글을 관리하며 차변·대변 행은 전표 명세에 저장된다.",
+    "basis": "dictionary"
+  },
+  "gl_journalbatch": {
+    "logical_name_ko": "원장 분개 배치",
+    "overview_ko": "총계정원장 분개 전표를 배치 단위로 묶어 관리한다.",
+    "basis": "dictionary"
+  },
+  "gl_journalgenerator": {
+    "logical_name_ko": "원장 분개 생성 규칙",
+    "overview_ko": "회계 스키마·문서 유형·원장 분류와 차대변 조정 계정 등을 지정하는 분개 생성 규칙이다.",
+    "basis": "structure"
+  },
+  "gl_journalgeneratorline": {
+    "logical_name_ko": "분개 생성 대상 규칙",
+    "overview_ko": "생성할 차변·대변 계정, 거래처 분석 방식, 금액 배수와 반올림 기준을 정의한다.",
+    "basis": "structure"
+  },
+  "gl_journalgeneratorsource": {
+    "logical_name_ko": "분개 생성 원천 규칙",
+    "overview_ko": "분개 생성 행에 사용할 원천 계정·원장 분류와 금액 배수·반올림 기준을 정의한다.",
+    "basis": "structure"
+  },
+  "gl_journalline": {
+    "logical_name_ko": "원장 분개 전표 명세",
+    "overview_ko": "총계정원장 분개 전표의 개별 분개 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "hr_attribute": {
+    "logical_name_ko": "직원 급여 속성",
+    "overview_ko": "직원·급여 항목별 적용 값과 계산 규칙·유효 기간을 관리하며 금액·수량·문자·서비스 날짜 등의 형식을 담는다.",
+    "basis": "structure"
+  },
+  "hr_concept": {
+    "logical_name_ko": "급여 계산 항목",
+    "overview_ko": "급여 항목의 유형·값 형식·분류·차대 부호 및 출력·지급 여부를 정의한다.",
+    "basis": "structure"
+  },
+  "hr_concept_acct": {
+    "logical_name_ko": "급여 항목 회계 계정",
+    "overview_ko": "급여 항목과 회계 스키마별 수익·비용 계정 및 거래처 그룹 등의 회계 연결을 관리한다.",
+    "basis": "structure"
+  },
+  "hr_concept_category": {
+    "logical_name_ko": "급여 항목 분류",
+    "overview_ko": "급여 계산 항목의 분류와 연결 계정·기본 여부를 관리한다.",
+    "basis": "structure"
+  },
+  "hr_contract": {
+    "logical_name_ko": "급여 계약 기준",
+    "overview_ko": "급여에 연결되는 계약의 유효 기간·기준 일수와 거래처·프로젝트 등의 관련 정보를 관리한다.",
+    "basis": "structure"
+  },
+  "hr_department": {
+    "logical_name_ko": "급여 부서",
+    "overview_ko": "급여 부서의 코드·이름과 업무 활동 연결을 관리한다. 공통 부서 기준 c_department와 구분한다.",
+    "basis": "structure"
+  },
+  "hr_employee": {
+    "logical_name_ko": "급여 직원",
+    "overview_ko": "급여 대상 직원을 거래처와 연결하고 부서·직무·급여 체계 및 입퇴사 날짜를 관리한다.",
+    "basis": "structure"
+  },
+  "hr_job": {
+    "logical_name_ko": "급여 직무",
+    "overview_ko": "급여 직무와 소속 부서·상위 구조 관련 값·감독 사용자 정보를 관리한다.",
+    "basis": "structure"
+  },
+  "hr_list": {
+    "logical_name_ko": "급여 기준 목록",
+    "overview_ko": "급여 계산 등에 참조할 목록을 유형·부서·직원·급여 체계와 연결하여 정의한다.",
+    "basis": "structure"
+  },
+  "hr_listline": {
+    "logical_name_ko": "급여 기준 목록 행",
+    "overview_ko": "급여 목록 버전의 값 구간과 여러 값 컬럼을 저장한다. 각 컬럼의 의미는 목록 설정에 따라 확인해야 한다.",
+    "basis": "structure"
+  },
+  "hr_listtype": {
+    "logical_name_ko": "급여 목록 유형",
+    "overview_ko": "급여 기준 목록의 유형 코드·이름·설명을 관리한다.",
+    "basis": "structure"
+  },
+  "hr_listversion": {
+    "logical_name_ko": "급여 목록 버전",
+    "overview_ko": "급여 기준 목록의 버전과 유효 기간·기준 목록 연결을 관리한다.",
+    "basis": "structure"
+  },
+  "hr_movement": {
+    "logical_name_ko": "급여 계산 내역",
+    "overview_ko": "급여 실행별 직원·급여 항목의 금액·수량·문자 값 및 계산 규칙과 분석 요소를 저장한다.",
+    "basis": "structure"
+  },
+  "hr_payroll": {
+    "logical_name_ko": "급여 체계",
+    "overview_ko": "급여 계산·지급 기준 체계를 정의하고 계약·지급 방식·인쇄 서식과 부대 항목을 연결한다.",
+    "basis": "structure"
+  },
+  "hr_payrollconcept": {
+    "logical_name_ko": "급여 체계별 계산 항목",
+    "overview_ko": "급여 체계에 항목과 규칙을 연결하고 계산 순서·포함·표시·인쇄 여부를 지정한다.",
+    "basis": "structure"
+  },
+  "hr_period": {
+    "logical_name_ko": "급여 기간",
+    "overview_ko": "급여 체계별 기간의 시작·종료일·회계일·상태를 관리하고 회계 기간 및 급여 연도와 연결한다.",
+    "basis": "structure"
+  },
+  "hr_process": {
+    "logical_name_ko": "급여 계산 실행",
+    "overview_ko": "급여 체계·기간·직원 또는 부서별 급여 처리 전표를 관리한다. 문서 상태·회계 전기·지급 대상 선정 연결을 포함한다.",
+    "basis": "structure"
+  },
+  "hr_year": {
+    "logical_name_ko": "급여 연도",
+    "overview_ko": "급여 체계별 연간 기준을 회계 연도와 연결하고 시작일·기준 일수·수량을 관리한다.",
+    "basis": "structure"
+  },
+  "i_asset": {
+    "logical_name_ko": "자산 가져오기 임시 데이터",
+    "overview_ko": "자산과 감가상각·계정·소재지 정보를 정식 데이터로 가져오기 전에 저장하며 가져오기 여부와 오류 메시지를 관리한다.",
+    "basis": "structure"
+  },
+  "i_bankstatement": {
+    "logical_name_ko": "은행명세 가져오기 임시 데이터",
+    "overview_ko": "외부 은행거래 명세를 정식 명세로 가져오기 위한 입력 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "i_bpartner": {
+    "logical_name_ko": "거래처 가져오기 임시 데이터",
+    "overview_ko": "거래처·주소·연락처와 고객·공급업체·직원 구분을 가져오기 전에 저장하며 결과 식별자와 오류 상태를 관리한다.",
+    "basis": "structure"
+  },
+  "i_conversion_rate": {
+    "logical_name_ko": "환율 가져오기 임시 데이터",
+    "overview_ko": "외부 통화 환율을 가져오기 위한 입력 데이터를 저장한다.",
+    "basis": "dictionary"
+  }
+}

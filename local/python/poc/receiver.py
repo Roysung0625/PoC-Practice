@@ -2,6 +2,11 @@ import json
 import logging
 import time
 import uuid
+import hashlib
+import os
+import tempfile
+from contextlib import contextmanager
+from pathlib import Path
 
 import boto3
 import httpx
@@ -89,11 +94,56 @@ class Receiver:
         self.journal.delivered(request_id)
 
 
+@contextmanager
+def receiver_lock(queue_url, region):
+    """One consumer per queue/region on this host, independent of checkout/journal."""
+    key = hashlib.sha256((region + "\n" + queue_url).encode()).hexdigest()
+    if os.name == "nt":
+        import ctypes
+        from ctypes import wintypes
+        api = ctypes.WinDLL("kernel32", use_last_error=True)
+        api.CreateMutexW.argtypes = [ctypes.c_void_p, wintypes.BOOL, wintypes.LPCWSTR]
+        api.CreateMutexW.restype = wintypes.HANDLE
+        api.WaitForSingleObject.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+        api.WaitForSingleObject.restype = wintypes.DWORD
+        api.ReleaseMutex.argtypes = [wintypes.HANDLE]
+        api.CloseHandle.argtypes = [wintypes.HANDLE]
+        handle = api.CreateMutexW(None, False, "Global\\PoCPracticeReceiver_" + key)
+        if not handle:
+            raise PocError("RECEIVER_LOCK_FAILED")
+        acquired = False
+        try:
+            acquired = api.WaitForSingleObject(handle, 0) in (0, 0x80)
+            if not acquired:
+                raise PocError("RECEIVER_ALREADY_RUNNING", "같은 AWS 큐의 수신기가 이미 실행 중입니다.")
+            yield
+        finally:
+            if acquired:
+                api.ReleaseMutex(handle)
+            api.CloseHandle(handle)
+    else:
+        import fcntl
+        with (Path(tempfile.gettempdir()) / ("poc-receiver-" + key + ".lock")).open("a+b") as lock:
+            try:
+                fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except OSError:
+                raise PocError("RECEIVER_ALREADY_RUNNING") from None
+            try:
+                yield
+            finally:
+                fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+
+
 def main():
     settings = environment()
     if not settings["queue_url"] or not settings["result_table"]:
         raise PocError("AWS_NOT_CONFIGURED", "SQS/DynamoDB 설정이 없습니다. 수신기를 시작하지 않았습니다.")
     shared = load_shared()
+    with receiver_lock(settings["queue_url"], shared["models"]["region"]):
+        run_receiver(settings, shared)
+
+
+def run_receiver(settings, shared):
     require_live_aws(shared["budget"])
     session = boto3.Session(profile_name=settings["worker_profile"], region_name=shared["models"]["region"])
     validate_aws_identity(session, settings["account_id"], "poc-worker")

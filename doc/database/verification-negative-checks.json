@@ -1,0 +1,18 @@
+{
+  "metadata_captured_at": "2026-11-03T23:33:22+09:00",
+  "method": "offline Path.read_text interception; no on-disk mutation",
+  "rejected_cases": [
+    "missing_index",
+    "duplicate_index",
+    "wrong_column_type",
+    "missing_individual_id",
+    "broken_link",
+    "stale_source_hash",
+    "fabricated_semantic_domain",
+    "altered_dictionary_evidence"
+  ],
+  "rejected": 8,
+  "on_disk_mutations": 0,
+  "script_sha256": "b7e8cfc78a3f6a74549859ecbc4876d3b580e157fc33ec56c783a847c478621f",
+  "classifier_sha256": "40cf227760420862c2d34787ea3941f4e3118f821392cc29adeec56a34360812"
+}

@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 from poc.agent import sample_plan, AgentPlanner
 from poc.api import create_app
-from poc.catalog import selected_catalog
+from poc.catalog import selected_catalog, normalized_catalog, table_index, IDEMPIERE_INVOICE_RULE
 from poc.config import PocError, ROOT
 from poc.db import execute_query
 from poc.sql_policy import validate_sql
@@ -57,6 +57,24 @@ def test_planner_uses_selected_catalog_without_changing_full_schema_hash(erp_cat
     assert erp_catalog['business_rules'] == []
     assert result['schema_version'] == erp_catalog['schema_version']
     assert result['schema_selection']['total_tables'] == 4
+
+
+def test_stale_business_rule_is_normalized_in_model_payload_without_mutation(erp_catalog, monkeypatch):
+    stale = "c_invoice.totallines는 세전 청구액, grandtotal은 세금 포함 총액입니다. c_doctype.docbasetype='ARC'인 판매 대변전표는 차감합니다."
+    erp_catalog['business_rules'] = [stale]
+    before = json.dumps(erp_catalog, sort_keys=True, ensure_ascii=False)
+    calls = []
+    planner = AgentPlanner('test', {}, {})
+    def invoke(payload):
+        calls.append(payload)
+        return {'tables': ['c_invoice', 'c_currency', 'c_doctype']} if payload['phase'] == 'select_tables' else {'plan': sample_plan(erp_catalog)}
+    monkeypatch.setattr(planner, 'invoke', invoke)
+    plan = planner.plan('문서 금액', erp_catalog)
+    for payload in calls:
+        assert IDEMPIERE_INVOICE_RULE in payload['catalog']['business_rules']
+        assert stale not in payload['catalog']['business_rules']
+    assert normalized_catalog(erp_catalog)['schema_version'] == plan['schema_version'] == 'erp-v1'
+    assert json.dumps(erp_catalog, sort_keys=True, ensure_ascii=False) == before
 
 
 def test_sample_counts_credit_memos_currencies_and_tenant_via_api(postgres_db, tmp_path, erp_catalog):

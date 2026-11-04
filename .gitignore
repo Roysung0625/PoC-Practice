@@ -39,6 +39,16 @@ local/web/storage/framework/views/*
 local/web/bootstrap/cache/*.php
 .phpunit.result.cache
 local/web/.phpunit.cache/
+analysis-chatbot/public/build/
+analysis-chatbot/public/hot
+analysis-chatbot/storage/logs/*
+analysis-chatbot/storage/framework/cache/*
+analysis-chatbot/storage/framework/sessions/*
+analysis-chatbot/storage/framework/views/*
+analysis-chatbot/bootstrap/cache/*.php
+analysis-chatbot/.phpunit.cache/
+analysis-chatbot/visualization/build/
+analysis-chatbot/visualization/dist/
 
 # Source-only transfer: installers, database dumps and generated archives
 *.exe

@@ -18,6 +18,7 @@ from psycopg.conninfo import make_conninfo
 from dotenv import set_key
 
 from .config import ROOT
+from .catalog import IDEMPIERE_INVOICE_RULE
 
 DATABASE = "poc_idempiere"
 OWNER = "poc_idempiere_owner"
@@ -158,7 +159,7 @@ def make_catalog(dsn):
                    f"업무 거래 테이블은 기본적으로 ad_client_id={int(client[0])} (GardenWorld)로 제한합니다. 공통 마스터는 ad_client_id=0일 수 있습니다.",
                    "issotrx='Y'는 판매, 'N'은 구매입니다. 확정 거래 분석은 docstatus IN ('CO','CL')를 사용하고 조건을 설명합니다.",
                    "c_order는 주문, c_invoice는 청구서, c_payment는 결제입니다. 주문액·청구액·현금 수입을 구분합니다.",
-                   "c_invoice.totallines는 세전 청구액, grandtotal은 세금 포함 총액입니다. c_doctype.docbasetype='ARC'인 판매 대변전표는 차감합니다.",
+                   IDEMPIERE_INVOICE_RULE,
                    "서로 다른 통화는 합산하지 말고 c_currency.iso_code로 구분합니다. 통화 변환을 임의로 가정하지 않습니다.",
                    "전표 헤더 금액을 상세행과 조인한 뒤 합산하면 중복됩니다. 상세 금액은 c_invoiceline.linenetamt를 사용합니다.",
                    "데모 날짜는 과거입니다. 최근 기간을 임의로 데모 기간으로 바꾸지 말고 데이터 부재를 설명합니다.",

@@ -52,8 +52,8 @@ def idempiere_sample_plan(catalog):
         "plan_id": str(uuid.uuid4()), "revision": 1, "schema_version": catalog["schema_version"],
         "question": catalog["sample_question"],
         "interpretation": "GardenWorld의 확정 판매 청구서와 대변전표를 월별·통화별로 집계하는 고정 샘플입니다.",
-        "context": {"데이터": catalog["dataset_label"], "기간": "데모의 전체 청구일 기간", "날짜 기준": "청구일 dateinvoiced", "상태": "CO·CL", "금액": "세전 · 통화별 분리"},
-        "metrics": [{"name": "세전 판매 청구액", "definition": "확정 판매 청구서 totallines 합계에서 판매 대변전표(ARC)를 차감"},
+        "context": {"데이터": catalog["dataset_label"], "기간": "데모의 전체 청구일 기간", "날짜 기준": "청구일 dateinvoiced", "상태": "CO·CL", "금액": "문서 행 합계 totallines · 통화별 분리"},
+        "metrics": [{"name": "판매 청구 문서 행 합계", "definition": "확정 판매 청구서 totallines 합계에서 판매 대변전표(ARC)를 차감. 세금 포함 가격 여부에 따라 세전액과 다를 수 있음"},
                     {"name": "청구서 수", "definition": "조건에 해당하는 청구서·대변전표 헤더 수"}],
         "assumptions": ["GardenWorld 테넌트만 포함", "issotrx='Y', docstatus IN ('CO','CL')", "서로 다른 통화는 합산하지 않음", "상세행을 조인하지 않아 헤더 금액 중복 합산을 방지"],
         "missing_data": ["과거 데모 거래이며 현재 실제 기업의 실적이 아닙니다.", "청구액은 입금액이나 순이익과 다릅니다."],
@@ -79,7 +79,7 @@ class AgentPlanner:
         self.client, self.profile = client, profile
         self.account_id = account_id
 
-    def invoke(self, payload):
+    def invoke(self, payload, timeout_seconds=None):
         if not self.arn:
             raise PocError("AWS_NOT_CONFIGURED", "AgentCore가 연결되지 않았습니다. 로컬 고정 샘플을 사용할 수 있습니다.")
         require_live_aws(self.policy)
@@ -90,7 +90,7 @@ class AgentPlanner:
             if client is None:
                 session = boto3.Session(profile_name=self.profile)
                 validate_aws_identity(session, self.account_id, "poc-chatbot")
-                client = session.client("bedrock-agentcore", region_name=self.models["region"], config=Config(connect_timeout=5, read_timeout=180, retries={"max_attempts": 0}))
+                client = session.client("bedrock-agentcore", region_name=self.models["region"], config=Config(connect_timeout=min(5, timeout_seconds or 5), read_timeout=timeout_seconds or 180, retries={"max_attempts": 0}))
             response = client.invoke_agent_runtime(agentRuntimeArn=self.arn, runtimeSessionId=session_id, payload=json.dumps({**payload, "models": self.models}).encode())
             raw = response["response"].read(1_048_577)
             if len(raw) > 1_048_576:

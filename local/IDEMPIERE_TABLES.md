@@ -4,6 +4,8 @@
 
 [설치·사용 안내](IDEMPIERE_GUIDE.md) · 전체 열/외래키: `.local/datasets/idempiere/catalog.json`
 
+**새 AI 참조 문서:** [전체 테이블 일람·한국어 개요](../docs/database/idempiere/TABLE_INDEX.md) · [업무별 안내](../docs/database/idempiere/BUSINESS_GUIDE.md) · [폴더별 테이블 문서](../docs/database/idempiere/README.md). 개별 문서에는 물리명·원본 논리명·한국어 해석·열·양방향 외래키 흐름을 수록했다. 이 페이지의 기존 행 수는 아래에 명시한 2026-10-12 기록을 유지한다.
+
 | 테이블 | 원본 업무 명칭 | 행 수 | 열 수 | 설명 |
 |---|---|---:|---:|---|
 | `a_asset` | Asset | 0 | 69 | Asset used internally or by customers |
@@ -714,7 +716,7 @@
 | `m_pricelist_trl` | Price List | 4 | 13 | Unique identifier of a Price List |
 | `m_pricelist_version` | Price List Version | 6 | 16 | Identifies a unique instance of a Price List |
 | `m_pricelist_version_trl` | Price List Version Trl | 6 | 12 | Identifies a unique instance of a Price List |
-| `m_product` | Product | 55 | 73 | Product Service Item |
+| `m_product` | Product | 255 | 73 | Product Service Item |
 | `m_product_acct` | Product Acct | 110 | 34 |  |
 | `m_product_bom_old` | m_product_bom_old | 20 | 15 |  |
 | `m_product_category` | Product Category | 14 | 19 | Category of a Product |
@@ -731,11 +733,11 @@
 | `m_productoperation` | Product Operation | 0 | 16 |  |
 | `m_productprice` | Product Price | 114 | 14 |  |
 | `m_productpricevendorbreak` | Product Price Break | 0 | 16 |  |
-| `m_promotion` | Promotion | 0 | 13 | Promotion setup |
+| `m_promotion` | Promotion | 200 | 13 | Promotion setup |
 | `m_promotiondistribution` | Promotion Distribution | 0 | 16 | Distribute order line items into multiple bucket for reward calculation |
-| `m_promotiongroup` | Promotion Group | 0 | 11 | Grouping of product for promotion setup |
-| `m_promotiongroupline` | Promotion Group Line | 0 | 11 | Line items of a promotion group |
-| `m_promotionline` | Promotion Line | 0 | 13 | Promotion line items |
+| `m_promotiongroup` | Promotion Group | 200 | 11 | Grouping of product for promotion setup |
+| `m_promotiongroupline` | Promotion Group Line | 600 | 11 | Line items of a promotion group |
+| `m_promotionline` | Promotion Line | 200 | 13 | Promotion line items |
 | `m_promotionprecondition` | Promotion Pre Condition | 0 | 21 | Pre condition for promotion |
 | `m_promotionreward` | Promotion Reward | 0 | 20 | Setup reward for the promotion |
 | `m_qualitytest` | Quality Test | 0 | 12 |  |
@@ -918,3 +920,5 @@
 | `ws_webservicemethod` | Web Service Method | 9 | 14 |  |
 | `ws_webservicetype` | Web Service Type | 16 | 17 |  |
 | `ws_webservicetypeaccess` | Web Service Type Access | 16 | 11 |  |
+
+OpenSearch 더미 적재 후 행 수(2026-11-03T23:29:01+09:00): Product 255, Promotion 200, PromotionGroup 200, PromotionLine 200, PromotionGroupLine 600. [현재 전체 색인](../doc/database/index.md).

@@ -149,6 +149,26 @@ class Journal:
             status = "succeeded" if succeeded and job["sql_status"] == "succeeded" and reply.get("status") == "succeeded" else "failed"
             db.execute("UPDATE jobs SET status=?,agent_status=?,agent_reply=?,result=? WHERE request_id=?", (status, "succeeded" if succeeded else "failed", canonical(reply), canonical(result), request_id))
 
+    def finish_data(self, request_id: str, reply: dict):
+        """Data-only Agent path: success requires the locally committed SQL evidence."""
+        with self.transaction() as db:
+            job = db.execute("SELECT * FROM jobs WHERE request_id=?", (request_id,)).fetchone()
+            if not job:
+                raise PocError("JOB_NOT_FOUND")
+            local = json.loads(job["result"]) if job["result"] else None
+            wire = {k: v for k, v in (local or {}).items() if k not in ("chart", "chart_error", "agent_answer", "agent_error", "stages")}
+            valid = bool(local) and reply.get("request_id") == request_id and reply.get("tool_used") is True and canonical(wire) == canonical(reply.get("tool_result"))
+            error = None if valid else reply.get("error", {"code": "TOOL_RESULT_MISMATCH", "message": "Lambda 반환과 로컬 SQL 원장의 결과가 일치하지 않습니다."})
+            status = "succeeded" if valid and job["sql_status"] == "succeeded" and reply.get("status") == "succeeded" else "failed"
+            db.execute("UPDATE jobs SET status=?,agent_status=?,agent_reply=? WHERE request_id=?", (status, "data_returned" if valid else "failed", canonical(reply), request_id))
+        if error:
+            raise PocError(error["code"], error.get("message", ""))
+        return local
+
+    def cancel_pending(self, request_id):
+        with self.transaction() as db:
+            db.execute("UPDATE jobs SET status='cancelled',sql_status='cancelled',agent_status='cancelled' WHERE request_id=? AND sql_status='pending'", (request_id,))
+
     def get_job(self, request_id: str) -> dict:
         with self.transaction() as db:
             row = db.execute("SELECT * FROM jobs WHERE request_id=?", (request_id,)).fetchone()

@@ -3,6 +3,10 @@
 Windows 로컬 챗봇과 AWS Agent를 연결해 로컬 PostgreSQL의 데이터를 자연어로 조회하는 PoC입니다.
 챗봇의 질문·답변 흐름과 Windows–AWS 사이의 실제 연결 환경을 함께 구축합니다.
 
+[프로젝트 문서 안내](doc/README.md)에서 [현재 구조](doc/architecture.md)와 [지속 적용할 프로젝트 지침서](doc/project-guidelines.md)를 확인합니다. 기존 구성요소 문서는 원래 경로에서 유지합니다. [로컬 OpenSearch 검색 실습](local/opensearch/README.md) · [OpenSearch 교육 문서](docs/learning/opensearch-lab.md)
+
+새 대화형 분석 웹은 [analysis-chatbot](analysis-chatbot/README.md)에 있습니다. Laravel 13.39.0·PHP 8.5.12·Vue 3.5.44와 별도 Matplotlib PNG 모듈을 사용하며 `127.0.0.1:8010`에서 실행합니다. 기존 Python API·SQL 승인 원장·SQS 수신기를 공유합니다. v13 실제10문항은 독립 수치9/10·수동 전체4/10으로 종료됐고, 사후 저장 차트4사례7PNG 복구와 API 단독 재시작 복원은 별도로 확인했습니다. 문제별 수정 효과와 한계는 [검증 기록](analysis-chatbot/docs/VERIFICATION.md), 학습 흐름은 [SQL 챗봇 교육](docs/education/README.md)에서 확인합니다.
+
 ## Mac으로 가져오기
 
 비공개 저장소: [Roysung0625/PoC-Practice](https://github.com/Roysung0625/PoC-Practice).
@@ -63,6 +67,10 @@ PoC-Practice/
 │   ├── python/               # SQL API·수신기·DB 적재·시험
 │   ├── web/                  # Laravel·Vue 챗봇과 시험
 │   └── scripts/              # 설치·시작·중지·상태·브라우저 검증
+├── analysis-chatbot/         # 대화 세션 유지·조사 이벤트·승인·PNG 분석 웹
+│   ├── visualization/        # 별도 Python 이미지 생성 패키지
+│   ├── evaluation/           # iDempiere 독립 정답 SQL 10개
+│   └── scripts/              # 독립 실행환경·시작·중지·상태 확인
 └── docs/
     ├── superpowers/          # 설계와 세부 구현 계획
     └── verification/         # 검증 결과와 미검증 범위
@@ -81,6 +89,10 @@ PoC-Practice/
 **현재 기본 조회 데이터는 iDempiere 13 GardenWorld입니다.** 별도 `poc_idempiere` DB에 912개 테이블·161개 뷰를 설치하고, 챗봇의 카탈로그·SQL 검사·샘플을 전환했습니다. 기존 TPC-H DB는 보존했습니다. [iDempiere 사용 안내](local/IDEMPIERE_GUIDE.md) · [전체 912개 테이블 목록](local/IDEMPIERE_TABLES.md). 기본 데모의 주문·청구서는 각각 8건으로, 복잡한 스키마를 학습하는 용도이며 대량 거래 성능 데이터는 아닙니다.
 
 [iDempiere 실제 AWS 왕복 검증](docs/verification/2026-10-12-idempiere.md)에서 자연어 질문·SQL 승인·로컬 DB 조회·Agent 답변·표와 그래프의 일치를 확인했습니다.
+
+[AI용 iDempiere 테이블 사전](docs/database/idempiere/README.md)은 실제 DB 구조를 기준으로 전체 912개 테이블을 28개 접두사 폴더에 정리합니다. [전체 일람](docs/database/idempiere/TABLE_INDEX.md)과 [업무별 개요](docs/database/idempiere/BUSINESS_GUIDE.md)에서 개별 테이블의 물리명·원본 논리명·한국어 해석·열·양방향 외래키 흐름을 찾아볼 수 있습니다. 새 [분석 챗봇](analysis-chatbot/README.md)은 이 원문을 읽어 해시·실제 열·FK 근거를 계획과 승인에 연결합니다. 벡터 검색 구현과는 별개이며 실제 정확도는 실행별 검증 기록을 따릅니다.
+
+[구성도를 먼저 읽는 조회 흐름 설계](docs/design/2026-11-03-schema-guided-query.md)는 **명령 → 테이블 문서·관계 탐색 → 조합 계획 → 사용자 승인 → 데이터 조회** 순서를 정의합니다. 문서 읽기 증거·양방향 관계 탐색·확인 질문·계획 검증·기존 AWS 왕복 연결의 설계 근거입니다. 새 분석 웹의 구현·실제 왕복·남은 실패는 [최신 검증 기록](analysis-chatbot/docs/VERIFICATION.md)에서 설계 문서와 구분해 확인합니다.
 
 ```powershell
 .\local\scripts\Start.ps1

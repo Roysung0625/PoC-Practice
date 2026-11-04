@@ -13,6 +13,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .agent import AgentPlanner, sample_plan
 from .charts import build_chart
+from .catalog import normalized_catalog
 from .config import PocError, environment, load_shared, require_live_aws
 from .db import execute_query
 from .journal import Journal
@@ -47,6 +48,7 @@ def create_app(settings=None):
     @asynccontextmanager
     async def lifespan(app):
         store.recover()
+        app.state.analysis.store.recover()
         yield
         # Let in-flight local HTTP work complete while the executor drains.
         await asyncio.to_thread(executor.shutdown, wait=True, cancel_futures=True)
@@ -66,7 +68,7 @@ def create_app(settings=None):
     def catalog():
         if not settings["catalog"].exists():
             raise PocError("DATASET_NOT_READY", "분석 데이터와 카탈로그를 먼저 구성하세요.")
-        return json.loads(settings["catalog"].read_text(encoding="utf-8"))
+        return normalized_catalog(json.loads(settings["catalog"].read_text(encoding="utf-8")))
 
     def planner():
         return AgentPlanner(settings["agent_arn"], load_shared(settings["root"])["budget"], shared["models"], profile=settings["profile"], account_id=settings.get("account_id", ""))
@@ -79,6 +81,9 @@ def create_app(settings=None):
             current_catalog = catalog()
             if plan["schema_version"] != current_catalog["schema_version"]:
                 raise PocError("SCHEMA_CHANGED", "데이터 구성이 변경되었습니다. 새 계획이 필요합니다.")
+            if plan.get("contract_version") == 2:
+                from .analysis_documents import Documents
+                Documents(settings["root"]).verify_plan(plan, current_catalog, plan["confirmed_conditions"])
             claim = store.claim(request_id, plan, approval_id, expires_at)
             if not claim["execute"]:
                 return claim["result"]
@@ -140,7 +145,8 @@ def create_app(settings=None):
         current = catalog() if settings["catalog"].exists() else {}
         return {"status": "ok", "db_connected": connected, "dataset_ready": bool(current), "aws_configured": bool(settings["agent_arn"]), "aws_cost_policy": cost, "models": shared["models"], "mode": "local",
                 "dataset_id": current.get("dataset_id", "tpch"), "dataset_label": current.get("dataset_label", "TPC-H SF1 · 합성 데이터"),
-                "table_count": len(current.get("tables", {})), "sample_question": current.get("sample_question", "1995년 STANDARD 제품군의 매출을 월별로 보여줘")}
+                "table_count": len(current.get("tables", {})), "sample_question": current.get("sample_question", "1995년 STANDARD 제품군의 매출을 월별로 보여줘"),
+                "analysis_contract_version": 1, "run_processing": True}
 
     @app.get("/v1/schema", dependencies=[Depends(authenticated)])
     def schema():
@@ -170,6 +176,8 @@ def create_app(settings=None):
     @app.post("/v1/executions", dependencies=[Depends(authenticated)])
     def executions(body: ApprovalRequest):
         plan = store.plan(body.plan_id)
+        if plan.get("contract_version") == 2:
+            raise PocError("ANALYSIS_APPROVAL_REQUIRED", "대화 분석 계획은 해당 run의 승인 경로에서 승인해야 합니다.")
         if plan["schema_version"] != catalog()["schema_version"]:
             raise PocError("SCHEMA_CHANGED", "조회 데이터가 바뀌었습니다. 새 분석을 시작하세요.")
         if plan["provenance"] != "local_sample":
@@ -199,4 +207,6 @@ def create_app(settings=None):
         result = execute_local(body.request_id, body.plan, body.approval_id, body.expires_at)
         return {k: v for k, v in result.items() if k not in ("chart", "chart_error", "agent_answer", "stages")}
 
+    from .analysis_api import install
+    install(app, settings, store, catalog, planner, execute_local, executor, waiting, aws_active, authenticated)
     return app

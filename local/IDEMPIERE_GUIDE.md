@@ -22,6 +22,8 @@
 
 [전체 912개 테이블 목록](IDEMPIERE_TABLES.md)은 실제 적재 DB에서 생성했다. 표에는 물리 테이블명, 원본 업무 명칭·설명, 실제 행 수가 있다. 열 전체와 외래키 관계는 `.local/datasets/idempiere/catalog.json`에 저장된다. 카탈로그에 기록한 행 수는 설치·재검증 시점의 값이다.
 
+AI가 파일로 참고할 [테이블별 Markdown 사전](../docs/database/idempiere/README.md)도 제공한다. [전체 일람](../docs/database/idempiere/TABLE_INDEX.md)에서 912개 테이블의 간단한 의미·쓰임을 찾고, 개별 문서에서 원본 논리명·한국어 해석·열·참조하는 부모·참조받는 자식을 확인한다. 28개 접두사 폴더로 정리했으며, [업무별 개요](../docs/database/idempiere/BUSINESS_GUIDE.md)로도 탐색할 수 있다. 구조·행 수의 확인 시점은 각 문서에 표시한다.
+
 원본 출처는 [iDempiere 공식 binary.file 저장소](https://github.com/idempiere/binary.file/tree/30af25e9db302a6cdefd9e6c3846f7cedc5ce4d0/database/13)다. 설치 스크립트가 커밋과 SHA-256을 고정해 확인한다. upstream 소프트웨어의 라이선스는 해당 저장소와 iDempiere 프로젝트를 따른다.
 
 앞서 비교표에 적었던 879개는 **v9의 공개 스키마** 기준이다. 이번 설치는 v13 시드이므로 912개다. [v9 SchemaSpy 설명·관계도](https://www.globalqss.com/idempiere/9_20211224/schemaspy/complete/)는 개념 참고용이며, 현재 설치의 정확한 구조는 로컬 카탈로그를 기준으로 한다.

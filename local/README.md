@@ -4,6 +4,8 @@
 
 > **현재 기본 데이터(2026-10-12): iDempiere 13 GardenWorld.** 912개 테이블·161개 뷰를 별도 `poc_idempiere` DB에 설치하고 챗봇을 전환했다. [설치·사용·복구 안내](IDEMPIERE_GUIDE.md) · [전체 테이블 목록](IDEMPIERE_TABLES.md). 아래 TPC-H 항목은 보존한 이전 데이터셋의 설명이다.
 
+[AI 참조용 테이블 사전](../docs/database/idempiere/README.md)에는 912개 테이블별 물리명·논리명·의미·열·외래키 흐름을 28개 폴더로 정리했다. [전체 일람](../docs/database/idempiere/TABLE_INDEX.md)과 [업무별 개요](../docs/database/idempiere/BUSINESS_GUIDE.md)부터 읽으면 된다.
+
 Vue + Laravel + Python(FastAPI) + PostgreSQL로 구성했습니다. **질문 → 계획 검토 → 사용자 승인 → 실제 PostgreSQL 조회 → 표·그래프** 흐름을 사용합니다. 고정 샘플은 AI가 생성한 응답이 아니며 화면에 출처를 표시합니다. 그래프는 계획에 포함된 경우 표시합니다.
 
 ## 실행

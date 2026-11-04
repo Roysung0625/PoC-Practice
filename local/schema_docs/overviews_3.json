@@ -1,0 +1,1522 @@
+{
+  "i_elementvalue": {
+    "logical_name_ko": "계정과목 가져오기",
+    "overview_ko": "외부 계정 코드와 계정 유형·상위 계정 정보를 계정과목 사전으로 가져오기 위한 중간 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "i_fajournal": {
+    "logical_name_ko": "고정자산 분개 가져오기",
+    "overview_ko": "자산 식별자와 감가상각 여부, 분개 차대변 금액을 포함한 고정자산 관련 분개 가져오기 데이터를 저장한다.",
+    "basis": "structure"
+  },
+  "i_fixedasset": {
+    "logical_name_ko": "고정자산 가져오기",
+    "overview_ko": "취득원가·누적감가상각·사용연수 등 외부 고정자산 정보를 자산 대장으로 옮기기 위한 데이터를 저장한다.",
+    "basis": "structure"
+  },
+  "i_gljournal": {
+    "logical_name_ko": "총계정원장 분개 가져오기",
+    "overview_ko": "외부 총계정원장 분개를 가져오기 위한 입력 데이터를 보관한다.",
+    "basis": "dictionary"
+  },
+  "i_hr_movement": {
+    "logical_name_ko": "급여 변동 내역 가져오기",
+    "overview_ko": "거래처·급여 개념·처리 건별 금액과 수량을 급여 변동 내역으로 가져오기 위한 데이터를 저장한다.",
+    "basis": "structure"
+  },
+  "i_inoutlineconfirm": {
+    "logical_name_ko": "출하·입고 확인행 가져오기",
+    "overview_ko": "외부의 자재 출하 또는 입고 확인행을 시스템으로 가져오기 위한 중간 데이터다.",
+    "basis": "dictionary"
+  },
+  "i_inventory": {
+    "logical_name_ko": "재고 거래 가져오기",
+    "overview_ko": "외부 재고 거래를 시스템 재고 문서로 가져오기 위한 입력 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "i_invoice": {
+    "logical_name_ko": "송장 가져오기",
+    "overview_ko": "외부 송장 데이터를 시스템 송장으로 등록하기 위한 중간 데이터를 보관한다.",
+    "basis": "dictionary"
+  },
+  "i_movement": {
+    "logical_name_ko": "재고 이동 가져오기",
+    "overview_ko": "출발·도착 보관 위치와 제품·이동 수량을 재고 이동 문서 및 행으로 가져오기 위한 데이터를 저장한다.",
+    "basis": "structure"
+  },
+  "i_order": {
+    "logical_name_ko": "주문 가져오기",
+    "overview_ko": "외부 주문을 시스템 주문으로 등록하기 위한 중간 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "i_payment": {
+    "logical_name_ko": "지급·수금 가져오기",
+    "overview_ko": "외부 지급 또는 수금 데이터를 결제 기록으로 가져오기 위한 입력 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "i_pricelist": {
+    "logical_name_ko": "가격표 가져오기",
+    "overview_ko": "가격표 및 그 버전을 외부 데이터에서 가져오기 위한 중간 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "i_product": {
+    "logical_name_ko": "제품·서비스 가져오기",
+    "overview_ko": "외부 품목 또는 서비스 정보를 제품 사전에 등록하기 위한 입력 데이터를 보관한다.",
+    "basis": "dictionary"
+  },
+  "i_productplanning": {
+    "logical_name_ko": "제품 계획 가져오기",
+    "overview_ko": "제품·창고별 보충 정책과 BOM·자원·안전재고 등을 제품 계획으로 가져오기 위한 데이터를 저장한다.",
+    "basis": "structure"
+  },
+  "imp_processor": {
+    "logical_name_ko": "가져오기 처리기",
+    "overview_ko": "가져오기 처리기의 유형, 실행 주기와 연결 설정을 정의한다.",
+    "basis": "structure"
+  },
+  "imp_processor_type": {
+    "logical_name_ko": "가져오기 처리기 유형",
+    "overview_ko": "가져오기 처리기 유형과 해당 구현 클래스 정보를 정의한다.",
+    "basis": "structure"
+  },
+  "imp_processorlog": {
+    "logical_name_ko": "가져오기 처리 로그",
+    "overview_ko": "가져오기 처리기 실행의 요약·오류 여부와 상세 메시지를 기록한다.",
+    "basis": "structure"
+  },
+  "imp_processorparameter": {
+    "logical_name_ko": "가져오기 처리 매개변수",
+    "overview_ko": "가져오기 처리기에 전달하는 이름별 매개변수 값을 저장한다.",
+    "basis": "structure"
+  },
+  "i_reportline": {
+    "logical_name_ko": "보고서 행 집합 가져오기",
+    "overview_ko": "외부의 보고서 행 집합 값을 보고서 정의로 가져오기 위한 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "k_category": {
+    "logical_name_ko": "지식 분류",
+    "overview_ko": "지식 항목을 분류하는 범주를 정의한다.",
+    "basis": "dictionary"
+  },
+  "k_categoryvalue": {
+    "logical_name_ko": "지식 분류값",
+    "overview_ko": "지식 분류에 속하는 선택 가능한 값을 정의한다.",
+    "basis": "dictionary"
+  },
+  "k_comment": {
+    "logical_name_ko": "지식 항목 의견",
+    "overview_ko": "지식 항목에 대한 의견이나 주석을 저장한다.",
+    "basis": "dictionary"
+  },
+  "k_entry": {
+    "logical_name_ko": "지식 항목",
+    "overview_ko": "지식 관리의 개별 콘텐츠 항목을 저장한다.",
+    "basis": "dictionary"
+  },
+  "k_entrycategory": {
+    "logical_name_ko": "지식 항목 분류 연결",
+    "overview_ko": "지식 항목을 분류 및 해당 분류값과 연결한다.",
+    "basis": "structure"
+  },
+  "k_entryrelated": {
+    "logical_name_ko": "관련 지식 항목",
+    "overview_ko": "하나의 지식 항목과 연관된 다른 항목의 관계를 저장한다.",
+    "basis": "dictionary"
+  },
+  "k_index": {
+    "logical_name_ko": "검색 색인",
+    "overview_ko": "키워드·발췌문과 원본 테이블·레코드 식별자를 연결하는 검색 색인 정보를 저장한다.",
+    "basis": "structure"
+  },
+  "k_indexlog": {
+    "logical_name_ko": "색인 검색 로그",
+    "overview_ko": "색인 검색의 질의와 결과 및 질의 출처를 기록한다.",
+    "basis": "structure"
+  },
+  "k_indexstop": {
+    "logical_name_ko": "색인 제외 단어",
+    "overview_ko": "색인에서 제외할 키워드와 문서 유형·웹 프로젝트·요청 유형 등의 적용 범위를 저장한다.",
+    "basis": "dictionary"
+  },
+  "k_source": {
+    "logical_name_ko": "지식 출처",
+    "overview_ko": "지식 항목이 유래한 정보 출처를 정의한다.",
+    "basis": "dictionary"
+  },
+  "k_synonym": {
+    "logical_name_ko": "지식 검색 동의어",
+    "overview_ko": "지식 검색에 사용하는 키워드의 동의어를 정의한다.",
+    "basis": "dictionary"
+  },
+  "k_topic": {
+    "logical_name_ko": "지식 주제",
+    "overview_ko": "지식 콘텐츠를 구분하는 주제를 정의한다.",
+    "basis": "dictionary"
+  },
+  "k_type": {
+    "logical_name_ko": "지식 유형",
+    "overview_ko": "지식 항목의 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_attribute": {
+    "logical_name_ko": "제품 속성",
+    "overview_ko": "제품의 특성을 표현하는 속성을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_attributeinstance": {
+    "logical_name_ko": "제품 속성 실값",
+    "overview_ko": "속성 집합 인스턴스에 속한 개별 속성의 선택값·문자·숫자·날짜 값을 저장한다.",
+    "basis": "structure"
+  },
+  "m_attributeinstanceline": {
+    "logical_name_ko": "속성 다중 선택값",
+    "overview_ko": "속성 인스턴스에서 선택한 속성값들을 행 단위로 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_attributesearch": {
+    "logical_name_ko": "공통 검색 속성",
+    "overview_ko": "제품 속성을 이용한 공통 검색 조건을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_attributeset": {
+    "logical_name_ko": "제품 속성 집합",
+    "overview_ko": "제품에 함께 적용할 속성들의 묶음을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_attributesetexclude": {
+    "logical_name_ko": "속성 집합 입력 제외",
+    "overview_ko": "특정 범위에서 속성 집합 입력을 제외하는 설정을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_attributesetinstance": {
+    "logical_name_ko": "제품 속성 집합 인스턴스",
+    "overview_ko": "제품 속성 집합이 실제 적용된 개별 인스턴스를 식별한다.",
+    "basis": "dictionary"
+  },
+  "m_attributeuse": {
+    "logical_name_ko": "속성 집합 구성",
+    "overview_ko": "속성 집합에 포함할 속성과 표시 순서·기본값을 연결한다.",
+    "basis": "structure"
+  },
+  "m_attributevalue": {
+    "logical_name_ko": "제품 속성 선택값",
+    "overview_ko": "제품 속성에서 선택할 수 있는 값을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_bom": {
+    "logical_name_ko": "자재명세서",
+    "overview_ko": "제품을 구성하는 자재명세서(BOM)를 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_bomalternative": {
+    "logical_name_ko": "BOM 대체 그룹",
+    "overview_ko": "제품 BOM에서 대체 가능한 구성품의 그룹을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_bomproduct": {
+    "logical_name_ko": "BOM 구성품",
+    "overview_ko": "자재명세서에 포함되는 제품 구성품을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_bp_price": {
+    "logical_name_ko": "거래처별 제품 가격",
+    "overview_ko": "일반 가격표보다 우선 적용하는 거래처별 가격을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_changenotice": {
+    "logical_name_ko": "변경 통지",
+    "overview_ko": "제품 변경과 관련한 통지 내용 및 승인·처리 상태를 저장한다.",
+    "basis": "structure"
+  },
+  "m_changerequest": {
+    "logical_name_ko": "변경 요청",
+    "overview_ko": "BOM과 관련된 변경 요청 내용 및 연계 변경 통지·승인 상태를 저장한다.",
+    "basis": "structure"
+  },
+  "m_commodityshipment": {
+    "logical_name_ko": "출하 상품 통관 정보",
+    "overview_ko": "제품의 수출 허가 번호·품목분류 코드·제조국을 저장한다.",
+    "basis": "structure"
+  },
+  "m_cost": {
+    "logical_name_ko": "제품 원가",
+    "overview_ko": "제품·원가 유형·회계 스키마·원가 요소별 현재 원가와 수량 및 누적 금액을 저장한다.",
+    "basis": "structure"
+  },
+  "m_costdetail": {
+    "logical_name_ko": "원가 상세",
+    "overview_ko": "제품 원가 계산에 사용하는 상세 원가 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_costelement": {
+    "logical_name_ko": "원가 요소",
+    "overview_ko": "원가를 구성하는 요소와 요소 유형·원가 계산 방법을 정의한다.",
+    "basis": "structure"
+  },
+  "m_costhistory": {
+    "logical_name_ko": "원가 변경 이력",
+    "overview_ko": "제품 원가 테이블의 변동 이력을 기록한다.",
+    "basis": "dictionary"
+  },
+  "m_costqueue": {
+    "logical_name_ko": "선입·후입 원가 대기열",
+    "overview_ko": "FIFO 또는 LIFO 방식의 원가 계산에 사용하는 원가 대기열을 관리한다.",
+    "basis": "dictionary"
+  },
+  "m_costtype": {
+    "logical_name_ko": "원가 유형",
+    "overview_ko": "제품 원가를 구분하여 관리하기 위한 원가 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_demand": {
+    "logical_name_ko": "자재 수요",
+    "overview_ko": "자재 수요 문서의 기본 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_demanddetail": {
+    "logical_name_ko": "자재 수요 원천 상세",
+    "overview_ko": "자재 수요행의 근거가 된 원천 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_demandline": {
+    "logical_name_ko": "자재 수요행",
+    "overview_ko": "자재 수요 문서의 개별 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_discountschema": {
+    "logical_name_ko": "할인 규칙",
+    "overview_ko": "거래 할인율을 계산하는 할인 체계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_discountschemabreak": {
+    "logical_name_ko": "구간별 할인",
+    "overview_ko": "할인 체계의 구간별 거래 할인 조건을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_discountschemaline": {
+    "logical_name_ko": "가격표 할인 규칙행",
+    "overview_ko": "가격표에 적용하는 거래 할인 체계의 개별 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_distributionlist": {
+    "logical_name_ko": "제품 배분 대상 목록",
+    "overview_ko": "제품을 배분할 거래처들의 목록을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_distributionlistline": {
+    "logical_name_ko": "제품 배분 대상행",
+    "overview_ko": "배분 목록에 속한 거래처와 수량 또는 배분 비율을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_distributionrun": {
+    "logical_name_ko": "제품 배분 실행",
+    "overview_ko": "선택한 거래처들에 제품을 배분하는 주문 생성 실행을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_distributionrunline": {
+    "logical_name_ko": "제품 배분 실행행",
+    "overview_ko": "배분 실행에 사용할 대상 목록·제품·수량을 지정한다.",
+    "basis": "dictionary"
+  },
+  "m_edi": {
+    "logical_name_ko": "전자문서 교환 거래",
+    "overview_ko": "제품 수량·납기·가격에 대한 EDI 요청과 응답 및 송수신 상태를 저장한다.",
+    "basis": "structure"
+  },
+  "m_edi_info": {
+    "logical_name_ko": "전자문서 교환 로그",
+    "overview_ko": "개별 EDI 거래에 연결된 추가 로그 정보를 저장한다.",
+    "basis": "structure"
+  },
+  "m_forecast": {
+    "logical_name_ko": "자재 예측",
+    "overview_ko": "자재에 대한 예측 문서의 기본 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_forecastline": {
+    "logical_name_ko": "자재 예측행",
+    "overview_ko": "자재 예측 문서의 개별 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_freight": {
+    "logical_name_ko": "운임 요율",
+    "overview_ko": "제품 운송에 적용하는 운임 요율을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_freightcategory": {
+    "logical_name_ko": "운임 분류",
+    "overview_ko": "운임을 구분하는 분류를 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_inout": {
+    "logical_name_ko": "출하·입고 문서",
+    "overview_ko": "제품의 고객 출하 또는 공급업체 입고를 기록하는 자재 이동 문서의 헤더다. 출하와 입고를 모두 포함하므로 조회 시 거래 방향을 구분해야 한다.",
+    "basis": "dictionary"
+  },
+  "m_inoutconfirm": {
+    "logical_name_ko": "출하·입고 확인",
+    "overview_ko": "출하 또는 입고 문서에 대한 확인 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_inoutline": {
+    "logical_name_ko": "출하·입고행",
+    "overview_ko": "출하 또는 입고 문서의 제품별 상세 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_inoutlineconfirm": {
+    "logical_name_ko": "출하·입고 확인행",
+    "overview_ko": "출하 또는 입고 확인 문서의 개별 자재 확인행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_inoutlinema": {
+    "logical_name_ko": "출하·입고행 속성 배분",
+    "overview_ko": "출하·입고행의 이동 수량을 속성 집합 인스턴스와 자재 정책일별로 나누어 저장한다.",
+    "basis": "structure"
+  },
+  "m_inventory": {
+    "logical_name_ko": "실사 재고 문서",
+    "overview_ko": "실물 재고 실사를 위한 문서 및 매개변수를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_inventoryline": {
+    "logical_name_ko": "실사 재고행",
+    "overview_ko": "재고 실사 문서에 속하는 개별 품목 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_inventorylinema": {
+    "logical_name_ko": "실사 재고행 속성 배분",
+    "overview_ko": "실사 재고행의 수량을 속성 집합 인스턴스와 자재 정책일별로 배분한다.",
+    "basis": "structure"
+  },
+  "m_locator": {
+    "logical_name_ko": "창고 보관 위치",
+    "overview_ko": "창고 안에서 재고를 보관하는 위치를 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_locatortype": {
+    "logical_name_ko": "보관 위치 유형",
+    "overview_ko": "보관 위치의 유형과 보충·예약·출하에 사용할 수 있는지 여부를 정의한다.",
+    "basis": "structure"
+  },
+  "m_lot": {
+    "logical_name_ko": "제품 로트",
+    "overview_ko": "제품의 로트 정보를 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_lotctl": {
+    "logical_name_ko": "로트 번호 관리",
+    "overview_ko": "제품 로트의 관리 기준을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_lotctlexclude": {
+    "logical_name_ko": "로트 생성 제외",
+    "overview_ko": "속성 집합에서 로트 생성을 제외하는 설정을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_matchinv": {
+    "logical_name_ko": "입출고·송장 대사",
+    "overview_ko": "출하·입고 내역과 송장 내역의 대응 관계를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_matchpo": {
+    "logical_name_ko": "구매 주문 대사",
+    "overview_ko": "구매 주문을 출하·입고 및 송장 내역과 대응시킨다.",
+    "basis": "dictionary"
+  },
+  "m_movement": {
+    "logical_name_ko": "재고 이동 문서",
+    "overview_ko": "보관 위치 사이의 재고 이동을 기록하는 문서다.",
+    "basis": "dictionary"
+  },
+  "m_movementconfirm": {
+    "logical_name_ko": "재고 이동 확인",
+    "overview_ko": "재고 이동 문서의 확인 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_movementline": {
+    "logical_name_ko": "재고 이동행",
+    "overview_ko": "재고 이동 문서의 개별 이동 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_movementlineconfirm": {
+    "logical_name_ko": "재고 이동 확인행",
+    "overview_ko": "재고 이동행의 확인 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_movementlinema": {
+    "logical_name_ko": "재고 이동행 속성 배분",
+    "overview_ko": "재고 이동행의 수량을 속성 집합 인스턴스와 자재 정책일별로 나누어 저장한다.",
+    "basis": "structure"
+  },
+  "m_operationresource": {
+    "logical_name_ko": "제품 공정 자원",
+    "overview_ko": "제품 공정에 필요한 자원을 연결한다.",
+    "basis": "dictionary"
+  },
+  "m_package": {
+    "logical_name_ko": "출하 포장",
+    "overview_ko": "출하에 사용되는 포장 단위 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_packageline": {
+    "logical_name_ko": "출하 포장 내용행",
+    "overview_ko": "포장에 포함된 상세 내용물을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_packagemps": {
+    "logical_name_ko": "다중 포장 세부 정보",
+    "overview_ko": "포장별 치수·중량과 개별 및 대표 추적 번호를 저장한다.",
+    "basis": "structure"
+  },
+  "m_parttype": {
+    "logical_name_ko": "제조 부품 유형",
+    "overview_ko": "제조에 사용하는 부품의 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_perpetualinv": {
+    "logical_name_ko": "순환 실사 규칙",
+    "overview_ko": "재고 실사 문서를 생성하는 규칙을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_pricelist": {
+    "logical_name_ko": "가격표",
+    "overview_ko": "제품 가격을 관리하는 가격표를 식별한다.",
+    "basis": "dictionary"
+  },
+  "m_pricelist_trl": {
+    "logical_name_ko": "가격표 번역",
+    "overview_ko": "가격표의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_pricelist_version": {
+    "logical_name_ko": "가격표 버전",
+    "overview_ko": "하나의 가격표에 속한 개별 버전을 식별한다.",
+    "basis": "dictionary"
+  },
+  "m_pricelist_version_trl": {
+    "logical_name_ko": "가격표 버전 번역",
+    "overview_ko": "가격표 버전의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_product": {
+    "logical_name_ko": "제품·서비스",
+    "overview_ko": "제품·서비스·품목의 공통 기본 정보를 관리하는 마스터다.",
+    "basis": "dictionary"
+  },
+  "m_product_acct": {
+    "logical_name_ko": "제품별 회계 계정",
+    "overview_ko": "제품과 회계 스키마별 매출·비용·재고·매출원가 및 제조 관련 계정을 연결한다.",
+    "basis": "structure"
+  },
+  "m_product_bom_old": {
+    "logical_name_ko": "구형 제품 BOM",
+    "overview_ko": "제품과 하위 구성품, 구성 수량 및 BOM 유형을 저장하는 구형 명칭의 테이블이다. 현재 기능에서의 사용 여부는 확인이 필요하다.",
+    "basis": "uncertain"
+  },
+  "m_product_category": {
+    "logical_name_ko": "제품 분류",
+    "overview_ko": "제품을 묶어 관리하는 분류를 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_product_category_acct": {
+    "logical_name_ko": "제품 분류별 회계 설정",
+    "overview_ko": "제품 분류와 회계 스키마별 기본 계정·원가 계산 방법·원가 수준을 정의한다.",
+    "basis": "structure"
+  },
+  "m_product_category_trl": {
+    "logical_name_ko": "제품 분류 번역",
+    "overview_ko": "제품 분류의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_product_po": {
+    "logical_name_ko": "제품 구매 조건",
+    "overview_ko": "제품과 공급업체별 구매 단가·거래 통화·공급업체 품번·최소 주문량·납기를 저장한다.",
+    "basis": "structure"
+  },
+  "m_product_qualitytest": {
+    "logical_name_ko": "제품별 품질 시험",
+    "overview_ko": "제품에 적용할 품질 시험과 기대 결과를 연결한다.",
+    "basis": "structure"
+  },
+  "m_product_trl": {
+    "logical_name_ko": "제품·서비스 번역",
+    "overview_ko": "제품·서비스·품목의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_productdownload": {
+    "logical_name_ko": "제품 다운로드",
+    "overview_ko": "제품에 연결된 다운로드 정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "m_production": {
+    "logical_name_ko": "생산 문서",
+    "overview_ko": "제품 생산 계획을 나타내는 생산 문서의 기본 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_productionline": {
+    "logical_name_ko": "생산행",
+    "overview_ko": "생산 문서에서 발생하는 개별 자재 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_productionlinema": {
+    "logical_name_ko": "생산행 속성 배분",
+    "overview_ko": "생산행의 이동 수량을 속성 집합 인스턴스와 자재 정책일별로 배분한다.",
+    "basis": "structure"
+  },
+  "m_productionplan": {
+    "logical_name_ko": "생산 계획",
+    "overview_ko": "제품을 어떤 방식으로 생산할지에 대한 계획을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_productoperation": {
+    "logical_name_ko": "제품 공정",
+    "overview_ko": "제품에 필요한 공정과 준비·단위 실행·정리 시간을 정의한다.",
+    "basis": "structure"
+  },
+  "m_productprice": {
+    "logical_name_ko": "제품 가격",
+    "overview_ko": "가격표 버전별 제품의 정가·표준가·한도가를 저장한다.",
+    "basis": "structure"
+  },
+  "m_productpricevendorbreak": {
+    "logical_name_ko": "공급업체별 수량 구간 가격",
+    "overview_ko": "공급업체·제품·가격표 버전과 수량 구간값별 정가·표준가·한도가를 저장한다.",
+    "basis": "structure"
+  },
+  "m_promotion": {
+    "logical_name_ko": "판매 촉진 설정",
+    "overview_ko": "판매 촉진 행사에 적용할 기본 설정을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_promotiondistribution": {
+    "logical_name_ko": "판매 촉진 수량 배분",
+    "overview_ko": "혜택 계산을 위해 주문행의 품목을 여러 계산 묶음으로 배분하는 설정을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_promotiongroup": {
+    "logical_name_ko": "판매 촉진 제품 그룹",
+    "overview_ko": "판매 촉진 설정에 함께 사용하는 제품 그룹을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_promotiongroupline": {
+    "logical_name_ko": "판매 촉진 그룹 구성행",
+    "overview_ko": "판매 촉진 제품 그룹에 포함된 개별 품목을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_promotionline": {
+    "logical_name_ko": "판매 촉진 조건행",
+    "overview_ko": "판매 촉진을 구성하는 제품 조합을 행 단위로 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_promotionprecondition": {
+    "logical_name_ko": "판매 촉진 사전 조건",
+    "overview_ko": "주문에 판매 촉진을 적용하기 전에 충족해야 하는 조건을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_promotionreward": {
+    "logical_name_ko": "판매 촉진 혜택",
+    "overview_ko": "판매 촉진 조건을 충족할 때 제공할 혜택을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_qualitytest": {
+    "logical_name_ko": "품질 시험",
+    "overview_ko": "품질 시험 항목의 이름과 설명을 정의한다.",
+    "basis": "structure"
+  },
+  "m_qualitytestresult": {
+    "logical_name_ko": "품질 시험 결과",
+    "overview_ko": "제품 속성 집합 인스턴스별 시험 결과와 합격 여부를 저장한다.",
+    "basis": "structure"
+  },
+  "m_relatedproduct": {
+    "logical_name_ko": "관련 제품 관계",
+    "overview_ko": "제품과 관련 제품을 관계 유형과 함께 연결한다.",
+    "basis": "structure"
+  },
+  "m_replenish": {
+    "logical_name_ko": "제품 보충 기준",
+    "overview_ko": "제품·창고별 보충 유형, 최소·최대 수준과 공급 창고 등을 정의한다.",
+    "basis": "structure"
+  },
+  "m_requisition": {
+    "logical_name_ko": "자재 요청서",
+    "overview_ko": "자재 조달 요청 문서의 기본 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_requisitionline": {
+    "logical_name_ko": "자재 요청행",
+    "overview_ko": "자재 요청서의 개별 요청 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_rma": {
+    "logical_name_ko": "반품 승인 문서",
+    "overview_ko": "반품을 승인하고 관리하는 문서다. 고객 반품과 공급업체 반품은 거래 방향에 따라 구분한다.",
+    "basis": "dictionary"
+  },
+  "m_rmaline": {
+    "logical_name_ko": "반품 승인행",
+    "overview_ko": "반품 승인 문서의 개별 반품 대상 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_rmatax": {
+    "logical_name_ko": "반품 승인 세금",
+    "overview_ko": "반품 승인 문서에 적용되는 세금 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_rmatype": {
+    "logical_name_ko": "반품 승인 유형",
+    "overview_ko": "반품 승인 문서의 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_sernoctl": {
+    "logical_name_ko": "일련번호 관리",
+    "overview_ko": "제품 일련번호의 관리 기준을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_sernoctlexclude": {
+    "logical_name_ko": "일련번호 생성 제외",
+    "overview_ko": "속성 집합에서 일련번호 생성을 제외하는 설정을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_shipper": {
+    "logical_name_ko": "배송업체·배송 수단",
+    "overview_ko": "제품을 배송하는 업체 또는 배송 방식을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_shippercfg": {
+    "logical_name_ko": "배송업체 구성",
+    "overview_ko": "제품 배송 방식에 대한 구성 정의를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_shipperlabels": {
+    "logical_name_ko": "배송업체 라벨",
+    "overview_ko": "배송업체가 사용하는 라벨 구성과 기본값·인쇄 방식을 연결한다.",
+    "basis": "structure"
+  },
+  "m_shipperlabelscfg": {
+    "logical_name_ko": "배송 라벨 구성",
+    "overview_ko": "배송 라벨의 코드·크기·인쇄 방식 등 구성 정보를 정의한다.",
+    "basis": "structure"
+  },
+  "m_shipperpackaging": {
+    "logical_name_ko": "배송업체 포장",
+    "overview_ko": "배송업체가 사용하는 포장 구성과 중량·기본값을 연결한다.",
+    "basis": "structure"
+  },
+  "m_shipperpackagingcfg": {
+    "logical_name_ko": "배송 포장 구성",
+    "overview_ko": "배송 포장 유형의 코드·중량과 기본 설정을 정의한다.",
+    "basis": "structure"
+  },
+  "m_shipperpickuptypes": {
+    "logical_name_ko": "배송업체 집하 유형",
+    "overview_ko": "배송업체가 사용하는 집하 유형과 기본값을 연결한다.",
+    "basis": "structure"
+  },
+  "m_shipperpickuptypescfg": {
+    "logical_name_ko": "집하 유형 구성",
+    "overview_ko": "배송업체 구성에 속하는 집하 유형의 코드와 설명을 정의한다.",
+    "basis": "structure"
+  },
+  "m_shippingprocessor": {
+    "logical_name_ko": "배송 처리기",
+    "overview_ko": "배송 처리기 구성과 서비스 연결 인증 설정을 연결한다.",
+    "basis": "structure"
+  },
+  "m_shippingprocessorcfg": {
+    "logical_name_ko": "배송 처리기 구성",
+    "overview_ko": "배송 서비스 접속 주소·프록시 및 처리 구현 클래스의 구성을 정의한다.",
+    "basis": "structure"
+  },
+  "m_shippingtransaction": {
+    "logical_name_ko": "배송 거래",
+    "overview_ko": "배송 서비스와 처리하는 배송 거래 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_shippingtransactionline": {
+    "logical_name_ko": "배송 거래행",
+    "overview_ko": "배송 거래에 속한 개별 상세 행을 저장한다.",
+    "basis": "dictionary"
+  },
+  "m_storageonhand": {
+    "logical_name_ko": "현재고",
+    "overview_ko": "제품·보관 위치·속성 집합 인스턴스·자재 정책일별 현재고 수량을 저장한다.",
+    "basis": "structure"
+  },
+  "m_storagereservation": {
+    "logical_name_ko": "재고 예약·주문 수량",
+    "overview_ko": "제품·창고·속성 집합 인스턴스와 거래 방향별 수량을 저장한다. 판매 예약과 구매 주문 수량을 구분하여 해석해야 한다.",
+    "basis": "structure"
+  },
+  "m_storagereservationlog": {
+    "logical_name_ko": "재고 예약 변경 로그",
+    "overview_ko": "재고 예약 수량이 바뀔 때마다 변경 전후 수량과 증감량을 기록한다.",
+    "basis": "dictionary"
+  },
+  "m_substitute": {
+    "logical_name_ko": "대체 제품",
+    "overview_ko": "제품과 대신 사용할 제품을 연결한다.",
+    "basis": "structure"
+  },
+  "m_transaction": {
+    "logical_name_ko": "재고 수불 거래",
+    "overview_ko": "입출고·이동·실사·생산 등에서 발생한 제품 수량 증감을 보관 위치 및 속성 인스턴스와 함께 기록한다.",
+    "basis": "structure"
+  },
+  "m_transactionallocation": {
+    "logical_name_ko": "재고 거래 배분",
+    "overview_ko": "입고측과 출고측 재고 거래 및 관련 문서행을 배분 수량·전략과 함께 연결한다.",
+    "basis": "structure"
+  },
+  "m_warehouse": {
+    "logical_name_ko": "창고·서비스 지점",
+    "overview_ko": "재고를 보관하는 창고와 서비스 제공 지점을 정의한다.",
+    "basis": "dictionary"
+  },
+  "m_warehouse_acct": {
+    "logical_name_ko": "창고별 회계 계정",
+    "overview_ko": "창고와 회계 스키마별 재고·실사 조정·차이·재평가 계정을 연결한다.",
+    "basis": "structure"
+  },
+  "mfa_method": {
+    "logical_name_ko": "다중 인증 방식",
+    "overview_ko": "다중 요소 인증에 사용하는 인증 방식을 정의한다.",
+    "basis": "dictionary"
+  },
+  "mfa_registereddevice": {
+    "logical_name_ko": "다중 인증 등록 기기",
+    "overview_ko": "다중 요소 인증을 위해 등록한 기기를 관리한다.",
+    "basis": "dictionary"
+  },
+  "mfa_registration": {
+    "logical_name_ko": "다중 인증 등록",
+    "overview_ko": "다중 요소 인증의 등록 정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "mfa_rule": {
+    "logical_name_ko": "다중 인증 규칙",
+    "overview_ko": "다중 요소 인증에 적용할 규칙을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_achievement": {
+    "logical_name_ko": "성과 달성",
+    "overview_ko": "성과 목표에 대한 달성 정보를 기록한다.",
+    "basis": "dictionary"
+  },
+  "pa_benchmark": {
+    "logical_name_ko": "성과 비교 기준",
+    "overview_ko": "성과를 비교하는 벤치마크 기준을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_benchmarkdata": {
+    "logical_name_ko": "성과 비교 기준값",
+    "overview_ko": "성과 벤치마크의 개별 데이터 값을 저장한다.",
+    "basis": "dictionary"
+  },
+  "pa_colorschema": {
+    "logical_name_ko": "성과 색상 기준",
+    "overview_ko": "성과 표시에서 사용할 색상 체계를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_dashboardcontent": {
+    "logical_name_ko": "대시보드 콘텐츠",
+    "overview_ko": "대시보드에 표시할 창·보고서·목표·차트 등의 콘텐츠와 기본 배치를 정의한다.",
+    "basis": "structure"
+  },
+  "pa_dashboardcontent_access": {
+    "logical_name_ko": "대시보드 콘텐츠 접근",
+    "overview_ko": "대시보드 콘텐츠에 접근할 역할 또는 사용자를 연결한다.",
+    "basis": "structure"
+  },
+  "pa_dashboardcontent_trl": {
+    "logical_name_ko": "대시보드 콘텐츠 번역",
+    "overview_ko": "대시보드 콘텐츠의 이름·설명·HTML·도움말을 언어별로 저장한다.",
+    "basis": "structure"
+  },
+  "pa_dashboardpreference": {
+    "logical_name_ko": "대시보드 개인 설정",
+    "overview_ko": "역할·사용자별 대시보드 콘텐츠의 위치·표시 여부·접힘 상태를 저장한다.",
+    "basis": "structure"
+  },
+  "pa_documentstatus": {
+    "logical_name_ko": "문서 상태 표시 설정",
+    "overview_ko": "테이블과 조회 조건을 기준으로 표시할 문서 상태 항목 및 연결 화면·표시 서식을 정의한다.",
+    "basis": "structure"
+  },
+  "pa_documentstatus_trl": {
+    "logical_name_ko": "문서 상태 표시 번역",
+    "overview_ko": "문서 상태 표시 항목의 이름·설명·도움말을 언어별로 저장한다.",
+    "basis": "structure"
+  },
+  "pa_documentstatusaccess": {
+    "logical_name_ko": "문서 상태 표시 접근",
+    "overview_ko": "문서 상태 표시 항목에 접근할 역할 또는 사용자를 연결한다.",
+    "basis": "structure"
+  },
+  "pa_goal": {
+    "logical_name_ko": "성과 목표",
+    "overview_ko": "측정하고 관리할 성과 목표를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_goalrestriction": {
+    "logical_name_ko": "성과 목표 제한 조건",
+    "overview_ko": "성과 목표의 측정 범위를 제한하는 조건을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_hierarchy": {
+    "logical_name_ko": "보고 계층",
+    "overview_ko": "보고서에 적용할 계층 구조를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_measure": {
+    "logical_name_ko": "성과 측정값",
+    "overview_ko": "실제로 측정한 개별 성과 값을 저장한다.",
+    "basis": "dictionary"
+  },
+  "pa_measurecalc": {
+    "logical_name_ko": "성과 측정 계산식",
+    "overview_ko": "성과를 측정하는 계산 방법을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_ratio": {
+    "logical_name_ko": "성과 비율 지표",
+    "overview_ko": "성과를 비율로 표현하는 지표를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_ratioelement": {
+    "logical_name_ko": "성과 비율 구성 요소",
+    "overview_ko": "성과 비율 지표를 구성하는 요소를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pa_report": {
+    "logical_name_ko": "재무 보고서",
+    "overview_ko": "재무 보고서의 기본 정의를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pa_reportcolumn": {
+    "logical_name_ko": "재무 보고서 열",
+    "overview_ko": "보고서에 표시할 개별 열을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_reportcolumn_trl": {
+    "logical_name_ko": "재무 보고서 열 번역",
+    "overview_ko": "보고서 열의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pa_reportcolumnset": {
+    "logical_name_ko": "재무 보고서 열 집합",
+    "overview_ko": "보고서에 사용할 열들의 묶음을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_reportcube": {
+    "logical_name_ko": "회계 집계 큐브",
+    "overview_ko": "선택한 달력의 기간별로 지정 차원에 따라 회계 자료를 사전 집계하는 큐브를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_reportline": {
+    "logical_name_ko": "재무 보고서 행",
+    "overview_ko": "보고서 행의 표시 순서·상하위 관계·금액 유형과 계산식을 정의한다.",
+    "basis": "structure"
+  },
+  "pa_reportline_trl": {
+    "logical_name_ko": "재무 보고서 행 번역",
+    "overview_ko": "보고서 행의 이름과 설명을 언어별로 저장한다.",
+    "basis": "structure"
+  },
+  "pa_reportlineset": {
+    "logical_name_ko": "재무 보고서 행 집합",
+    "overview_ko": "재무 보고서에 사용할 행 정의들의 묶음을 관리한다.",
+    "basis": "structure"
+  },
+  "pa_reportsource": {
+    "logical_name_ko": "재무 보고서 자료 조건",
+    "overview_ko": "보고서 행에 포함할 자료의 범위를 제한하는 조건을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_sla_criteria": {
+    "logical_name_ko": "서비스 수준 기준",
+    "overview_ko": "서비스 수준 협약(SLA)의 평가 기준을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_sla_goal": {
+    "logical_name_ko": "서비스 수준 목표",
+    "overview_ko": "서비스 수준 협약에서 달성할 목표를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pa_sla_measure": {
+    "logical_name_ko": "서비스 수준 측정값",
+    "overview_ko": "서비스 수준 협약에 대한 측정 결과를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_cost_collector": {
+    "logical_name_ko": "제조 원가 수집 문서",
+    "overview_ko": "제조 주문·공정·구성품의 실제 수량과 작업 시간을 기록하여 원가 집계에 사용하는 문서다.",
+    "basis": "structure"
+  },
+  "pp_cost_collectorma": {
+    "logical_name_ko": "제조 원가 수집 속성 배분",
+    "overview_ko": "제조 원가 수집 문서의 이동 수량을 속성 집합 인스턴스별로 배분한다.",
+    "basis": "structure"
+  },
+  "pp_mrp": {
+    "logical_name_ko": "자재 소요 계획",
+    "overview_ko": "자재 소요 계획(MRP)에 사용하는 계획 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_order": {
+    "logical_name_ko": "제조 주문",
+    "overview_ko": "지정된 부품 또는 제품을 정해진 수량으로 제조하도록 지시하는 문서다.",
+    "basis": "dictionary"
+  },
+  "pp_order_bom": {
+    "logical_name_ko": "제조 주문 BOM",
+    "overview_ko": "제조 주문에 적용한 BOM 및 배합 정보를 저장한다. 기본 정보는 제품 계획에서 가져온다.",
+    "basis": "dictionary"
+  },
+  "pp_order_bom_trl": {
+    "logical_name_ko": "제조 주문 BOM 번역",
+    "overview_ko": "제조 주문 BOM의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_bomline": {
+    "logical_name_ko": "제조 주문 BOM 구성행",
+    "overview_ko": "완제품 제조에 사용할 각 구성품 정보를 주문별 BOM 행으로 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_bomline_trl": {
+    "logical_name_ko": "제조 주문 BOM 구성행 번역",
+    "overview_ko": "제조 주문 BOM 구성행의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_cost": {
+    "logical_name_ko": "제조 주문 원가",
+    "overview_ko": "제조할 제품의 원가 요소별 원가 기록을 제조 주문에 연결한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_node": {
+    "logical_name_ko": "제조 주문 공정",
+    "overview_ko": "제조 주문의 작업 경로를 구성하는 개별 공정을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_node_asset": {
+    "logical_name_ko": "제조 주문 공정 자산",
+    "overview_ko": "제조 주문 공정에 사용하는 자산을 연결한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_node_product": {
+    "logical_name_ko": "제조 주문 공정 제품",
+    "overview_ko": "제조 주문 공정에 사용하는 제품을 연결한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_node_trl": {
+    "logical_name_ko": "제조 주문 공정 번역",
+    "overview_ko": "제조 주문의 공정 단계에 대한 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_nodenext": {
+    "logical_name_ko": "제조 주문 공정 전이",
+    "overview_ko": "제조 주문에서 현재 공정과 다음 공정의 연결을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_workflow": {
+    "logical_name_ko": "제조 주문 작업 흐름",
+    "overview_ko": "제조 주문에 적용한 작업 흐름을 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_order_workflow_trl": {
+    "logical_name_ko": "제조 주문 작업 흐름 번역",
+    "overview_ko": "제조 주문 작업 흐름의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_product_bom": {
+    "logical_name_ko": "제품 BOM·배합",
+    "overview_ko": "제품의 자재명세서와 배합을 정의한다.",
+    "basis": "dictionary"
+  },
+  "pp_product_bom_trl": {
+    "logical_name_ko": "제품 BOM·배합 번역",
+    "overview_ko": "제품 자재명세서와 배합의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_product_bomline": {
+    "logical_name_ko": "제품 BOM 구성행",
+    "overview_ko": "완제품의 BOM 및 배합에 들어가는 개별 구성품 정보를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pp_product_bomline_trl": {
+    "logical_name_ko": "제품 BOM 구성행 번역",
+    "overview_ko": "제품 BOM 구성행의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "pp_product_planning": {
+    "logical_name_ko": "제품 생산·조달 계획",
+    "overview_ko": "제품에 적용하는 생산 및 조달 계획 정보를 정의한다.",
+    "basis": "dictionary"
+  },
+  "pp_wf_node_asset": {
+    "logical_name_ko": "작업 흐름 공정 자산",
+    "overview_ko": "작업 흐름의 공정 단계에서 사용하는 자산을 연결한다.",
+    "basis": "dictionary"
+  },
+  "pp_wf_node_product": {
+    "logical_name_ko": "작업 흐름 공정 제품",
+    "overview_ko": "작업 흐름의 공정 단계에서 사용하는 제품을 연결한다.",
+    "basis": "dictionary"
+  },
+  "qm_specification": {
+    "logical_name_ko": "품질 규격",
+    "overview_ko": "제품 품질을 판정하는 규격을 정의한다.",
+    "basis": "dictionary"
+  },
+  "qm_specificationline": {
+    "logical_name_ko": "품질 규격 조건행",
+    "overview_ko": "품질 규격에서 검사할 속성·비교 연산·기준값과 유효기간을 정의한다.",
+    "basis": "structure"
+  },
+  "r_category": {
+    "logical_name_ko": "요청 분류",
+    "overview_ko": "고객 등의 요청을 분류하는 범주를 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_categoryupdates": {
+    "logical_name_ko": "요청 분류 알림 수신자",
+    "overview_ko": "요청 분류에 연결된 갱신 알림 수신 사용자와 셀프서비스 여부를 저장한다.",
+    "basis": "structure"
+  },
+  "r_contactinterest": {
+    "logical_name_ko": "연락처 관심 분야",
+    "overview_ko": "사용자별 관심 분야와 구독 시작·해지일을 저장한다.",
+    "basis": "structure"
+  },
+  "r_group": {
+    "logical_name_ko": "요청 그룹",
+    "overview_ko": "요청을 함께 관리하는 그룹을 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_groupupdates": {
+    "logical_name_ko": "요청 그룹 알림 수신자",
+    "overview_ko": "요청 그룹에 연결된 갱신 알림 수신 사용자와 셀프서비스 여부를 저장한다.",
+    "basis": "structure"
+  },
+  "r_interestarea": {
+    "logical_name_ko": "관심 분야",
+    "overview_ko": "관심 분야 또는 주제를 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_issueknown": {
+    "logical_name_ko": "알려진 문제",
+    "overview_ko": "이미 알려진 문제 정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "r_issueproject": {
+    "logical_name_ko": "문제 관련 프로젝트",
+    "overview_ko": "문제 보고와 관련된 프로젝트·자산 및 시스템 상태·통계 정보를 연결한다.",
+    "basis": "structure"
+  },
+  "r_issuerecommendation": {
+    "logical_name_ko": "문제 권고 사항",
+    "overview_ko": "문제에 대한 권고 사항의 이름·설명·도움말을 정의한다.",
+    "basis": "structure"
+  },
+  "r_issuesource": {
+    "logical_name_ko": "문제 발생 출처",
+    "overview_ko": "문제 관련 시스템·프로젝트·사용자를 통계 및 프로파일 정보와 연결한다. 상세 수집 방식은 확인이 필요하다.",
+    "basis": "uncertain"
+  },
+  "r_issuestatus": {
+    "logical_name_ko": "문제 상태",
+    "overview_ko": "문제를 구분하는 상태의 이름과 설명을 정의한다.",
+    "basis": "structure"
+  },
+  "r_issuesystem": {
+    "logical_name_ko": "문제 관련 시스템",
+    "overview_ko": "문제 보고와 관련된 시스템의 자산·DB 주소·상태 및 통계 정보를 저장한다.",
+    "basis": "structure"
+  },
+  "r_issueuser": {
+    "logical_name_ko": "문제 보고 사용자",
+    "overview_ko": "문제를 보고한 사용자의 정보를 관리한다.",
+    "basis": "dictionary"
+  },
+  "r_mailtext": {
+    "logical_name_ko": "메일 본문 서식",
+    "overview_ko": "메일 발송에 사용하는 텍스트 서식을 저장한다.",
+    "basis": "dictionary"
+  },
+  "r_mailtext_trl": {
+    "logical_name_ko": "메일 본문 서식 번역",
+    "overview_ko": "메일 텍스트 서식의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "r_request": {
+    "logical_name_ko": "고객·잠재고객 요청",
+    "overview_ko": "거래처 또는 잠재고객이 제기한 요청을 관리하는 기본 테이블이다.",
+    "basis": "dictionary"
+  },
+  "r_requestaction": {
+    "logical_name_ko": "요청 변경 이력",
+    "overview_ko": "요청의 상태·담당자·분류·우선순위 및 관련 업무 문서 등의 변경 이력을 저장한다.",
+    "basis": "structure"
+  },
+  "r_requestprocessor": {
+    "logical_name_ko": "요청 자동 처리기",
+    "overview_ko": "요청 처리의 실행 주기와 기한 초과·미활동 알림 및 담당 재배정 기준을 정의한다.",
+    "basis": "structure"
+  },
+  "r_requestprocessor_route": {
+    "logical_name_ko": "요청 자동 배정 규칙",
+    "overview_ko": "요청을 자동으로 적절한 담당 경로에 배정하는 규칙을 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_requestprocessorlog": {
+    "logical_name_ko": "요청 처리 로그",
+    "overview_ko": "요청 처리기의 실행 요약·오류 여부와 상세 메시지를 기록한다.",
+    "basis": "structure"
+  },
+  "r_requesttype": {
+    "logical_name_ko": "요청 유형",
+    "overview_ko": "문의·불만 등 요청의 업무 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_requesttypeupdates": {
+    "logical_name_ko": "요청 유형 알림 수신자",
+    "overview_ko": "요청 유형에 연결된 갱신 알림 수신 사용자와 셀프서비스 여부를 저장한다.",
+    "basis": "structure"
+  },
+  "r_requestupdate": {
+    "logical_name_ko": "요청 처리 기록",
+    "overview_ko": "요청의 처리 결과·작업 시간·투입 및 청구 수량을 개별 기록으로 저장한다.",
+    "basis": "structure"
+  },
+  "r_requestupdates": {
+    "logical_name_ko": "요청 알림 수신자",
+    "overview_ko": "개별 요청의 갱신 알림을 받는 사용자와 셀프서비스 여부를 저장한다.",
+    "basis": "structure"
+  },
+  "r_resolution": {
+    "logical_name_ko": "요청 해결 유형",
+    "overview_ko": "요청이 어떤 방식으로 해결되었는지 구분하는 값을 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_standardresponse": {
+    "logical_name_ko": "요청 표준 답변",
+    "overview_ko": "요청에 응답할 때 사용하는 표준 답변을 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_status": {
+    "logical_name_ko": "요청 상태",
+    "overview_ko": "요청의 진행 상태를 정의한다.",
+    "basis": "dictionary"
+  },
+  "r_statuscategory": {
+    "logical_name_ko": "요청 상태 분류",
+    "overview_ko": "요청 상태들을 묶는 분류를 정의한다.",
+    "basis": "dictionary"
+  },
+  "s_expensetype": {
+    "logical_name_ko": "경비 유형",
+    "overview_ko": "경비 보고에 사용하는 경비 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "s_resource": {
+    "logical_name_ko": "업무 자원",
+    "overview_ko": "업무에 배정하는 자원의 기본 정보를 정의한다.",
+    "basis": "dictionary"
+  },
+  "s_resourceassignment": {
+    "logical_name_ko": "자원 배정",
+    "overview_ko": "자원에 대한 업무 배정 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "s_resourcetype": {
+    "logical_name_ko": "자원 유형",
+    "overview_ko": "자원 유형별 시간대·요일·단위와 단일 배정 여부 등을 정의한다.",
+    "basis": "structure"
+  },
+  "s_resourceunavailable": {
+    "logical_name_ko": "자원 사용 불가 기간",
+    "overview_ko": "자원을 사용할 수 없는 시작·종료일과 사유를 저장한다.",
+    "basis": "structure"
+  },
+  "s_timeexpense": {
+    "logical_name_ko": "작업 시간·경비 보고",
+    "overview_ko": "투입 시간과 경비를 보고하는 문서의 기본 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "s_timeexpenseline": {
+    "logical_name_ko": "작업 시간·경비 보고행",
+    "overview_ko": "시간·경비 보고서의 개별 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "s_timetype": {
+    "logical_name_ko": "기록 시간 유형",
+    "overview_ko": "기록한 시간을 구분하는 유형을 정의한다.",
+    "basis": "dictionary"
+  },
+  "s_training": {
+    "logical_name_ko": "교육 과정",
+    "overview_ko": "반복 운영하는 교육 과정의 기본 정의를 저장한다.",
+    "basis": "dictionary"
+  },
+  "s_training_class": {
+    "logical_name_ko": "교육 개설 회차",
+    "overview_ko": "교육 과정이 실제로 개설된 개별 회차를 저장한다.",
+    "basis": "dictionary"
+  },
+  "sso_principalconfig": {
+    "logical_name_ko": "통합 로그인 설정",
+    "overview_ko": "SSO 제공자와 애플리케이션 식별자·리디렉션 주소 등 통합 로그인 연결 설정을 저장한다.",
+    "basis": "structure"
+  },
+  "t_1099extract": {
+    "logical_name_ko": "1099 신고 추출 자료",
+    "overview_ko": "실행 건별 거래처·납세자 식별자와 연도별 금액 구간을 저장하는 1099 신고용 추출 자료다.",
+    "basis": "structure"
+  },
+  "t_aging": {
+    "logical_name_ko": "채권·채무 연령 분석 자료",
+    "overview_ko": "실행 건별 송장 미결 금액을 만기 경과 및 도래 기간 구간으로 나눈 보고용 자료다.",
+    "basis": "structure"
+  },
+  "t_alter_column": {
+    "logical_name_ko": "열 변경 정의",
+    "overview_ko": "테이블·열 이름과 변경할 자료형·NULL·기본값 절을 저장한다. 실제 실행 및 보관 용도는 코드 확인이 필요하다.",
+    "basis": "uncertain"
+  },
+  "t_bankregister": {
+    "logical_name_ko": "은행 거래부 자료",
+    "overview_ko": "실행 건별 은행·계정·거래처와 회계일·차대변 금액·잔액을 저장하는 거래부 보고 자료다.",
+    "basis": "structure"
+  },
+  "t_bom_indented": {
+    "logical_name_ko": "계층형 BOM 보고 자료",
+    "overview_ko": "BOM을 계층 들여쓰기 형태로 표시하기 위한 보고 자료를 저장한다.",
+    "basis": "dictionary"
+  },
+  "t_bomline": {
+    "logical_name_ko": "BOM 임시 전개행",
+    "overview_ko": "BOM 전개 및 역전개 결과의 계층·제품·구성 수량·원가를 실행 건별로 임시 저장한다.",
+    "basis": "structure"
+  },
+  "t_cashflow": {
+    "logical_name_ko": "현금 흐름 보고 자료",
+    "overview_ko": "송장·주문·현금 계획 등을 원천으로 한 금액·거래일·확률을 실행 건별로 저장한다.",
+    "basis": "structure"
+  },
+  "t_distributionrundetail": {
+    "logical_name_ko": "배분 실행 계산 자료",
+    "overview_ko": "배분 실행에서 거래처·제품별 배분 비율과 최소 수량·계산 수량을 저장한다.",
+    "basis": "structure"
+  },
+  "t_fact_acct_history": {
+    "logical_name_ko": "회계 전기 이력 자료",
+    "overview_ko": "회계 전기 레코드와 동일한 계정·차대변 금액·업무 차원 등의 이력 정보를 저장한다. 이력 생성 및 보존 조건은 확인이 필요하다.",
+    "basis": "structure"
+  },
+  "t_inventoryvalue": {
+    "logical_name_ko": "재고 평가 보고 자료",
+    "overview_ko": "실행 건별 제품·창고·속성 인스턴스의 재고 수량과 가격·원가 기준 평가 금액을 저장한다.",
+    "basis": "structure"
+  },
+  "t_invoicegl": {
+    "logical_name_ko": "송장 환산 손익 자료",
+    "overview_ko": "송장과 회계 전기별 미결 금액·통화 잔액·재평가 차액을 저장한다. 사전 설명상 실제 표시 자료는 T_InvoiceGL_v에서 제공된다.",
+    "basis": "structure"
+  },
+  "t_moveclient": {
+    "logical_name_ko": "테넌트 이동 키 대응",
+    "overview_ko": "실행 건별 테이블의 원본 키와 대상 키 및 식별자를 저장한다. 실제 테넌트 이동 절차에서의 사용 방식은 확인이 필요하다.",
+    "basis": "uncertain"
+  },
+  "t_mrp_crp": {
+    "logical_name_ko": "소요·능력 계획 임시 자료",
+    "overview_ko": "MRP 및 CRP 처리의 실행 건별 순서와 설명을 임시 저장한다.",
+    "basis": "structure"
+  },
+  "t_reconciliation": {
+    "logical_name_ko": "계정 대사 보고 자료",
+    "overview_ko": "보고서 실행 건별 회계 전기 레코드와 대사 코드를 연결한다.",
+    "basis": "structure"
+  },
+  "t_replenish": {
+    "logical_name_ko": "재고 보충 계산 자료",
+    "overview_ko": "실행 건별 현재고·예약·주문 수량과 보충 수준을 바탕으로 계산한 발주 수량을 저장한다.",
+    "basis": "structure"
+  },
+  "t_report": {
+    "logical_name_ko": "보고서 임시 자료",
+    "overview_ko": "보고서 생성 중 사용하는 행별 임시 결과를 저장한다.",
+    "basis": "dictionary"
+  },
+  "t_reportstatement": {
+    "logical_name_ko": "계정 명세 보고 자료",
+    "overview_ko": "실행 건별 회계 전기의 일자·차대변 금액·잔액·수량을 명세서용으로 저장한다.",
+    "basis": "structure"
+  },
+  "t_selection": {
+    "logical_name_ko": "처리 대상 선택값",
+    "overview_ko": "프로세스 실행 건에 선택된 레코드 식별자와 뷰 식별자를 연결한다.",
+    "basis": "structure"
+  },
+  "t_selection2": {
+    "logical_name_ko": "질의별 처리 대상 선택값",
+    "overview_ko": "프로세스 실행 건과 질의 식별자별로 선택된 레코드 식별자를 저장한다.",
+    "basis": "structure"
+  },
+  "t_selection_infowindow": {
+    "logical_name_ko": "정보 창 선택 자료",
+    "overview_ko": "정보 창에서 선택한 레코드의 열별 문자·날짜·숫자 값을 실행 건과 연결한다.",
+    "basis": "structure"
+  },
+  "t_spool": {
+    "logical_name_ko": "임시 출력 메시지",
+    "overview_ko": "임시 출력에 사용하는 메시지를 저장한다.",
+    "basis": "dictionary"
+  },
+  "t_transaction": {
+    "logical_name_ko": "재고 수불 보고 자료",
+    "overview_ko": "실행 건별 재고 거래와 관련 입출고·이동·실사·생산 문서의 정보를 보고용으로 저장한다.",
+    "basis": "structure"
+  },
+  "t_trialbalance": {
+    "logical_name_ko": "시산표 보고 자료",
+    "overview_ko": "실행 건별 계정·회계 전기의 차대변 금액과 잔액을 시산표용으로 저장한다.",
+    "basis": "structure"
+  },
+  "test": {
+    "logical_name_ko": "자료형 시험",
+    "overview_ko": "문자·숫자·날짜·금액·JSON 및 업무 참조 등 여러 자료형을 시험하는 테이블이다. 업무 원장으로 해석하지 않는다.",
+    "basis": "structure"
+  },
+  "testuu": {
+    "logical_name_ko": "UUID 기반 시험",
+    "overview_ko": "UUID 기반 테이블 기능을 시험하는 이름·값·설명 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "testuu_trl": {
+    "logical_name_ko": "UUID 시험 번역",
+    "overview_ko": "UUID 기반 시험 테이블의 언어별 번역 데이터를 저장한다.",
+    "basis": "dictionary"
+  },
+  "testuudet": {
+    "logical_name_ko": "UUID 시험 상세",
+    "overview_ko": "UUID 기반 시험 레코드와 연결된 상세 이름을 저장한다.",
+    "basis": "structure"
+  },
+  "u_blacklistcheque": {
+    "logical_name_ko": "사용 제한 수표",
+    "overview_ko": "은행 이름과 사용 제한 대상으로 등록된 수표 번호를 저장한다.",
+    "basis": "structure"
+  },
+  "u_posterminal": {
+    "logical_name_ko": "판매시점 단말기",
+    "overview_ko": "POS 단말기의 창고·가격표·담당자·프린터 및 현금·카드·수표 결제 연결 설정을 저장한다.",
+    "basis": "structure"
+  },
+  "u_rolemenu": {
+    "logical_name_ko": "역할별 웹 메뉴",
+    "overview_ko": "사용자 역할과 접근할 웹 메뉴를 연결한다.",
+    "basis": "structure"
+  },
+  "u_web_properties": {
+    "logical_name_ko": "웹 속성 설정",
+    "overview_ko": "웹 기능에 사용하는 키·값 형태의 설정을 저장한다.",
+    "basis": "structure"
+  },
+  "u_webmenu": {
+    "logical_name_ko": "웹 메뉴",
+    "overview_ko": "웹 메뉴의 링크·상위 메뉴·표시 순서·이미지 등 탐색 구조를 정의한다.",
+    "basis": "structure"
+  },
+  "w_advertisement": {
+    "logical_name_ko": "웹 광고",
+    "overview_ko": "웹에 게시하는 광고 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_basket": {
+    "logical_name_ko": "웹 장바구니",
+    "overview_ko": "웹 상점의 장바구니 기본 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_basketline": {
+    "logical_name_ko": "웹 장바구니행",
+    "overview_ko": "장바구니에 담긴 개별 품목 내역을 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_click": {
+    "logical_name_ko": "웹 클릭 기록",
+    "overview_ko": "웹에서 발생한 개별 클릭을 기록한다.",
+    "basis": "dictionary"
+  },
+  "w_clickcount": {
+    "logical_name_ko": "웹 클릭 집계",
+    "overview_ko": "웹 클릭 수를 관리하는 집계 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_counter": {
+    "logical_name_ko": "웹 방문 집계 원천",
+    "overview_ko": "개별 웹 접근 횟수 기록을 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_countercount": {
+    "logical_name_ko": "웹 방문 수 집계",
+    "overview_ko": "웹 카운터의 누적 횟수를 관리한다.",
+    "basis": "dictionary"
+  },
+  "w_mailmsg": {
+    "logical_name_ko": "웹 상점 메일 서식",
+    "overview_ko": "웹 상점에서 발송하는 메일 메시지의 서식을 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_mailmsg_trl": {
+    "logical_name_ko": "웹 상점 메일 서식 번역",
+    "overview_ko": "웹 상점 메일 메시지 서식의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "w_store": {
+    "logical_name_ko": "웹 상점",
+    "overview_ko": "테넌트가 운영하는 웹 상점의 기본 정보를 정의한다.",
+    "basis": "dictionary"
+  },
+  "w_store_trl": {
+    "logical_name_ko": "웹 상점 번역",
+    "overview_ko": "웹 상점의 언어별 번역 정보를 저장한다.",
+    "basis": "dictionary"
+  },
+  "ws_webservice": {
+    "logical_name_ko": "웹 서비스 정의",
+    "overview_ko": "웹 서비스의 코드·이름·설명과 도움말을 정의한다.",
+    "basis": "structure"
+  },
+  "ws_webservice_para": {
+    "logical_name_ko": "웹 서비스 매개변수",
+    "overview_ko": "웹 서비스 유형에 속하는 매개변수 이름·유형 및 상수값을 정의한다.",
+    "basis": "structure"
+  },
+  "ws_webservicefieldinput": {
+    "logical_name_ko": "웹 서비스 입력 필드",
+    "overview_ko": "웹 서비스 유형별 입력 열과 참조·식별자 판정 규칙을 정의한다.",
+    "basis": "structure"
+  },
+  "ws_webservicefieldoutput": {
+    "logical_name_ko": "웹 서비스 출력 필드",
+    "overview_ko": "웹 서비스 유형이 응답에 포함할 테이블 열을 정의한다.",
+    "basis": "structure"
+  },
+  "ws_webservicemethod": {
+    "logical_name_ko": "웹 서비스 메서드",
+    "overview_ko": "웹 서비스에 속하는 개별 호출 메서드의 코드·이름·설명을 정의한다.",
+    "basis": "structure"
+  },
+  "ws_webservicetype": {
+    "logical_name_ko": "웹 서비스 유형",
+    "overview_ko": "서비스와 메서드를 대상 테이블 및 매개변수 삽입 설정에 연결한다.",
+    "basis": "structure"
+  },
+  "ws_webservicetypeaccess": {
+    "logical_name_ko": "웹 서비스 유형 접근 권한",
+    "overview_ko": "역할별 웹 서비스 유형 접근과 읽기·쓰기 권한을 정의한다.",
+    "basis": "structure"
+  }
+}

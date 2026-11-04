@@ -1,0 +1,14 @@
+{
+  "method": "pure Python fabricated metadata; no DB/model/network",
+  "checks": {
+    "table_prefix_invariance": true,
+    "prefix_without_dictionary_rejected": true,
+    "dictionary_without_independent_structure_rejected": true,
+    "inconsistent_structural_meaning_not_forced": true,
+    "audit_tenant_columns_not_business_evidence": true,
+    "explicit_import_purpose_separated": true,
+    "conflicting_domains_remain_review": true
+  },
+  "passed": 7,
+  "classifier_sha256": "40cf227760420862c2d34787ea3941f4e3118f821392cc29adeec56a34360812"
+}

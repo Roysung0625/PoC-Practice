@@ -1,0 +1,21 @@
+{
+  "reviewer_kind": "agent_metadata_sample_review",
+  "method": "에이전트가 24개 대표·경계 항목의 원본 Name/Description, 주요 열, 실제 FK 근거와 분류안을 읽어 대조함. 업무 담당자 또는 사람의 공식 승인이 아님.",
+  "metadata_captured_at": "2026-11-03T23:33:22+09:00",
+  "human_domain_approvals": 0,
+  "whole_population_manual_review_claimed": false,
+  "tables": [
+    "a_asset", "a_asset_acct", "ad_field", "ad_table_access", "ad_user", "ad_wf_node",
+    "c_currency", "c_invoice", "c_invoicetax", "c_order", "i_invoice", "m_product",
+    "m_product_qualitytest", "m_promotion", "m_inout", "m_warehouse", "m_storageonhand",
+    "hr_concept", "pp_order", "cm_template", "pa_goal", "r_request", "dbreplicasyncverifier", "test"
+  ],
+  "observations": [
+    "i_invoice는 Import Invoice와 i_isimported/i_errormsg로 적재 준비를 구분했다. 실제 c_invoice와 같은 업무 원장으로 분류하지 않는다.",
+    "ad_wf_node는 이름 Node만으로 정하지 않고 Description의 Workflow와 노드/활동 FK를 함께 대조했다.",
+    "ad_user는 User/Contact 및 Internal or Business Partner Contact 설명과 자격/거래처 열을 근거로 교차업무 공통 객체로 제안했다.",
+    "m_product_qualitytest는 Product Quality Test와 시험 FK/expectedresult로 품질 목적을 구분했다.",
+    "a_asset_acct는 자산과 회계의 근거가 겹쳐 확인 필요로 유지했다. dbreplicasyncverifier와 test도 근거 부족으로 확인 필요로 남겼다.",
+    "테이블의 PK·표준 UUID만으로 구조 근거가 생기지 않도록 제외했다. 표본 검토를 912개 전체 수동 검토로 확대해 보고하지 않는다."
+  ]
+}

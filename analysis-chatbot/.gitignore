@@ -1,0 +1,14 @@
+/vendor/
+/node_modules/
+/public/build/
+/public/hot
+/.env
+/.phpunit.cache/
+/test-results/
+/playwright-report/
+/bootstrap/cache/*.php
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+!.gitkeep

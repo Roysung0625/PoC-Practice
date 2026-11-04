@@ -5,6 +5,8 @@
 이 지침은 프로젝트 루트와 모든 하위 폴더에 적용한다. 사용자의 최신 요구사항을 우선하며, 하위 폴더의 지침은 해당 구성요소의 세부 작업 기준을 보완한다.
 설명과 운영 문서는 기본적으로 한국어로 작성한다.
 
+지속 적용할 사용자 규칙과 변경 근거는 [프로젝트 지침서](doc/project-guidelines.md)에 기록하고 작업 시작·재개 시 읽는다. 구조·DB·문서 진입점은 [doc/README.md](doc/README.md)에서 확인하며 교육 자료는 `docs/learning/`에 작성한다. 최신 사용자 지시와 이 파일의 기존 기준을 우선하며 원문 지침을 임의로 대체하지 않는다.
+
 ## Superpowers 및 스킬 사용 지침
 
 - **Plan 모드에서는 `brainstorming`을 반드시 사용한다.** Plan 모드가 아닐 때는 사용자가 명시적으로 언급해 사용을 요청한 경우에만 사용한다.
@@ -95,3 +97,8 @@ Windows 로컬 SQL 결과 -> Lambda Tool 응답 -> AWS Agent -> Windows 로컬 �
 
 변경 범위에 맞는 검증을 수행하고, 로컬 실행·모의 시험·실제 AWS 호출 결과를 구분해 보고한다.
 파일을 이동하거나 명령을 바꾸면 문서 링크와 실행 예시도 갱신한다. 미검증 항목과 다음 작업을 명시하고, 완료하지 않은 연결을 완료로 보고하지 않는다.
+
+
+## SQL 챗봇 교육 진입점
+
+SQL 챗봇의 교육용 문서는 [docs/education/README.md](docs/education/README.md)에서 안내한다. 기존 검색 교육과 프로젝트 원문은 현재 위치에서 유지하며, 지속 규칙은 [doc/project-guidelines.md](doc/project-guidelines.md)의 유효한 CHAT 항목도 함께 확인한다.
