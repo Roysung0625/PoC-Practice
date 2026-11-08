@@ -213,7 +213,7 @@ aws --version
 ```bash
 python3.13 -m venv .venv
 .venv/bin/python -m pip install -r local/python/requirements.lock
-.venv/bin/python -m pip install --no-deps -e local/python
+.venv/bin/python -m pip install --no-deps -e local/python -e product-registration/backend
 .venv/bin/python -m pip check
 .venv/bin/python -c 'import psycopg, duckdb, boto3, awscrt, fastapi; print("Python imports OK")'
 ```

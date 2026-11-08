@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 import asyncio
 import hmac
 import json
+import os
 import threading
 import psycopg
 
@@ -38,6 +39,7 @@ class QueryRequest(BaseModel):
 
 
 def create_app(settings=None):
+    use_runtime_services = settings is None
     settings = settings or environment()
     shared = load_shared(settings["root"])
     store = Journal(settings["journal"])
@@ -49,7 +51,13 @@ def create_app(settings=None):
     async def lifespan(app):
         store.recover()
         app.state.analysis.store.recover()
+        registration_worker = app.state.product_registration
+        registration_configured = os.getenv("POC_REGISTRATION_DB_DSN") or (settings["root"] / ".local/registration.env").is_file()
+        if use_runtime_services and registration_configured:
+            registration_worker.thread.start()
         yield
+        if registration_worker.thread.is_alive():
+            registration_worker.close()
         # Let in-flight local HTTP work complete while the executor drains.
         await asyncio.to_thread(executor.shutdown, wait=True, cancel_futures=True)
 
@@ -146,7 +154,7 @@ def create_app(settings=None):
         return {"status": "ok", "db_connected": connected, "dataset_ready": bool(current), "aws_configured": bool(settings["agent_arn"]), "aws_cost_policy": cost, "models": shared["models"], "mode": "local",
                 "dataset_id": current.get("dataset_id", "tpch"), "dataset_label": current.get("dataset_label", "TPC-H SF1 · 합성 데이터"),
                 "table_count": len(current.get("tables", {})), "sample_question": current.get("sample_question", "1995년 STANDARD 제품군의 매출을 월별로 보여줘"),
-                "analysis_contract_version": 1, "run_processing": True}
+                "analysis_contract_version": 1, "product_registration_contract_version": 1, "run_processing": True}
 
     @app.get("/v1/schema", dependencies=[Depends(authenticated)])
     def schema():
@@ -209,4 +217,6 @@ def create_app(settings=None):
 
     from .analysis_api import install
     install(app, settings, store, catalog, planner, execute_local, executor, waiting, aws_active, authenticated)
+    from product_registration.api import install as install_registration
+    app.state.product_registration = install_registration(app, settings, authenticated)
     return app

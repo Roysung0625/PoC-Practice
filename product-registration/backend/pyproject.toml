@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "poc-product-registration"
+version = "0.1.0"
+description = "GardenWorld product registration backend"
+requires-python = ">=3.13"
+dependencies = ["poc-local==0.1.0"]
+
+[tool.setuptools.packages.find]
+include = ["product_registration*"]

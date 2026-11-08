@@ -2,7 +2,7 @@
 
 확인일: 2026-11-04 (Asia/Tokyo). OpenSearch·Dashboards 3.9.0의 현재 화면, 실제 `_mapping`, 실제 문서 GET, 저장된 인덱스 패턴을 읽어 확인했습니다. DB 열의 의미는 2026-11-03 수집한 [원본 상품 사전](../database/idempiere/m/m_product.md)을 기준으로 해석했습니다. 사전에 설명이 없는 항목은 추측으로 확정하지 않습니다.
 
-[검색 실습](opensearch-lab.md) · [운영 안내](../../local/opensearch/README.md) · [문서 안내](../../doc/README.md)
+[검색 실습](opensearch-lab.md) · [운영 안내](../../local/opensearch/README.md) · [문서 안내](../README.md)
 
 ## 아이콘은 필드 타입을 나타냅니다
 

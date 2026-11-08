@@ -2,7 +2,7 @@
 
 이 실습은 원본 DB의 상품·프로모션 관계를 읽어 검색 문서로 만드는 과정을 학습합니다. [설치·시작·중지 안내](../../local/opensearch/README.md)를 PowerShell 7에서 먼저 실행한 뒤 같은 PC의 [Dashboards](http://127.0.0.1:5601)를 엽니다. 설치와 적재가 완료되지 않았다면 아래 조회가 실패하거나 인덱스가 없을 수 있습니다.
 
-[문서 안내](../../doc/README.md) · [전체 구조](../../doc/architecture.md) · [DB 전체 목록](../../doc/database/index.md)
+[문서 안내](../README.md) · [전체 구조](../architecture.md) · [DB 전체 목록](../database/index.md)
 
 Discover의 `?`, `t`, `#` 아이콘과 원본 73개 컬럼·검색용 추가 5개 필드의 실제 저장 값은 [Discover 필드별 해설](opensearch-discover-fields.md)을 참고하세요.
 
@@ -22,26 +22,85 @@ OpenSearch는 JSON 문서를 인덱스에 저장합니다. 이 실습에서는 �
 
 OpenSearch의 관계 필드는 FK 제약이 아닙니다. 원본 부모 이름을 바꿔도 이미 만든 검색 문서는 자동으로 바뀌지 않으므로 필요한 경우 다시 내보내고 색인해야 합니다. 원본의 정확한 수치·상태·권한 판단은 PostgreSQL을 기준으로 합니다.
 
-## 2. 현재 실습 데이터가 만들어지는 과정
+## 2. PostgreSQL에서 OpenSearch까지 데이터가 흐르는 과정
 
-```text
-기존 GardenWorld: 상품 55행과 기존 부모 데이터 보존
-  ↓ 고정 배치 poc-search-ja-v1, 한 DB 트랜잭션
-일본어 상품 200 + 프로모션 200
-  + 그룹 200 + 프로모션-그룹 연결 200 + 그룹-상품 연결 600
-  ↓ 배치 행과 부모 이름을 읽기 전용으로 내보내기
-상품 JSON 200 + 프로모션 JSON 200
-  ↓ 명시적 매핑과 Bulk 적재
-poc-product 200문서 + poc-promotion 200문서
-  ↓
-Dashboards의 목록 확인 / Dev Tools 검색 실습
+실습에서 관계형 정규화는 기존 DB 설계에 반영되어 있습니다. 상품·프로모션·분류를 각 테이블에서 관리하고 서로의 ID를 참조합니다. 적재 프로그램은 조회 방향에 맞춰 필요한 이름과 연결 정보를 문서 안에 복사합니다. 이 과정을 **역정규화**라고 합니다. 코드의 `normalize()`는 이와 별도로 Python 값을 JSON으로 표현할 수 있게 변환합니다.
+
+```mermaid
+flowchart TD
+    S["최초 seed 또는 기존 배치 확인"] --> D["PostgreSQL에서 외래키 검사 후 커밋"]
+    D --> R["읽기 전용 트랜잭션으로 배치 행·부모 이름·컬럼 정의 조회"]
+    R --> J["Python에서 ID로 관계 결합"]
+    J --> P["상품 73열 + 검색용 5필드"]
+    J --> M["프로모션 13열 + 검색용 5필드"]
+    P --> F["JSON 값 변환, 대상 인덱스 매핑 생성 또는 확인"]
+    M --> F
+    F --> B["인덱스별 Bulk 전송 및 항목별 응답 확인"]
+    B --> IP["poc-product · 상품 200문서"]
+    B --> IM["poc-promotion · 프로모션 200문서"]
 ```
 
-연결은 `m_promotion → m_promotionline → m_promotiongroup → m_promotiongroupline → m_product` 순서로 읽을 수 있습니다. 이 화살표는 실습의 탐색 순서를 뜻하며, 물리 FK는 참조하는 자식에서 부모 방향입니다. 예를 들어 `m_promotionline`이 프로모션과 그룹을 참조하고 `m_promotiongroupline`이 그룹과 상품을 참조합니다.
+### 2.1 정규화된 원본을 배치 단위로 읽기
 
-프로모션마다 상품을 1~5개 연결해 합계 600개의 그룹-상품 연결을 만듭니다. 원예 상품은 일본어 5개 분류와 이름·용도·변형으로 구성한 가상 데이터입니다. 연결이 있다고 실제 할인 계산·판매·재고 실적이 생긴 것은 아닙니다.
+아래 화살표는 **외래키 컬럼이 가리키는 부모** 방향입니다. 프로모션 상세와 그룹별 상품 연결에 같은 그룹 ID가 있으면 해당 프로모션의 대상 상품을 찾을 수 있습니다.
 
-DB 전체 상품이 **255행**인데 상품 검색은 **200문서**인 이유는 기존 55행을 보존하고 새 실습 배치 200행만 색인하기 때문입니다. 255개 상품을 모두 적재하는 로직이 아닙니다. 프로모션도 이번 배치 200행만 검색합니다.
+```mermaid
+flowchart LR
+    L["m_promotionline · 상세 200"] -->|m_promotion_id| M["m_promotion · 프로모션 200"]
+    L -->|m_promotiongroup_id| G["m_promotiongroup · 그룹 200"]
+    GL["m_promotiongroupline · 연결 600"] -->|m_promotiongroup_id| G
+    GL -->|m_product_id| P["m_product · 배치 상품 200"]
+    P -->|m_product_category_id| C["m_product_category · 분류명"]
+```
+
+최초 생성 시 한 트랜잭션에서 `AD_Sequence` 행을 잠가 ID를 할당하고, 지정한 부모의 존재·테넌트·활성 상태와 기존 행의 보존 여부를 확인합니다. 외래키 검사까지 통과하면 커밋합니다. 이후 `export_rows()`는 별도의 `REPEATABLE READ, READ ONLY` 트랜잭션에서 다섯 테이블을 같은 시점으로 읽습니다. 배치명·테이블명·순번으로 재현한 UUID 목록이 추출 조건입니다. 기존 상품 55개와 신규 200개 중 이 UUID에 해당하는 200개가 색인 대상입니다. 부모 7개 테이블에서는 필요한 행의 ID와 이름을, DB 메타데이터에서는 두 마스터 테이블의 열 이름·타입·소수 자릿수를 읽습니다. [원본 추출 코드](../../local/opensearch/seed_data.py)
+
+### 2.2 하나의 연결을 두 방향의 검색 문서로 만들기
+
+저장된 예시에서 상품 `1000042`는 `アジサイ コンパクト`, 상품 코드는 `POCJA-0043`입니다. 이 상품의 연결 3개 중 프로모션 `1000041`과 이어지는 한 건을 따라가면 다음과 같습니다.
+
+```mermaid
+flowchart TD
+    L["상세 1000041 · 프로모션 1000041, 그룹 1000041"] --> J["같은 그룹 ID로 결합"]
+    GL["그룹별 상품 연결 1000122 · 그룹 1000041, 상품 1000042"] --> J
+    J --> P["상품 1000042의 promotions 배열에 프로모션 1000041의 ID·이름 추가"]
+    J --> M["프로모션 1000041의 products 배열에 상품 1000042의 ID·이름·코드 추가"]
+```
+
+결합은 `documents()`가 Python 메모리에서 수행합니다. 양쪽 배열에 상세·그룹·그룹별 상품 연결 ID와 그룹 이름도 남기고, 그룹별 상품 연결 ID 순서로 정렬합니다. 별도로 원본의 지정된 참조 컬럼 값이 있으면 `parent_refs`에 부모 정보를 넣습니다. 예를 들어 테넌트 ID 11은 `{"field":"ad_client_id","table":"ad_client","id":11,"name":"GardenWorld"}`가 됩니다. [문서 조립 코드](../../local/opensearch/search_lab.py)
+
+상품 `1000042`의 `promotions` 배열에는 프로모션 `1000041`, `1000042`, `1000079`가 들어가므로 `related_count`는 3입니다. 프로모션 문서에서는 같은 필드가 그 프로모션의 `products` 배열 길이를 뜻합니다. 배열의 각 객체를 `nested`로 색인해 ID와 이름을 같은 연결 항목 안에서 검색할 수 있습니다. [OpenSearch nested 설명](https://docs.opensearch.org/latest/mappings/supported-field-types/nested/)
+
+### 2.3 JSON으로 보낼 값과 검색에 쓸 타입 결정하기
+
+`normalize()`는 사전과 목록의 안쪽까지 값을 변환합니다. 반면 인덱스 타입은 DB 컬럼 정의와 명시한 필드 규칙으로 결정합니다. 예를 들어 소수 컬럼의 특정 행 값이 정수 1로 전송되어도 그 컬럼에 선언한 매핑은 `double`일 수 있습니다.
+
+| DB에서 읽은 값 | JSON에 담는 값 | 현재 색인 처리 |
+|---|---|---|
+| 상품 ID인 정수값 Decimal | 숫자 `1000042` | 본문 ID는 `long`, Bulk 문서 주소의 `_id`는 문자열 `"1000042"` |
+| 무게 Decimal | 소수 부분이 있으면 Python float를 거쳐 숫자 `0.3` | `weight`는 `double`. 원본 decimal과 부동소수점의 정밀도는 다를 수 있음 |
+| datetime, UUID | ISO 날짜 문자열, UUID 문자열 | 날짜는 `date`, 상품 UUID는 `keyword`. 시간대 없는 일시는 그대로 직렬화 |
+| 일본어 이름·설명 | 원문 문자열 | `text`에 kuromoji 적용, `.keyword`는 전체 문자열 일치·정렬용 |
+| 상품 코드, Y/N 값, DB NULL | `"POCJA-0043"`, `"Y"`, `null` | 코드·플래그는 `keyword`, 값이 없는 필드는 본문에 `null` 보존 |
+
+### 2.4 쓰기 요청에서 검색 가능한 상태까지
+
+```mermaid
+flowchart TD
+    A["대상 클러스터·버전 확인 후 문서 조립"] --> B["인덱스 생성 또는 기존 매핑·배치 소유권 확인"]
+    B --> C["문서마다 NDJSON 두 줄 · index 동작과 문서 본문"]
+    C --> D["인덱스별 POST /_bulk?refresh=wait_for"]
+    D --> E["_source에 전달한 JSON 본문 보존"]
+    D --> F["매핑에 따라 텍스트·코드·숫자·관계를 검색용으로 색인"]
+    E --> H["refresh 후 Discover에서 검색·본문 조회"]
+    F --> H
+```
+
+각 인덱스는 기본 샤드 1개, 복제본 0개이며 `dynamic: strict`로 정의합니다. 상품 배치는 200문서 × 2줄, 프로모션 배치도 200문서 × 2줄입니다. 예를 들어 상품의 첫 줄 형식은 `{"index":{"_index":"poc-product","_id":"1000042"}}`이고 다음 줄에는 해당 상품의 78개 필드 전체가 옵니다. 메모리에서 만든 UTF-8 데이터를 HTTP로 보냅니다. `.local/opensearch/export/`의 NDJSON은 성공한 요청 본문을 이후에 저장한 파일입니다.
+
+검색할 때 일본어 단어로 문서를 찾는 데는 분석된 검색 색인을 쓰고, 이름 원문을 표시할 때는 문서 본문을 읽을 수 있습니다. `refresh=wait_for`는 이번 쓰기가 검색에 보일 때까지 기다립니다. 로더는 응답 항목 수와 개별 상태를 확인합니다. 일부 항목만 실패하면 성공한 항목은 남고, 동일한 원본 ID로 배치를 다시 색인할 수 있습니다. [Bulk API](https://docs.opensearch.org/latest/api-reference/document-apis/bulk/) · [문서 본문과 _source](https://docs.opensearch.org/latest/mappings/metadata-fields/source/)
+
+기본 `Load.ps1` 실행 순서는 DB 배치 생성·확인 → 색인 → Discover 저장 조회입니다. 기존 배치를 다시 색인하는 명령은 `.\local\opensearch\Load.ps1 -Action index`입니다. DB 변경 사항이 검색 사본에 반영되는 시점은 수동 색인 시점이며, 재실행 때도 원본·부모 보존 검사와 소유권 검사를 거칩니다. 2026-11-03의 실제 DB·서버 검증에서 양쪽 200문서와 원본 컬럼, 독립 SQL로 구한 연결 600건이 일치했습니다. [검증 기록](../../local/opensearch/VERIFICATION.md)
 
 ## 3. 문서 안의 관계를 읽어 보기
 
@@ -175,3 +234,55 @@ GET poc-promotion/_search
 검증 파일 `.local/opensearch/verification.json`이 있다면 실제 실행 시점·통과/실패 항목을 함께 읽습니다. 코드·문서의 존재만으로 브라우저 표시나 재시작 검증 성공을 추정하지 않습니다.
 
 이번 실습은 Windows 로컬 검색입니다. AWS OpenSearch Service, 기존 챗봇의 검색 연동, 임베딩 생성, 벡터·하이브리드 검색, 검색 품질 점수·부하 성능 평가를 포함하지 않습니다. 기존 앱의 DeepSeek·Titan 설정과 AWS SQL 왕복 흐름은 별도의 구성입니다.
+
+## 9. EC2에서 관련 상품 개요와 Titan 벡터를 붙이는 설계
+
+현재 구현한 키워드 검색에서 의미 검색으로 확장하는 제안입니다. 짧은 상품 한 건 또는 프로모션 한 건을 검색 결과 하나로 반환하려는 경우, 문서당 검색용 텍스트 한 개와 벡터 한 개를 만듭니다. EC2에서 RDB를 읽을 수 있는 연결과 읽기 권한이 전제입니다. 현재 Windows PostgreSQL의 루프백 접속 범위를 유지하려면 Windows에서 읽어 낸 배치 파일을 EC2에 전달하는 방식도 가능합니다.
+
+```mermaid
+flowchart TD
+    R["RDB에서 원본 행과 연결 상품 조회"] --> E["EC2에서 문서 단위로 조립"]
+    E --> D["원본 필드와 연결 ID를 JSON에 보존"]
+    E --> S["상품명과 설명으로 관련 상품 개요 작성"]
+    S --> T["이름 + 설명 + 관련 상품 개요를 inputText 한 개로 조립"]
+    T --> B["Bedrock Runtime의 Titan Text Embeddings V2 호출"]
+    B --> V["응답 embedding에서 실수 1024개 확인"]
+    V --> F["원본 JSON에 related_summary와 embedding 추가"]
+    D --> F
+    S --> F
+    F --> N["인덱스와 원본 PK를 지정해 Bulk NDJSON 저장"]
+    N --> O["OpenSearch의 상품·프로모션 인덱스에 각각 적재"]
+```
+
+예를 들어 프로모션 `1000042`의 개요는 DB에서 확인한 세 상품명을 일정한 순서로 나열해 만들 수 있습니다. 다음은 기존 더미 값으로 조립한 Titan 요청 본문 예시입니다.
+
+```json
+{
+  "inputText": "企画名：草花 庭応援フェア 043\n説明：草花の対象商品をまとめて探せるデモ企画。庭の準備におすすめ。\n対象商品：アジサイ コンパクト、ツツジ コンパクト、ミント コンパクト。",
+  "dimensions": 1024,
+  "normalize": true,
+  "embeddingTypes": ["float"]
+}
+```
+
+EC2 적재기는 인스턴스 역할로 Bedrock Runtime의 `InvokeModel`을 호출합니다. 리전·모델·차원·정규화는 [공통 설정](../../aws/config/models.json)의 도쿄, `amazon.titan-embed-text-v2:0`, 1024, true를 읽습니다. 응답의 `embedding`이 길이 1024인 실수 배열이면 JSON 배열 그대로 문서에 넣습니다. 호출 실패나 차원 불일치 항목은 재시도 대상으로 기록합니다. [AWS 요청·응답 규격](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html)
+
+대상 인덱스는 벡터 검색을 위해 `index.knn: true`로 준비하고 기존 매핑에 `related_summary`(일본어 검색용 text), `embedding`(knn_vector, dimension 1024)을 명시합니다. 벡터 인덱스 방법의 거리 척도는 코사인 유사도에 대응하는 `cosinesimil`을 선택할 수 있습니다. 현재 매핑은 `dynamic: strict`이므로 추가할 필드까지 선언한 뒤 적재해야 합니다. [벡터 필드](https://docs.opensearch.org/latest/mappings/supported-field-types/knn-vector/)
+
+```mermaid
+flowchart LR
+    Q["사용자 질문"] --> T["같은 Titan 모델·차원·정규화 설정"]
+    T --> V["질문 벡터"]
+    V --> K["원하는 인덱스의 embedding에 k-NN 검색"]
+    K --> H["유사한 문서의 원본 ID·이름·관련 상품 표시"]
+```
+
+초기 배치에는 상품 200개와 프로모션 200개에 대응하는 문서 벡터 400개가 생깁니다. 이후에는 완성된 입력 텍스트와 임베딩 설정이 같은 문서의 벡터를 재사용할 수 있습니다. 연결 상품 이름이 바뀌면 그 이름을 입력 텍스트에 담았던 프로모션도 재생성 대상입니다. 이 설계의 실제 Titan 호출과 AWS 벡터 검색은 추후 검증 항목입니다.
+
+### 일본어 원문과 의미 검색의 품질
+
+OpenSearch 문서 본문에 일본어 원문과 개요를 저장하면 그대로 표시할 수 있습니다. Titan V2는 입력 문장의 의미적 유사성을 검색용 숫자 배열로 근사합니다. 표현이 비슷한 후보를 찾는 데 쓸 수 있고, 원문에 있는 정확한 상품 코드·관계·조건은 별도 필드에서 확인합니다. AWS는 영어에 최적화된 모델로 설명하며 일본어를 다국어 지원 목록에 포함합니다. 다국어 지원은 문서상 프리뷰이며, 질의와 문서 언어가 다르면 검색 성능이 떨어질 수 있습니다. [AWS 언어 지원과 제한](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html)
+
+일본 아마가사키시 FAQ 문서 1,785건·검색 질의 748건의 공개 벤치마크에서 Titan V2는 Recall@10 0.660을 기록했습니다. 이 값은 상위 10건이 관련 문서를 얼마나 회수했는지 나타냅니다. 원예 상품이나 한국어 질의의 정확도는 별도로 측정해야 합니다. [평가 데이터·방법·결과](https://github.com/mahiya/amagasaki-qna-text-embed-benchmark)
+
+이 실습에서는 상품명 표기 변형(예: ハサミ·はさみ·ばさみ), 용도 표현(예: 枝を切る道具), 한국어·일본어로 짝지은 질문을 준비할 수 있습니다. DOC ID 정답 집합을 직접 정한 뒤 상위 5건의 회수율과 실제 반환 ID를 언어·질문 유형별로 비교합니다. 프로모션 대상 상품의 정확한 포함 여부는 RDB의 연결 행을 정답으로 사용합니다.

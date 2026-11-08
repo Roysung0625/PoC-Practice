@@ -921,4 +921,4 @@
 | `ws_webservicetype` | Web Service Type | 16 | 17 |  |
 | `ws_webservicetypeaccess` | Web Service Type Access | 16 | 11 |  |
 
-OpenSearch 더미 적재 후 행 수(2026-11-03T23:29:01+09:00): Product 255, Promotion 200, PromotionGroup 200, PromotionLine 200, PromotionGroupLine 600. [현재 전체 색인](../doc/database/index.md).
+OpenSearch 더미 적재 후 행 수(2026-11-03T23:29:01+09:00): Product 255, Promotion 200, PromotionGroup 200, PromotionLine 200, PromotionGroupLine 600. [현재 전체 색인](../docs/database/index.md).

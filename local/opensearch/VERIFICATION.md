@@ -2,7 +2,7 @@
 
 검증일: 2026-11-03, Windows 11 x64 / PowerShell 7 / PostgreSQL 18 / OpenSearch·Dashboards 3.9.0.
 
-[운영 안내](README.md) · [교육 실습](../../docs/learning/opensearch-lab.md) · [전체 구조](../../doc/architecture.md)
+[운영 안내](README.md) · [교육 실습](../../docs/learning/opensearch-lab.md) · [전체 구조](../../docs/architecture.md)
 
 ## 실제 결과
 

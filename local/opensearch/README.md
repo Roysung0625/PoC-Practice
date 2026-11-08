@@ -2,7 +2,7 @@
 
 GardenWorld의 일본어 상품 200건과 프로모션 200건을 Windows 로컬 OpenSearch에 적재하고 OpenSearch Dashboards에서 검색합니다. PostgreSQL이 원본이며 OpenSearch는 이 실습 배치의 검색용 사본입니다. 기존 챗봇의 SQL 승인·AWS 요청 흐름과 별도로 실행합니다.
 
-[교육용 설명과 조회 실습](../../docs/learning/opensearch-lab.md) · [검증 기록](VERIFICATION.md) · [전체 구조](../../doc/architecture.md) · [프로젝트 지속 지침](../../doc/project-guidelines.md) · [DB 전체 안내](../../doc/database/index.md)
+[교육용 설명과 조회 실습](../../docs/learning/opensearch-lab.md) · [검증 기록](VERIFICATION.md) · [전체 구조](../../docs/architecture.md) · [프로젝트 지속 지침](../../docs/project-guidelines.md) · [DB 전체 안내](../../docs/database/index.md)
 
 ## 구성과 접속
 

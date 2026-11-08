@@ -18,7 +18,9 @@ class PythonApi
     public function request(string $method, string $path, array $data = []): Response {
         $url = rtrim(config('analysis.url'), '/');
         if (!in_array(parse_url($url, PHP_URL_HOST), ['127.0.0.1', 'localhost', '::1'])) throw new RuntimeException('BACKEND_HOST_INVALID');
-        $client = Http::withToken($this->token())->acceptJson()->connectTimeout(2)->timeout(8)->withoutRedirecting();
+        $timeout = str_starts_with($path, '/v1/product-registration/') ? 120 : 8;
+        $client = Http::withToken($this->token())->acceptJson()->connectTimeout(2)->timeout($timeout)->withoutRedirecting();
+        if ($method === 'POST' && str_starts_with($path, '/v1/product-registration/') && $data === []) return $client->withBody('{}', 'application/json')->post($url.$path);
         return $method === 'GET' ? $client->get($url.$path, $data) : $client->post($url.$path, $data);
     }
 }

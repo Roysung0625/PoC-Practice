@@ -91,12 +91,27 @@ def fingerprint(rows):
     return {"count": len(rows), "sha256": hashlib.sha256(dumps(rows).encode()).hexdigest()}
 
 
+def registered_product_ids(db):
+    """Exclude only products proved by the committed request/audit/outbox registry.
+
+    A missing registry means the original 255-product contract. Permission errors
+    and unregistered additions remain failures, rather than silently weakening it.
+    """
+    if db.execute("SELECT to_regclass('poc_registration.registered_product_provenance') AS relation").fetchone()["relation"] is None:
+        return []
+    rows = db.execute("SELECT product_id FROM poc_registration.registered_product_provenance ORDER BY product_id").fetchall()
+    return [int(row["product_id"]) for row in rows]
+
+
 def baseline(db):
     result = {}
+    registered = set(registered_product_ids(db))
     for table in TABLES:
         rows = db.execute(sql.SQL("SELECT * FROM adempiere.{} WHERE {} IS NULL OR NOT ({} = ANY(%s)) ORDER BY {}").format(
             sql.Identifier(table), sql.Identifier(table + "_uu"), sql.Identifier(table + "_uu"),
             sql.Identifier(table + "_id")), [uuids(table)]).fetchall()
+        if table == "m_product":
+            rows = [row for row in rows if int(row["m_product_id"]) not in registered]
         result[table] = fingerprint(rows)
     for table, ids in PARENTS.items():
         rows = db.execute(sql.SQL("SELECT * FROM adempiere.{} WHERE {} = ANY(%s) ORDER BY {}").format(

@@ -8,7 +8,7 @@ import json
 import psycopg
 from psycopg import sql
 
-from seed_data import BATCH, STATE, TABLES, baseline, connect, export_rows, normalize, row_uuid, save, uuids
+from seed_data import BATCH, STATE, TABLES, baseline, connect, export_rows, normalize, registered_product_ids, row_uuid, save, uuids
 from search_lab import bulk, documents, request
 
 
@@ -66,7 +66,9 @@ def verify(faults=False):
         for table in TABLES:
             totals[table] = db.execute(sql.SQL("SELECT count(*) AS n FROM adempiere.{}").format(sql.Identifier(table))).fetchone()["n"]
         checks["database_total_counts"] = totals
-        check(totals["m_product"] == 255 and totals["m_promotion"] == 200, "원본/더미 행 수 불일치")
+        registered = registered_product_ids(db)
+        check(totals["m_product"] == 255 + len(registered) and totals["m_promotion"] == 200, "원본/더미/등록 행 수 불일치: 미등록 추가 행은 허용하지 않음")
+        checks["registered_product_count"] = len(registered)
         constraints = db.execute("""SELECT c.relname AS child, p.relname AS parent, co.conname,
           array(SELECT a.attname FROM unnest(co.conkey) WITH ORDINALITY k(attnum,ord) JOIN pg_attribute a ON a.attrelid=co.conrelid AND a.attnum=k.attnum ORDER BY k.ord) AS child_columns,
           array(SELECT a.attname FROM unnest(co.confkey) WITH ORDINALITY k(attnum,ord) JOIN pg_attribute a ON a.attrelid=co.confrelid AND a.attnum=k.attnum ORDER BY k.ord) AS parent_columns

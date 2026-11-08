@@ -1,8 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\ProductRegistrationController;
 Route::view('/', 'app');
+Route::view('/products/new', 'app');
 Route::prefix('api')->group(function () {
+    Route::post('/product-registration/{action}', [ProductRegistrationController::class, 'action'])->whereIn('action', ['normalize', 'search', 'masters', 'help', 'validate', 'register', 'status']);
     Route::get('/status', [ConversationController::class, 'status']);
     Route::get('/conversations', [ConversationController::class, 'index']);
     Route::post('/conversations', [ConversationController::class, 'create']);

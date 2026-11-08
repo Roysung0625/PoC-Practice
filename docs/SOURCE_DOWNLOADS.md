@@ -25,7 +25,7 @@ Python 의존성 설치 명령은 프로젝트 루트에서 실행한다.
 
 ```bash
 .venv/bin/python -m pip install -r local/python/requirements.lock
-.venv/bin/python -m pip install --no-deps -e local/python
+.venv/bin/python -m pip install --no-deps -e local/python -e product-registration/backend
 ```
 
 `requirements.lock`, `composer.lock`, `package-lock.json`은 저장소에 포함한다. 이 파일들은 큰 의존성 폴더를 다시 구성하기 위한 소스의 일부다. Mac용 라이브러리는 Mac에서 설치하며 Windows의 `.venv`, `vendor`, `node_modules`를 복사하지 않는다.

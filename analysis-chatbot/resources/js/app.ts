@@ -1,3 +1,4 @@
 import {createApp} from 'vue';
 import App from './App.vue';
-createApp(App).mount('#app');
+import ProductRegistration from '../../../product-registration/frontend/ProductRegistration.vue';
+createApp(location.pathname === '/products/new' ? ProductRegistration : App).mount('#app');

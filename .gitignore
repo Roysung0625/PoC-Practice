@@ -49,6 +49,8 @@ analysis-chatbot/bootstrap/cache/*.php
 analysis-chatbot/.phpunit.cache/
 analysis-chatbot/visualization/build/
 analysis-chatbot/visualization/dist/
+product-registration/backend/build/
+product-registration/backend/dist/
 
 # Source-only transfer: installers, database dumps and generated archives
 *.exe

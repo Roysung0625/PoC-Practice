@@ -3,7 +3,9 @@
 Windows 로컬 챗봇과 AWS Agent를 연결해 로컬 PostgreSQL의 데이터를 자연어로 조회하는 PoC입니다.
 챗봇의 질문·답변 흐름과 Windows–AWS 사이의 실제 연결 환경을 함께 구축합니다.
 
-[프로젝트 문서 안내](doc/README.md)에서 [현재 구조](doc/architecture.md)와 [지속 적용할 프로젝트 지침서](doc/project-guidelines.md)를 확인합니다. 기존 구성요소 문서는 원래 경로에서 유지합니다. [로컬 OpenSearch 검색 실습](local/opensearch/README.md) · [OpenSearch 교육 문서](docs/learning/opensearch-lab.md)
+같은 웹에서 사용하는 **GardenWorld 상품 등록**은 [전용 기능 폴더](product-registration/README.md)에 있습니다. 처음 사용하는 담당자는 [라벤더 한국어 실습서](docs/product-registration/lab.md)에서 시작하세요.
+
+[프로젝트 문서 안내](docs/README.md)에서 [현재 구조](docs/architecture.md)와 [지속 적용할 프로젝트 지침서](docs/project-guidelines.md)를 확인합니다. 기존 구성요소 문서는 원래 경로에서 유지합니다. [로컬 OpenSearch 검색 실습](local/opensearch/README.md) · [OpenSearch 교육 문서](docs/learning/opensearch-lab.md)
 
 새 대화형 분석 웹은 [analysis-chatbot](analysis-chatbot/README.md)에 있습니다. Laravel 13.39.0·PHP 8.5.12·Vue 3.5.44와 별도 Matplotlib PNG 모듈을 사용하며 `127.0.0.1:8010`에서 실행합니다. 기존 Python API·SQL 승인 원장·SQS 수신기를 공유합니다. v13 실제10문항은 독립 수치9/10·수동 전체4/10으로 종료됐고, 사후 저장 차트4사례7PNG 복구와 API 단독 재시작 복원은 별도로 확인했습니다. 문제별 수정 효과와 한계는 [검증 기록](analysis-chatbot/docs/VERIFICATION.md), 학습 흐름은 [SQL 챗봇 교육](docs/education/README.md)에서 확인합니다.
 
@@ -72,6 +74,12 @@ PoC-Practice/
 │   ├── evaluation/           # iDempiere 독립 정답 SQL 10개
 │   └── scripts/              # 독립 실행환경·시작·중지·상태 확인
 └── docs/
+    ├── README.md             # 공통 문서 안내와 읽는 순서
+    ├── architecture.md       # 전체 구조와 데이터 흐름
+    ├── project-guidelines.md # 지속 적용할 지침과 결정 이력
+    ├── database/             # DB 전체 색인·검사기와 iDempiere 원본 사전
+    ├── education/            # SQL 챗봇 교육
+    ├── learning/             # OpenSearch 실습
     ├── superpowers/          # 설계와 세부 구현 계획
     └── verification/         # 검증 결과와 미검증 범위
 ```
@@ -129,3 +137,5 @@ PoC-Practice/
 ```
 
 사용자 홈의 AWS 프로필과 인증 캐시는 기존 위치에 유지합니다. 상세 설정과 문제 해결은 [AWS 가이드](aws/README.md)를 참고합니다.
+
+분석 웹의 일본어 메뉴 `商品登録`에서 새 GardenWorld 상품을 등록합니다. 등록 화면·백엔드·DB 설치 코드는 [product-registration/](product-registration/README.md)에 모았습니다. [설치와 복구](docs/product-registration/README.md) · [한국어 실습서](docs/product-registration/lab.md) · [검증 기록](docs/product-registration/verification.md)

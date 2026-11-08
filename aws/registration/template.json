@@ -1,0 +1,64 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Isolated Japanese registration rules: private versioned S3, scoped runtime and publisher roles. Storage retained.",
+  "Parameters": {
+    "TrustedPrincipalArn": {"Type": "String", "AllowedPattern": "arn:aws:iam::[0-9]{12}:(role|user)/[A-Za-z0-9+=,.@_/-]+", "Description": "Existing non-root IAM role/user allowed to assume the registration roles"},
+    "TrustedPublisherPrincipalArn": {"Type": "String", "AllowedPattern": "arn:aws:iam::[0-9]{12}:(role|user)/[A-Za-z0-9+=,.@_/-]+", "Description": "Non-root IAM administrator allowed to publish reviewed canonical rules"}
+  },
+  "Resources": {
+    "RulesBucket": {
+      "Type": "AWS::S3::Bucket", "DeletionPolicy": "Retain", "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "VersioningConfiguration": {"Status": "Enabled"},
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "BucketEncryption": {"ServerSideEncryptionConfiguration": [{"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+        "PublicAccessBlockConfiguration": {"BlockPublicAcls": true, "BlockPublicPolicy": true, "IgnorePublicAcls": true, "RestrictPublicBuckets": true},
+        "Tags": [{"Key": "Project", "Value": "poc-practice-registration"}]
+      }
+    },
+    "RulesBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {"Bucket": {"Ref": "RulesBucket"}, "PolicyDocument": {"Version": "2012-10-17", "Statement": [{"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": [{"Fn::GetAtt": ["RulesBucket", "Arn"]}, {"Fn::Sub": "${RulesBucket.Arn}/*"}], "Condition": {"Bool": {"aws:SecureTransport": false}}}]}}
+    },
+    "RuntimeRole": {
+      "Type": "AWS::IAM::Role", "Properties": {
+        "RoleName": "poc-registration", "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"AWS": {"Ref": "TrustedPrincipalArn"}}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{"PolicyName": "RegistrationCanonicalRulesAndModels", "PolicyDocument": {"Version": "2012-10-17", "Statement": [
+          {"Effect": "Allow", "Action": ["s3:GetObject", "s3:GetObjectVersion"], "Resource": {"Fn::Sub": "${RulesBucket.Arn}/rules/product-registration-ja.json"}},
+          {"Effect": "Allow", "Action": "bedrock:InvokeModel", "Resource": ["arn:aws:bedrock:ap-northeast-1::foundation-model/deepseek.v3.2", "arn:aws:bedrock:ap-northeast-1::foundation-model/amazon.titan-embed-text-v2:0"]}
+        ]}}]
+      }
+    },
+    "ExistingLoginProjectAccess": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "PocRegistrationProjectAccess",
+        "Users": ["poc-local-login"],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {"Sid": "InspectOnlyRegistrationStack", "Effect": "Allow", "Action": ["cloudformation:DescribeStacks", "cloudformation:DescribeStackEvents", "cloudformation:ListStackResources"], "Resource": {"Ref": "AWS::StackId"}},
+            {"Sid": "AssumeOnlyRegistrationRoles", "Effect": "Allow", "Action": "sts:AssumeRole", "Resource": [{"Fn::GetAtt": ["RuntimeRole", "Arn"]}, {"Fn::GetAtt": ["PublisherRole", "Arn"]}]}
+          ]
+        }
+      }
+    },
+    "PublisherRole": {
+      "Type": "AWS::IAM::Role", "Properties": {
+        "RoleName": "poc-registration-rules-publisher", "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"AWS": {"Ref": "TrustedPublisherPrincipalArn"}}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{"PolicyName": "RegistrationPublishOneRulesObject", "PolicyDocument": {"Version": "2012-10-17", "Statement": [
+          {"Effect": "Allow", "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion"], "Resource": {"Fn::Sub": "${RulesBucket.Arn}/rules/product-registration-ja.json"}},
+          {"Effect": "Allow", "Action": ["s3:GetBucketVersioning", "s3:GetBucketPublicAccessBlock"], "Resource": {"Fn::GetAtt": ["RulesBucket", "Arn"]}}
+        ]}}]
+      }
+    }
+  },
+  "Outputs": {
+    "RulesBucket": {"Value": {"Ref": "RulesBucket"}},
+    "RulesKey": {"Value": "rules/product-registration-ja.json"},
+    "RuntimeRoleArn": {"Value": {"Fn::GetAtt": ["RuntimeRole", "Arn"]}},
+    "PublisherRoleArn": {"Value": {"Fn::GetAtt": ["PublisherRole", "Arn"]}}
+  }
+}

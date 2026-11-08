@@ -9,6 +9,8 @@ $python = "$ProjectRoot/.venv/Scripts/python.exe"
 if ($LASTEXITCODE) { throw 'Python 의존성 설치 실패' }
 & $python -m pip install --no-deps -e "$ProjectRoot/local/python"
 if ($LASTEXITCODE) { throw 'Python 모듈 설치 실패' }
+& $python -m pip install --no-deps -e "$ProjectRoot/product-registration/backend"
+if ($LASTEXITCODE) { throw '상품 등록 백엔드 설치 실패' }
 $php = "$ProjectRoot/.local/runtime/php/php.exe"
 $env:Path = "$ProjectRoot/.local/runtime/node-v24.20.0-win-x64;$env:Path"
 Push-Location "$ProjectRoot/local/web"

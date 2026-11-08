@@ -1,6 +1,6 @@
 # 질문 한 개가 결과가 되기까지
 
-[교육 안내](README.md) · [공통 구성도](../../doc/architecture.md) · [API 계약](../../analysis-chatbot/docs/API_CONTRACT.md)
+[교육 안내](README.md) · [공통 구성도](../architecture.md) · [API 계약](../../analysis-chatbot/docs/API_CONTRACT.md)
 
 사용자는 자연어로 질문하지만 DB에는 SQL이 필요하다. 이 프로젝트는 모델이 제안한 SQL을 바로 실행하지 않고, 실제 문서와 조건을 대조한 계획을 사용자가 승인하도록 만든다. 실행한 뒤에도 표·차트·설명의 정합성을 각각 검사한다.
 

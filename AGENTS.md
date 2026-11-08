@@ -5,7 +5,8 @@
 이 지침은 프로젝트 루트와 모든 하위 폴더에 적용한다. 사용자의 최신 요구사항을 우선하며, 하위 폴더의 지침은 해당 구성요소의 세부 작업 기준을 보완한다.
 설명과 운영 문서는 기본적으로 한국어로 작성한다.
 
-지속 적용할 사용자 규칙과 변경 근거는 [프로젝트 지침서](doc/project-guidelines.md)에 기록하고 작업 시작·재개 시 읽는다. 구조·DB·문서 진입점은 [doc/README.md](doc/README.md)에서 확인하며 교육 자료는 `docs/learning/`에 작성한다. 최신 사용자 지시와 이 파일의 기존 기준을 우선하며 원문 지침을 임의로 대체하지 않는다.
+프로젝트 공통 문서는 저장소 루트의 `docs/`에 작성한다. [문서 안내](docs/README.md)에서 [전체 구조](docs/architecture.md)와 [DB 전체 목록](docs/database/index.md)을 연결한다. 지속 적용할 사용자 규칙과 변경 근거는 [프로젝트 지침서](docs/project-guidelines.md)에 기록하고 작업 시작·재개 시 읽는다. SQL 챗봇 교육은 `docs/education/`, OpenSearch 실습은 `docs/learning/`에 작성한다.
+최신 사용자 지시와 이 파일의 기존 기준을 우선하며 원문 지침을 임의로 대체하지 않는다.
 
 ## Superpowers 및 스킬 사용 지침
 
@@ -48,8 +49,10 @@ Windows 로컬 SQL 결과 -> Lambda Tool 응답 -> AWS Agent -> Windows 로컬 �
 | --- | --- |
 | `AGENTS.md` | 프로젝트 전체 작업 지침 |
 | `README.md` | 전체 개요, 현재 구현 상태, 구성요소 안내 |
+| `docs/` | 프로젝트 공통 문서, DB 사전과 색인, 교육·설계·검증 기록 |
 | `aws/` | AWS 인프라 정의, Agent·Lambda 배포 코드, AWS 연결·배포·정리 스크립트와 문서 |
 | `local/` | 향후 추가할 Windows 챗봇, SQL API, 수신기, 로컬 DB 구성과 실행 스크립트 |
+| `product-registration/` | GardenWorld 상품 등록의 화면·백엔드·DB 설치 코드. 운영·실습·검증은 [상품 등록 안내](docs/product-registration/README.md), AWS 전용 파일은 `aws/registration/`에서 관리 |
 
 현재 존재하지 않는 폴더나 구성요소를 구현 완료로 설명하지 않는다. AWS 전용 파일은 `aws/`에 두고, 전체 프로젝트 지침과 공통 제외 규칙은 루트에서 관리한다.
 
@@ -101,4 +104,4 @@ Windows 로컬 SQL 결과 -> Lambda Tool 응답 -> AWS Agent -> Windows 로컬 �
 
 ## SQL 챗봇 교육 진입점
 
-SQL 챗봇의 교육용 문서는 [docs/education/README.md](docs/education/README.md)에서 안내한다. 기존 검색 교육과 프로젝트 원문은 현재 위치에서 유지하며, 지속 규칙은 [doc/project-guidelines.md](doc/project-guidelines.md)의 유효한 CHAT 항목도 함께 확인한다.
+SQL 챗봇의 교육용 문서는 [교육 안내](docs/education/README.md)에서 찾는다. 작업 시 [프로젝트 지침서](docs/project-guidelines.md)의 유효한 CHAT 항목도 함께 확인한다.

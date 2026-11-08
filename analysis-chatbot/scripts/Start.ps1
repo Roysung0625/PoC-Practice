@@ -18,7 +18,7 @@ $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $specs = @()
 if (Test-ListeningPort 8001) {
     $health = Read-LocalJson 'http://127.0.0.1:8001/health'
-    if (!$health -or $health.analysis_contract_version -ne 1) { throw '8001의 기존 API가 새 분석 계약을 지원하지 않습니다. 해당 API를 소유한 실행 스크립트로 재시작하세요.' }
+    if (!$health -or $health.analysis_contract_version -ne 1 -or $health.product_registration_contract_version -ne 1) { throw '8001의 기존 API가 현재 분석·상품 등록 계약을 지원하지 않습니다. 해당 API를 소유한 실행 스크립트로 재시작하세요.' }
     Write-Output '기존 Python API를 재사용합니다.'
 } else {
     $specs += @{role='api'; executable=$Python; arguments='-m uvicorn poc.api:create_app --factory --host 127.0.0.1 --port 8001 --workers 1'; directory=$ProjectRoot; url='http://127.0.0.1:8001/health'}
