@@ -30,7 +30,13 @@ Chrome에 `バレンタイン用花`를 입력하자 상품명 후보 `花`와 �
 
 같은 날 별도 PostgreSQL 18.6과 공식 GardenWorld 데이터를 사용한 저장 시험 10개, 저장 단위 시험 13개, API 장애·복구 모의 시험 2개가 모두 통과했다. 세 종류 마스터의 동시 생성, 저장 도중 롤백, 같은 요청 재전송, 동시 코드 충돌 및 색인 실패 후 재시도를 포함한다. Chrome과 모의 API를 연결한 등록 화면 시험 14개, 규칙·검색 시험 104개도 통과했다. 검색 시험 중 한 건은 실제 로컬 OpenSearch의 임시 인덱스를 사용했다. Laravel 등록 API 연결·CSRF 시험은 6개(검증문 23개)가 통과했다.
 
-[Chrome 등록 영수증](images/valentine-registration-receipt.jpg) · [새 초안의 첫 번째 검색 결과](images/valentine-registration-search.jpg)
+### 실제 등록 완료 화면
+
+Chrome에서 발렌타인용 꽃을 등록한 뒤 받은 영수증이다. 중앙에 상품 코드 `GW-VAL01`과 상품 ID `1000201`이 표시되고, 그 아래의 `検索にも反映されました`는 검색 반영이 끝났다는 뜻이다.
+
+![상품 코드 GW-VAL01과 상품 ID 1000201, 검색 반영 완료 메시지가 표시된 실제 등록 화면](images/valentine-registration-receipt.jpg)
+
+새 등록 화면에서 같은 상품을 다시 검색한 결과는 [첫 번째 검색 후보 캡처](images/valentine-registration-search.jpg)에서 확인할 수 있다.
 
 ## 라벤더 원본 등록 결과
 

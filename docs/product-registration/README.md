@@ -6,7 +6,7 @@
 |---|---|
 | 한 건을 처음부터 등록하거나 검사까지만 연습하기 | [라벤더 한국어 실습서](lab.md) |
 | 항목 복사 순서, 도움말, 오류·응답 유실 처리 이해하기 | [화면과 API 계약](web.md) |
-| 실제 등록·재검색과 모의 장애 시험 결과 구분하기 | [환경별 검증 기록](verification.md) |
+| 실제 등록·재검색 결과 확인하기 | [검증 기록](verification.md) · [실제 등록 완료 화면](verification.md#실제-등록-완료-화면) |
 | 소스 변경 위치 찾기 | [기능 코드 안내](../../product-registration/README.md) · [프로젝트 전체 구조](../architecture.md) |
 | DB 테이블·권한 확인하기 | [상품 등록·검색 반영 업무영역](../database/domains/operations-registration.md) · [전체 DB 목록](../database/index.md) |
 

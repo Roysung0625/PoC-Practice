@@ -17,7 +17,7 @@
 | 작업 지침의 진입점 | [AGENTS.md](../AGENTS.md) |
 | 기존 로컬 웹·SQL API·수신기 | [로컬 실행·설정 가이드](../local/README.md) |
 | 대화형 분석 웹 | [분석 챗봇 안내](../analysis-chatbot/README.md) · [검증 기록](../analysis-chatbot/docs/VERIFICATION.md) |
-| GardenWorld 상품 등록 | [기능 안내·운영](product-registration/README.md) · [라벤더 실습](product-registration/lab.md) · [원본 DB 및 Chrome 검증](product-registration/verification.md) |
+| GardenWorld 상품 등록 | [기능 안내·운영](product-registration/README.md) · [한국어 실습서](product-registration/lab.md) · [검증 기록](product-registration/verification.md) · [실제 등록 완료 화면](product-registration/verification.md#실제-등록-완료-화면) |
 | AWS 구성·인증·운영 | [AWS 가이드](../aws/README.md) · [배포·운영](../aws/DEPLOYMENT.md) |
 | 계정 전체 비용 차단 | [Budget guard](../aws/budget_guard/README.md) |
 | SQL 챗봇 학습 | [질문·승인부터 결과 확인까지](education/README.md) · [Laravel과 Vue.js의 구조](education/LARAVEL_AND_VUE.md) |
